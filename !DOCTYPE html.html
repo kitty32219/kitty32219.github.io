@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR與TDEE計算器</title>
+    <style>
+        body {
+            font-family: '標楷體', '標楷體', '標楷體';
+            text-align: left;
+        }
+        #calculator-form {
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        #result {
+            margin-top: 20px;
+            margin:20px auto;
+            font-weight: bold;
+           text-align:center
+        }
+    </style>
+</head>
+<body>
+    <h1>BMR與TDEE計算器</h1>
+    <form id="calculator-form">
+        <label for="weight">體重（公斤）：</label>
+        <input type="number" id="weight" required step="any"><br>
+        <label for="height">身高（公分）：</label>
+        <input type="number" id="height" required step="any"><br>
+        <label for="age">年齡：</label>
+        <input type="number" id="age" required><br>
+        <label for="gender">性别：</label>
+        <select id="gender" required>
+            <option value="male">男性</option>
+            <option value="female">女性</option>
+        </select><br>
+        <label for="activity-level">活動水平：</label>
+        <select id="activity-level" required>
+            <option value="sedentary">久坐（辦公室工作、沒有運動）</option>
+            <option value="lightly-active">輕度活動（輕度運動或運動1-3天/週）</option>
+            <option value="moderately-active">中度活動（中度運動或運動3-5天/週）</option>
+            <option value="very-active">高度活動（高度運動或每天運動）</option>
+            <option value="highest-active">超高強度(密集勞動+運動)</option>
+        </select><br>
+        <label for="stress-level">壓力因子：</label>
+        <select id="stress-level" required>
+            <option value='normal'>正常</option>
+            <option value='fever'>發燒</option>
+            <option value ='surgery'>小手術、癌症</option>
+            <option value='bone'>骨骼受傷</option>
+            <option value='malignant'>癌症惡病質</option>
+            <option value='pregnant'>懷孕</option>
+            <option value='feeding'>哺乳</option>
+            <option value='grow'>生長期</option>
+            <option value='sepsis'>敗血症</option>
+            <option value='burn'>燒傷</option>
+        </select><br>
+        <button type="button" onclick="calculate()">計算</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        function calculate() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const activityLevel = document.getElementById('activity-level').value;
+            const stressLevel = document.getElementById('stress-level').value;
+            let bmr;
+            if (gender === 'male') {
+                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
+            // Adjust BMR based on activity level
+            let tdee;
+            switch (activityLevel) {
+                case 'sedentary':
+                    tdee = bmr * 1.2;
+                    break;
+                case 'lightly-active':
+                    tdee = bmr * 1.375;
+                    break;
+                case 'moderately-active':
+                    tdee = bmr * 1.55;
+                    break;
+                case 'very-active':
+                    tdee = bmr * 1.725;
+                    break;
+                case 'highest-active':
+                    tdee = bmr * 1.9;
+                    break;
+                default:
+                    break;
+            }
+            switch (stressLevel) {
+                case 'normal':
+                    tdee *= 1;
+                    break;
+                case 'fever':
+                    tdee *= 1.13;
+                    break;
+                case 'surgery':
+                    tdee *= 1.2;
+                    break;
+                case 'bone':
+                    tdee *= 1.3;
+                    break;
+                case 'malignant':
+                    tdee *= 1.3;
+                    break;
+                case 'pregnant':
+                    tdee *= 1.1;
+                    break;
+                case 'feeding':
+                    tdee *= 1.4;
+                    break;
+                case 'grow':
+                    tdee *= 1.4
+                    break;
+                case 'sepsis':
+                    tdee *= 1.6
+                    break;
+                case 'burn':
+                    tdee *= 2
+                    break;
+                default:
+                    break;
+            }
+           const proteinMaintain = weight; // 維持蛋白質攝取 1g/kg
+            const proteinIncrease15 = 1.5 * weight; // 補充1.5倍蛋白質 1.5g/kg
+            const proteinIncrease2 = 2 * weight; // 補充2倍蛋白質 2g/kg
+            const proteinDecrease08 = 0.8 * weight; // 減少蛋白質攝取為正常的0.8倍 0.8g/kg
+            document.getElementById('result').innerHTML = `
+                您的BMR為：${bmr.toFixed(2)} 千卡/天<br>
+                您的TDEE為：${tdee.toFixed(2)} 千卡/天<br>
+ 您維持蛋白質攝取所需量：${proteinMaintain.toFixed(2)} 克/天<br>
+                您補充1.5倍蛋白質所需量：${proteinIncrease15.toFixed(2)} 克/天<br>
+                您補充2倍蛋白質所需量：${proteinIncrease2.toFixed(2)} 克/天<br>
+                您減少蛋白質攝取至正常的0.8倍所需量：${proteinDecrease08.toFixed(2)} 克/天`;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
