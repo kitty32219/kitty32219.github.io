@@ -135,6 +135,11 @@
             document.getElementById('result').innerHTML = `
                 您的BMR為：${bmr.toFixed(2)} 千卡/天<br>
                 您的TDEE為：${tdee.toFixed(2)} 千卡/天<br>
+                您增重所需的熱量為:${(tdee*1.1).toFixed(2)} 千卡/天<br>
+                您維持體重所需的熱量為:${(tdee*1).toFixed(2)} 千卡/天<br>
+                您正常減重所需的熱量為:${(tdee*0.9).toFixed(2)} 千卡/天<br>
+                您快速減重所需的熱量為:${(tdee*0.75).toFixed(2)} 千卡/天<br><br>
+
  您維持肌肉量所需蛋白質攝取量：${proteinMaintain.toFixed(2)} 克/天<br>
                 您補充1.5倍蛋白質所需量：${proteinIncrease15.toFixed(2)} 克/天<br>
                 您補充2倍蛋白質所需量：${proteinIncrease2.toFixed(2)} 克/天<br>
