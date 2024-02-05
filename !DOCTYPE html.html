@@ -133,17 +133,17 @@
             const proteinIncrease2 = 2 * weight; // 補充2倍蛋白質 2g/kg
             const proteinDecrease08 = 0.8 * weight; // 減少蛋白質攝取為正常的0.8倍 0.8g/kg
             document.getElementById('result').innerHTML = `
-                您的BMR(基礎代謝率)為：${bmr.toFixed(2)} 千卡/天<br>
-                您的TDEE為(每日總熱量消耗)：${tdee.toFixed(2)} 千卡/天<br>
-                您增重所需的熱量為:${(tdee*1.1).toFixed(2)} 千卡/天<br>
-                您維持體重所需的熱量為:${(tdee*1).toFixed(2)} 千卡/天<br>
-                您正常減重所需的熱量為:${(tdee*0.9).toFixed(2)} 千卡/天<br>
-                您快速減重所需的熱量為:${(tdee*0.75).toFixed(2)} 千卡/天<br><br>
+                您的BMR(基礎代謝率)為：${bmr.toFixed(0)} 千卡/天<br>
+                您的TDEE為(每日總熱量消耗)：${tdee.toFixed(0)} 千卡/天<br>
+                您增重所需的熱量為:${(tdee*1.1).toFixed(0)} 千卡/天<br>
+                您維持體重所需的熱量為:${(tdee*1).toFixed(0)} 千卡/天<br>
+                您正常減重所需的熱量為:${(tdee*0.9).toFixed(0)} 千卡/天<br>
+                您快速減重所需的熱量為:${(tdee*0.75).toFixed(0)} 千卡/天<br><br>
 
- 您維持肌肉量所需蛋白質攝取量：${proteinMaintain.toFixed(2)} 克/天<br>
-                您補充1.5倍蛋白質所需量：${proteinIncrease15.toFixed(2)} 克/天<br>
-                您補充2倍蛋白質所需量：${proteinIncrease2.toFixed(2)} 克/天<br>
-                您減少蛋白質攝取至正常的0.8倍所需量：${proteinDecrease08.toFixed(2)} 克/天`;
+ 您維持肌肉量所需蛋白質攝取量：${proteinMaintain.toFixed(0)} 克/天<br>
+                您補充1.5倍蛋白質所需量：${proteinIncrease15.toFixed(0)} 克/天<br>
+                您補充2倍蛋白質所需量：${proteinIncrease2.toFixed(0)} 克/天<br>
+                您減少蛋白質攝取至正常的0.8倍所需量：${proteinDecrease08.toFixed(0)} 克/天`;
         }
     </script>
 </body>
@@ -216,9 +216,9 @@
             }
            
             document.getElementById('result2').innerHTML = `
-                您一日所需蛋白質為：${protein.toFixed(2)}大卡 (${(protein/4).toFixed(2)}克)<br>
-                您一日所需油脂為：${fat.toFixed(2)} 大卡 (${(fat/9).toFixed(2)}克)<br>
-                您一日所需淨碳水為:${carb.toFixed(2)} 大卡 (${(carb/4).toFixed(2)}克)`;
+                您一日所需蛋白質為：${protein.toFixed(0)}大卡 (${(protein/4).toFixed(0)}克)<br>
+                您一日所需油脂為：${fat.toFixed(0)} 大卡 (${(fat/9).toFixed(0)}克)<br>
+                您一日所需淨碳水為:${carb.toFixed(0)} 大卡 (${(carb/4).toFixed(0)}克)`;
         }
     </script>
 </body>
