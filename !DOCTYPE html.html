@@ -154,9 +154,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>熱量攝取分配表</title>
     <style>
-
         body {
-            font-family: '新細明體', '標楷體', '標楷體';
+            font-family: '新細明體', '新細明體', '標楷體';
             text-align: left;
         }
         #calculator-form2 {
@@ -167,20 +166,33 @@
             margin-top: 20px;
             margin:20px auto;
             font-weight: bold;
-           text-align:left
+            text-align: left;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <h1>熱量攝取分配表</h1>
     <form id="calculator-form2">
-        <label for="calories">一日所需攝取熱量(千卡/天)：</label>
+        <label for="calories">所需熱量：</label>
         <input type="number" id="calories" required step="any"><br>
         <label for="diet">飲食法：</label>
         <select id="diet" required>
             <option value="t-keto">傳統生酮飲食法</option>
-            <option value="l-keto">微生酮飲食法(每日攝取35g膳食纖維)</option>
-            <option value="dgi">低GI飲食法(每日攝取35g膳食纖維)</option>
+            <option value="l-keto">微生酮飲食法</option>
+            <option value="dgi">低gi飲食法</option>
         </select><br>
         <button type="button" onclick="calculate2()">計算</button>
     </form>
@@ -200,11 +212,8 @@
                     break;
                 case 'l-keto':
                     protein = calories * 0.2;
-
-                    carb = calories*0.05;
-                    fat = (calories - protein - carb - 70); 
- 
-                   
+                    carb = calories * 0.05;
+                    fat=calories-protein-carb-70
                     break;
                 case 'dgi':
                     protein = calories * 0.2;
@@ -214,16 +223,37 @@
                 default:
                     break;
             }
-           
-            document.getElementById('result2').innerHTML = `
-                您一日所需蛋白質為：${protein.toFixed(0)}大卡 (${(protein/4).toFixed(0)}克)<br>
-                您一日所需油脂為：${fat.toFixed(0)} 大卡 (${(fat/9).toFixed(0)}克)<br>
-                您一日所需淨碳水為:${carb.toFixed(0)} 大卡 (${(carb/4).toFixed(0)}克)`;
+
+            const resultTable = `
+                <table>
+                    <tr>
+                        <th>類別</th>
+                        <th>所需熱量 (大卡)</th>
+                        <th>所需份量(公克)</th>
+                    </tr>
+                    <tr>
+                        <td>一日所需蛋白質</td>
+                        <td>${protein.toFixed(0)}</td>
+                        <td>${(protein/4).toFixed(0)}</td>
+                    </tr>
+                    <tr>
+                        <td>一日所需油脂</td>
+                        <td>${fat.toFixed(0)}</td>
+                        <td>${(fat/9).toFixed(0)}</td>
+                    </tr>
+                    <tr>
+                        <td>一日所需淨碳水</td>
+                        <td>${carb.toFixed(0)}</td>
+                        <td>${(carb/4).toFixed(0)}</td>
+
+                    </tr>
+                </table>`;
+
+            document.getElementById('result2').innerHTML = resultTable;
         }
     </script>
 </body>
 </html>
-
 
 
 
