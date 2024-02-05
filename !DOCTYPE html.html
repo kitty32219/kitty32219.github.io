@@ -6,12 +6,25 @@
     <title>BMR與TDEE計算器</title>
     <style>
         body {
-            font-family: '新細明體', '新細明體', '新細明體';
+            font-family: '新細明體', '標楷體', '標楷體';
             text-align: left;
         }
         #calculator-form {
             max-width: 400px;
             margin: 20px auto;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
         }
         #result {
             margin-top: 20px;
@@ -56,6 +69,13 @@
             <option value='sepsis'>敗血症</option>
             <option value='burn'>燒傷</option>
         </select><br>
+        <label for="need">飲食計畫需求:</label>
+        <select id="need" required>
+            <option value="fast diet">快速減重</option>
+            <option value="diet">正常減重</option>
+            <option value="keep">維持體重</option>
+            <option value="gain">增加體重</option>
+        </select><br>
         <button type="button" onclick="calculate()">計算</button>
     </form>
     <div id="result"></div>
@@ -67,6 +87,7 @@
             const gender = document.getElementById('gender').value;
             const activityLevel = document.getElementById('activity-level').value;
             const stressLevel = document.getElementById('stress-level').value;
+            const need=document.getElementById('need').value;
             let bmr;
             if (gender === 'male') {
                 bmr = 10 * weight + 6.25 * height - 5 * age + 5;
@@ -128,26 +149,81 @@
                 default:
                     break;
             }
+           let needtdee;
+           switch(need){
+                case'fast diet':
+                    needtdee=tdee*0.75
+                    break;
+                case'diet':
+                    needtdee=tdee*0.9
+                    break;
+                case'keep':
+                    needtdee=tdee*1
+                    break;
+                case'gain':
+                    needtdee=tdee*1.1
+                    break;
+            }
            const proteinMaintain = weight; // 維持蛋白質攝取 1g/kg
             const proteinIncrease15 = 1.5 * weight; // 補充1.5倍蛋白質 1.5g/kg
             const proteinIncrease2 = 2 * weight; // 補充2倍蛋白質 2g/kg
             const proteinDecrease08 = 0.8 * weight; // 減少蛋白質攝取為正常的0.8倍 0.8g/kg
-            document.getElementById('result').innerHTML = `
-                您的BMR(基礎代謝率)為：${bmr.toFixed(0)} 千卡/天<br>
-                您的TDEE為(每日總熱量消耗)：${tdee.toFixed(0)} 千卡/天<br>
-                您增重所需的熱量為:${(tdee*1.1).toFixed(0)} 千卡/天<br>
-                您維持體重所需的熱量為:${(tdee*1).toFixed(0)} 千卡/天<br>
-                您正常減重所需的熱量為:${(tdee*0.9).toFixed(0)} 千卡/天<br>
-                您快速減重所需的熱量為:${(tdee*0.75).toFixed(0)} 千卡/天<br><br>
 
- 您維持肌肉量所需蛋白質攝取量：${proteinMaintain.toFixed(0)} 克/天<br>
-                您補充1.5倍蛋白質所需量：${proteinIncrease15.toFixed(0)} 克/天<br>
-                您補充2倍蛋白質所需量：${proteinIncrease2.toFixed(0)} 克/天<br>
-                您減少蛋白質攝取至正常的0.8倍所需量：${proteinDecrease08.toFixed(0)} 克/天`;
-        }
+    const resultTable1 = `
+        <table>
+            <tr>
+                <th>類別</th>
+                <th>所需熱量 (大卡/日)</th>
+            </tr>
+            <tr>
+                <td>BMR(基礎代謝率)</td>
+                <td>${bmr.toFixed(0)}</td>
+            </tr>
+            <tr>
+                <td>TDEE(每日總熱量消耗)</td>
+                <td>${tdee.toFixed(0)}</td>
+            </tr>
+            <tr>
+                <td>每日所需熱量</td>
+                <td>${needtdee.toFixed(0)}</td>
+            </tr>
+        </table>`;
+
+    const resultTable2 = `
+        <table>
+            <tr>
+                <th>類別</th>
+                <th>所需蛋白質(公克)</th>
+            </tr>
+            <tr>
+                <td>補充2倍蛋白質</td>
+                <td>${proteinIncrease2.toFixed(0)}</td>
+            </tr>
+            <tr>
+                <td>補充1.5倍蛋白質</td>
+                <td>${proteinIncrease15.toFixed(0)}</td>
+            </tr>
+            <tr>
+                <td>維持蛋白質攝取</td>
+                <td>${proteinMaintain.toFixed(0)}</td>
+            </tr>
+            <tr>
+                <td>減少蛋白質攝取為正常的0.8倍</td>
+                <td>${proteinDecrease08.toFixed(0)}</td>
+            </tr>
+        </table>`;
+
+    // 合併兩個表格的結果
+    const combinedResult = resultTable1 + '<br>' + resultTable2;
+
+    // 一次性設置到innerHTML
+    document.getElementById('result').innerHTML = combinedResult;
+}
+
     </script>
 </body>
 </html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -254,12 +330,6 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 
