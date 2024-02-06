@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>食品查詢</title>
+    <style>
+        #foodSelector {
+            margin-bottom: 20px;
+        }
+      #result {
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+
+    <h1>食品查詢</h1>
+
+    <div id="foodSelector">
+        <label for="foodType">選擇食品類型：</label>
+        <select id="foodType">
+            <option value="toast">麥麩皮吐司</option>
+            <option value="cake">蛋糕</option>
+        </select>
+        <button onclick="searchFood()">查詢</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        function searchFood() {
+            const foodType = document.getElementById('foodType').value;
+            const resultDiv = document.getElementById('result');
+
+            // 清空之前的結果
+            resultDiv.innerHTML = '';
+
+            // 模擬商品資料，實際應由伺服器取得
+            const foodData = {
+                toast: [
+                    { name: '麥麩皮吐司 A', protein: 5, fat: 2, carbs: 10 },
+                    { name: '麥麩皮吐司 B', protein: 6, fat: 3, carbs: 12 },
+                    { name: '麥麩皮吐司 C', protein: 4, fat: 1, carbs: 8 },
+                    { name: '麥麩皮吐司 D', protein: 7, fat: 4, carbs: 15 },
+                    { name: '麥麩皮吐司 E', protein: 8, fat: 5, carbs: 18 }
+                ],
+                cake: [
+                    { name: '蛋糕 A', protein: 3, fat: 8, carbs: 20 },
+                    { name: '蛋糕 B', protein: 4, fat: 10, carbs: 25 },
+                    { name: '蛋糕 C', protein: 2, fat: 6, carbs: 15 },
+                    { name: '蛋糕 D', protein: 5, fat: 12, carbs: 30 },
+                    { name: '蛋糕 E', protein: 6, fat: 15, carbs: 35 }
+                ]
+            };
+
+            const foodList = foodData[foodType];
+
+            if (foodList) {
+                // 建立表格顯示商品資訊
+                const table = document.createElement('table');
+                const headerRow = table.insertRow(0);
+                const headers = ['商品名稱', '蛋白質 (g)', '脂肪 (g)', '碳水化合物 (g)'];
+
+                headers.forEach((header, index) => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+
+                foodList.forEach(food => {
+                    const row = table.insertRow();
+                    const cells = [food.name, food.protein, food.fat, food.carbs];
+
+                    cells.forEach((cell, index) => {
+                        const td = document.createElement('td');
+                        td.textContent = cell;
+                        row.appendChild(td);
+                    });
+                });
+
+                resultDiv.appendChild(table);
+            } else {
+                resultDiv.textContent = '找不到相應的商品資料';
+            }
+        }
+      
+          </script>
+
+</body>
+</html>
