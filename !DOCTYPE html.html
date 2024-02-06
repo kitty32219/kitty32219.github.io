@@ -278,23 +278,26 @@
             const calories = parseFloat(document.getElementById('calories').value);
             const diet = document.getElementById('diet').value;
 
-            let protein, fat, carb;
+            let protein, fat, carb,fiber;
 
             switch (diet) {
                 case 't-keto':
                     protein = calories * 0.2;
                     fat = calories * 0.75;
                     carb = calories * 0.05;
+                    fiber=0
                     break;
                 case 'l-keto':
                     protein = calories * 0.2;
                     carb = calories * 0.05;
                     fat=calories-protein-carb-70
+                    fiber=70
                     break;
                 case 'dgi':
                     protein = calories * 0.2;
                     fat = calories * 0.3;
                     carb = calories - protein - fat-70;
+                    fiber=70
                     break;
                 default:
                     break;
@@ -304,24 +307,29 @@
                 <table>
                     <tr>
                         <th>類別</th>
-                        <th>所需熱量 (大卡)</th>
                         <th>所需份量(公克)</th>
+                        <th>所需熱量 (大卡)</th>
                     </tr>
                     <tr>
                         <td>一日所需蛋白質</td>
-                        <td>${protein.toFixed(0)}</td>
                         <td>${(protein/4).toFixed(0)}</td>
+                        <td>${protein.toFixed(0)}</td>
                     </tr>
                     <tr>
                         <td>一日所需油脂</td>
-                        <td>${fat.toFixed(0)}</td>
                         <td>${(fat/9).toFixed(0)}</td>
+                        <td>${fat.toFixed(0)}</td>
                     </tr>
                     <tr>
                         <td>一日所需淨碳水</td>
-                        <td>${carb.toFixed(0)}</td>
                         <td>${(carb/4).toFixed(0)}</td>
-
+                        <td>${carb.toFixed(0)}</td>
+                    </tr>
+                    <tr>
+                        <td>一日所需膳食纖維</td>
+                    ${fiber ? `<tr><td>膳食纖維</td><td>${(fiber/2).toFixed(0)}</td><td></td></tr>` : ''}
+                    ${fiber ? `<tr><td>膳食纖維</td><td>${fiber.toFixed(0)}</td><td></td></tr>` : ''}
+                    
                     </tr>
                 </table>`;
 
