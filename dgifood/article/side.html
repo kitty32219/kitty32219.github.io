@@ -51,6 +51,12 @@ function showOptions() {
         case "漢堡肉排":
             options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B5%A4%E8%97%BB%E7%B3%96%E9%86%87%E7%B4%85%E8%B1%86%E6%B9%AF%7C%E6%8E%A7%E9%86%A3/'target='_blank'>紅豆湯</a></li>";
             break;
+        case "千張系列":
+            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B5%A4%E8%97%BB%E7%B3%96%E9%86%87%E7%B4%85%E8%B1%86%E6%B9%AF%7C%E6%8E%A7%E9%86%A3/'target='_blank'>紅豆湯</a></li>";
+            break;  
+        case "肉鬆":
+            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B5%A4%E8%97%BB%E7%B3%96%E9%86%87%E7%B4%85%E8%B1%86%E6%B9%AF%7C%E6%8E%A7%E9%86%A3/'target='_blank'>紅豆湯</a></li>";
+            break;        
         default:
             options = "";
     }
@@ -65,9 +71,11 @@ function showOptions() {
   <label for="breakfast">請選擇：</label>
   <select id="breakfast" onchange="showOptions()">
     <option value="">請選擇</option>
-    <option value="調理包">調理包</option>
-    <option value="鹹湯">鹹湯</option>
-    <option value="甜湯">甜湯</option>
+    <option value="詐物">詐物</option>
+    <option value="丸子">丸子</option>
+    <option value="漢堡肉排">漢堡肉排</option>
+    <option value="千張系列">千張系列</option>    
+    <option value="肉鬆">肉鬆</option>
   </select>
 </form>
 <ul id="optionsContainer"></ul>
