@@ -42,24 +42,15 @@ function showOptions() {
     var options = "";
     
     switch(selectedOption) {
-        case "詐物":
-            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%A9%90%E9%9B%9E%E6%8E%92%7C%E7%94%9F%E9%85%AE/'target='_blank'>詐雞排</a></li>";
+        case "飯食類":
+            options = "<li><a href=''target='_blank'>詐雞排</a></li>";
             break;
-        case "丸子":
-            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B1%86%E6%B8%A3%E8%8A%B1%E6%9E%9D%E4%B8%B8%7C%E7%94%9F%E9%85%AE/'target='_blank'>豆渣花枝丸</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B1%86%E6%B8%A3%E8%9D%A6%E4%B8%B8%7C%E7%94%9F%E9%85%AE/'target='_blank'>豆渣蝦丸</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B1%86%E6%B8%A3%E8%B2%A2%E4%B8%B8%7C%E7%94%9F%E9%85%AE/'target='_blank'>豆渣貢丸</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E7%BE%A9%E5%BC%8F%E8%BE%A3%E9%9B%9E%E8%82%89%E4%B8%B8%7C%E7%94%9F%E9%85%AE/'target='_blank'>義式辣雞肉丸</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%9B%9E%E8%82%89%E4%B8%B8%7C%E7%94%9F%E9%85%AE/'target='_blank'>韓式泡菜雞肉丸</a></li><li><a href=''target='_blank'></a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E7%8D%85%E5%AD%90%E9%A0%AD%E9%A2%A8%E5%91%B3%E4%B8%B8%7C%E7%94%9F%E9%85%AE/'target='_blank'>獅子頭風味丸</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E7%BE%A9%E5%BC%8F%E7%89%9B%E8%82%89%E4%B8%B8%7C%E7%94%9F%E9%85%AE/'target='_blank'>義式牛肉丸</a></li>";
+        case "吐司類":
+            options = "<li><a href=''target='_blank'>豆渣花枝丸</a></li><li><a href=''target='_blank'>豆渣蝦丸</a></li><li><a href=''target='_blank'>豆渣貢丸</a></li><li><a href=''target='_blank'>義式辣雞肉丸</a></li><li><a href=''target='_blank'>韓式泡菜雞肉丸</a></li><li><a href=''target='_blank'>泡菜雞肉丸</a></li><li><a href=''target='_blank'>獅子頭風味丸</a></li><li><a href=''target='_blank'>義式牛肉丸</a></li>";
             break;
-        case "漢堡肉排":
-            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E7%89%9B%E8%82%89%E8%B1%86%E6%B8%A3%E6%BC%A2%E5%A0%A1%E8%82%89%E6%8E%92%7C%E7%94%9F%E9%85%AE/'target='_blank'>牛肉</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B1%AC%E8%82%89%E8%B1%86%E6%B8%A3%E6%BC%A2%E5%A0%A1%E8%82%89%E6%8E%92%7C%E7%94%9F%E9%85%AE/'target='_blank'>豬肉</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%BE%A3%E5%91%B3%E9%9B%9E%E8%82%89%E8%B1%86%E6%B8%A3%E6%BC%A2%E5%A0%A1%E8%82%89%E6%8E%92/'target='_blank'>辣味雞肉</a></li>";
-            break;
-        case "千張系列":
-            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E9%AE%AE%E8%82%89%E7%87%92%E8%B3%A3%7C%E5%8D%83%E5%BC%B5%7C%E7%94%9F%E9%85%AE/'target='_blank'>鮮肉燒賣</a></li>";
+        case "點心類":
+            options = "<li><a href=''target='_blank'>牛肉</a></li><li><a href=''target='_blank'>豬肉</a></li><li><a href='5%91%B3%E9%9B%9E%E8%82%89%E8%B1%86%E6%B8%A3%E6%BC%A2%E5%A0%A1%E8%82%89%E6%8E%92/'target='_blank'>辣味雞肉</a></li>";
             break;  
-        case "肉鬆&肉乾":
-            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E9%BA%BB%E8%BE%A3%E9%9B%9E%E8%82%89%E4%B9%BE%7C%E7%94%9F%E9%85%AE/'target='_blank'>麻辣雞肉乾</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B5%A4%E8%97%BB%E7%B3%96%E9%86%87%E8%82%89%E9%AC%86%7C%E7%94%9F%E9%85%AE/'target='_blank'>原味肉鬆</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%B5%A4%E8%97%BB%E7%B3%96%E9%86%87%E6%B5%B7%E8%8B%94%E8%82%89%E9%AC%86%7C%E7%94%9F%E9%85%AE/'target='_blank'>海苔肉鬆</a></li>";
-            break;        
-        case "果醬":
-            options = "<li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E6%A1%91%E8%91%9A%E5%A4%A9%E7%84%B6%E6%9E%9C%E9%86%AC%7C%E5%BE%AE%E7%94%9F%E9%85%AE/'target='_blank'>桑葚果醬</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E6%B0%B4%E8%9C%9C%E6%A1%83%E5%A4%A9%E7%84%B6%E6%9E%9C%E9%86%AC%7C%E5%BE%AE%E7%94%9F%E9%85%AE/'target='_blank'>水蜜桃果醬</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E9%B3%B3%E6%A2%A8%E5%A4%A9%E7%84%B6%E6%9E%9C%E9%86%AC%7C%E5%BE%AE%E7%94%9F%E9%85%AE/'target='_blank'>鳳梨果醬</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E8%8D%89%E8%8E%93%E5%A4%A9%E7%84%B6%E6%9E%9C%E9%86%AC%7C%E5%BE%AE%E7%94%9F%E9%85%AE/'target='_blank'>草莓果醬</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E7%84%A1%E7%B3%96%E6%B4%9B%E7%A5%9E%E8%8A%B1%E9%86%AC%7C%E5%BE%AE%E7%94%9F%E9%85%AE/'target='_blank'>洛神花醬</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E6%AA%B8%E6%AA%AC%E8%B5%B7%E5%A3%AB%E6%8A%B9%E9%86%AC%7C%E7%94%9F%E9%85%AE/'target='_blank'>檸檬起士抹醬</a></li><li><a href='https://icook.tw/search/%E9%A3%9F%E6%9D%90%EF%BC%9A%E7%B1%B3%E6%9E%97%E9%A6%99%7C%E6%9F%B3%E6%A9%99%E8%B5%B7%E5%A3%AB%E6%8A%B9%E9%86%AC%7C%E7%94%9F%E9%85%AE/'target='_blank'>柳橙起士抹醬</a></li>";
-            break;    
         default:
             options = "";
     }
@@ -69,17 +60,15 @@ function showOptions() {
 </script>
 </head>
 <body>
-<h1>請選擇控醣主食</h1>
+<h1>請選擇控醣產品</h1>
 <form id="breakfastForm">
   <label for="breakfast">請選擇：</label>
   <select id="breakfast" onchange="showOptions()">
     <option value="">請選擇</option>
-    <option value="詐物">詐物</option>
-    <option value="丸子">丸子</option>
-    <option value="漢堡肉排">漢堡肉排</option>
-    <option value="千張系列">千張系列</option>    
-    <option value="肉鬆&肉乾">肉鬆&肉乾</option>
-    <option value="果醬">果醬</option>
+    <option value="飯食類">飯食類</option>
+    <option value="吐司類">吐司類</option>
+    <option value="點心類">點心類</option>
+
   </select>
 </form>
 <ul id="optionsContainer"></ul>
