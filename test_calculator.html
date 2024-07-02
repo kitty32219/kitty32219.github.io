@@ -23,33 +23,35 @@
             text-align: center;
             color: #333;
         }
+        .category {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f2f2f2;
+        }
+        .category-header {
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .category-content {
+            display: none;
+            padding: 10px;
+        }
         .food-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
         }
         .food-item:last-child {
-            border-bottom: none;
-        }
-        .food-name {
-            font-weight: bold;
-        }
-        .food-calories {
-            color: #555;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            margin-bottom: 0;
         }
         label {
-            font-weight: bold;
+            flex: 1;
         }
         input[type="number"] {
+            width: 60px;
             padding: 5px;
-            font-size: 16px;
-            width: 100px;
         }
         button {
             padding: 10px;
@@ -59,6 +61,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 20px;
         }
         button:hover {
             background-color: #0056b3;
@@ -70,45 +73,74 @@
             color: #333;
         }
     </style>
-    <script>
-        function calculateCalories() {
-            const breadCalories = 10;
-            const toastCalories = 20;
-            const bananaCalories = 30;
-
-            const breadCount = document.getElementById('breadCount').value || 0;
-            const toastCount = document.getElementById('toastCount').value || 0;
-            const bananaCount = document.getElementById('bananaCount').value || 0;
-
-            const totalCalories = (breadCount * breadCalories) + (toastCount * toastCalories) + (bananaCount * bananaCalories);
-
-            document.getElementById('totalCalories').textContent = `總熱量: ${totalCalories} 卡路里`;
-        }
-    </script>
 </head>
 <body>
     <div class="container">
         <h1>食物熱量計算器</h1>
-        <form onsubmit="event.preventDefault(); calculateCalories();">
-            <div class="food-item">
-                <label for="breadCount">麵包 (10 卡路里/個):</label>
-                <input type="number" id="breadCount" min="0" step="1">
+
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory('bread')">麵包</div>
+            <div class="category-content" id="bread">
+                <div class="food-item">
+                    <label for="wheatToast">麥麩皮吐司 (22大卡/片):</label>
+                    <input type="number" id="wheatToast" min="0" step="1" value="0">
+                </div>
+                <div class="food-item">
+                    <label for="bun">餐包 (27大卡/個):</label>
+                    <input type="number" id="bun" min="0" step="1" value="0">
+                </div>
             </div>
-            <div class="food-item">
-                <label for="toastCount">吐司 (20 卡路里/片):</label>
-                <input type="number" id="toastCount" min="0" step="1">
+        </div>
+
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory('dessert')">甜點</div>
+            <div class="category-content" id="dessert">
+                <div class="food-item">
+                    <label for="cake">蛋糕 (6大卡/片):</label>
+                    <input type="number" id="cake" min="0" step="1" value="0">
+                </div>
+                <div class="food-item">
+                    <label for="tiramisu">提拉米蘇 (60大卡/片):</label>
+                    <input type="number" id="tiramisu" min="0" step="1" value="0">
+                </div>
             </div>
-            <div class="food-item">
-                <label for="bananaCount">香蕉 (30 卡路里/根):</label>
-                <input type="number" id="bananaCount" min="0" step="1">
-            </div>
-            <button type="submit">計算總熱量</button>
-        </form>
+        </div>
+
+        <button onclick="calculateCalories()">計算總熱量</button>
         <div class="result" id="totalCalories">總熱量: 0 卡路里</div>
     </div>
+
+    <script>
+        function toggleCategory(categoryId) {
+            const content = document.getElementById(categoryId);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+
+        function calculateCalories() {
+            const wheatToastCalories = 22;
+            const bunCalories = 27;
+            const cakeCalories = 6;
+            const tiramisuCalories = 60;
+
+            const wheatToastCount = document.getElementById('wheatToast').value || 0;
+            const bunCount = document.getElementById('bun').value || 0;
+            const cakeCount = document.getElementById('cake').value || 0;
+            const tiramisuCount = document.getElementById('tiramisu').value || 0;
+
+            const totalCalories = (wheatToastCount * wheatToastCalories) + 
+                                  (bunCount * bunCalories) + 
+                                  (cakeCount * cakeCalories) + 
+                                  (tiramisuCount * tiramisuCalories);
+
+            document.getElementById('totalCalories').textContent = `總熱量: ${totalCalories} 卡路里`;
+        }
+    </script>
 </body>
 </html>
-
 
 
 
