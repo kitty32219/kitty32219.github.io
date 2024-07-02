@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食物熱量計算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .food-item:last-child {
+            border-bottom: none;
+        }
+        .food-name {
+            font-weight: bold;
+        }
+        .food-calories {
+            color: #555;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="number"] {
+            padding: 5px;
+            font-size: 16px;
+            width: 100px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+    <script>
+        function calculateCalories() {
+            const breadCalories = 10;
+            const toastCalories = 20;
+            const bananaCalories = 30;
+
+            const breadCount = document.getElementById('breadCount').value || 0;
+            const toastCount = document.getElementById('toastCount').value || 0;
+            const bananaCount = document.getElementById('bananaCount').value || 0;
+
+            const totalCalories = (breadCount * breadCalories) + (toastCount * toastCalories) + (bananaCount * bananaCalories);
+
+            document.getElementById('totalCalories').textContent = `總熱量: ${totalCalories} 卡路里`;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>食物熱量計算器</h1>
+        <form onsubmit="event.preventDefault(); calculateCalories();">
+            <div class="food-item">
+                <label for="breadCount">麵包 (10 卡路里/個):</label>
+                <input type="number" id="breadCount" min="0" step="1">
+            </div>
+            <div class="food-item">
+                <label for="toastCount">吐司 (20 卡路里/片):</label>
+                <input type="number" id="toastCount" min="0" step="1">
+            </div>
+            <div class="food-item">
+                <label for="bananaCount">香蕉 (30 卡路里/根):</label>
+                <input type="number" id="bananaCount" min="0" step="1">
+            </div>
+            <button type="submit">計算總熱量</button>
+        </form>
+        <div class="result" id="totalCalories">總熱量: 0 卡路里</div>
+    </div>
+</body>
+</html>
+
+
+
+
