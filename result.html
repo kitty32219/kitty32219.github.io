@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 測試結果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .result {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .promotion {
+            margin-top: 30px;
+        }
+        .promotion img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: 10px auto;
+        }
+        .share {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28A745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function calculateResult() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let E = 0, I = 0, S = 0, N = 0, T = 0, F = 0, J = 0, P = 0;
+
+            for (const [key, value] of urlParams) {
+                switch (value) {
+                    case 'E': E++; break;
+                    case 'I': I++; break;
+                    case 'S': S++; break;
+                    case 'N': N++; break;
+                    case 'T': T++; break;
+                    case 'F': F++; break;
+                    case 'J': J++; break;
+                    case 'P': P++; break;
+                }
+            }
+
+            const resultType = (E >= I ? 'E' : 'I') +
+                               (S >= N ? 'S' : 'N') +
+                               (T >= F ? 'T' : 'F') +
+                               (J >= P ? 'J' : 'P');
+
+            document.getElementById('mbtiType').textContent = resultType;
+        }
+
+        function shareOnInstagram() {
+            const mbtiType = document.getElementById('mbtiType').textContent;
+            const shareText = `我的 MBTI 類型是 ${mbtiType}！趕快來試試這個測試吧！#MBTI #低卡餐 #無麵粉麵包`;
+            window.open(`https://www.instagram.com/?text=${encodeURIComponent(shareText)}`, '_blank');
+        }
+
+        window.onload = calculateResult;
+    </script>
+</head>
+<body>
+
+    <h1>你的 MBTI 測試結果</h1>
+    <div class="result">
+        <h2>你的 MBTI 類型是：</h2>
+        <p id="mbtiType"></p>
+    </div>
+
+    <div class="promotion">
+        <h3>低卡餐和無麵粉麵包</h3>
+        <img src="https://via.placeholder.com/100" alt="Low-calorie meal">
+        <img src="https://via.placeholder.com/100" alt="Flourless bread">
+        <p>試試我們的健康美味產品，享受健康生活！</p>
+    </div>
+
+    <button class="share" onclick="shareOnInstagram()">分享到 Instagram</button>
+
+</body>
+</html>

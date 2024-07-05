@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 測試</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .question img {
+            width: 150px;
+            height: 150px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+        }
+        .option {
+            margin: 0 10px;
+        }
+        .submit {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MBTI 測試</h1>
+    <form id="mbtiForm" action="result.html" method="GET">
+        <div class="question">
+            <img src="https://via.placeholder.com/150" alt="Question 1 Image">
+            <p>你更喜歡以下哪一種活動？</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q1" value="E" required> 與朋友聚會</label>
+                <label class="option"><input type="radio" name="q1" value="I"> 獨自讀書</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <img src="https://via.placeholder.com/150" alt="Question 2 Image">
+            <p>你更傾向於？</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q2" value="S" required> 實際的解決方案</label>
+                <label class="option"><input type="radio" name="q2" value="N"> 創新的點子</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <img src="https://via.placeholder.com/150" alt="Question 3 Image">
+            <p>在決策過程中，你通常會？</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q3" value="T" required> 根據邏輯分析</label>
+                <label class="option"><input type="radio" name="q3" value="F"> 根據感受</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <img src="https://via.placeholder.com/150" alt="Question 4 Image">
+            <p>你更喜歡哪一種生活方式？</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q4" value="J" required> 有計劃、有秩序</label>
+                <label class="option"><input type="radio" name="q4" value="P"> 隨機、靈活</label>
+            </div>
+        </div>
+
+        <button type="submit" class="submit">提交</button>
+    </form>
+
+</body>
+</html>
+
+
