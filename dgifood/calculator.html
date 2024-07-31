@@ -55,17 +55,23 @@
             font-weight: normal;
             color: #333; /* Default text color */
         }
-        .result {
-            font-size: 18px;
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .result-table, .result-table th, .result-table td {
+            border: 1px solid #ddd;
+        }
+        .result-table th, .result-table td {
+            padding: 10px;
+            text-align: center;
         }
         .selected-items-title {
             font-weight: bold;
             color: #6f4f28; /* Coffee color */
             margin-top: 20px;
-        }
-        .selected-item {
-            color: #6f4f28; /* Coffee color */
         }
         button {
             padding: 10px 20px;
@@ -95,16 +101,41 @@
         <!-- Calculation and Results Section -->
         <div>
             <button onclick="calculateTotal()">計算總營養成分</button>
-            <div class="result">
-                <div id="totalCalories">總熱量: 0 卡路里</div>
-                <div id="totalProtein">總蛋白質: 0 克</div>
-                <div id="totalFat">總脂肪: 0 克</div>
-                <div id="totalCarbs">總碳水化合物: 0 克</div>
-                <div id="totalfiber">膳食纖維: 0 克</div>
-                <div id="totalnetcarb">淨碳水: 0 克</div>
-                <div class="selected-items-title">所選品項</div> <!-- New title for selected items -->
-                <div id="selectedItems"></div> <!-- Section for selected items -->
-            </div>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>總熱量</th>
+                        <th>總蛋白質</th>
+                        <th>總脂肪</th>
+                        <th>總碳水化合物</th>
+                        <th>膳食纖維</th>
+                        <th>淨碳水</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="totalCalories">0 卡路里</td>
+                        <td id="totalProtein">0 克</td>
+                        <td id="totalFat">0 克</td>
+                        <td id="totalCarbs">0 克</td>
+                        <td id="totalfiber">0 克</td>
+                        <td id="totalnetcarb">0 克</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Selected Items Section -->
+            <div class="selected-items-title">所選品項</div>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>商品名稱</th>
+                        <th>數量</th>
+                        <th>總重量 (克)</th>
+                    </tr>
+                </thead>
+                <tbody id="selectedItems"></tbody>
+            </table>
         </div>
 
         <!-- CSV Content Section -->
@@ -223,15 +254,18 @@
                         input.dataset.fat = row['脂肪'] || 0;           // Ensure header matches CSV file
                         input.dataset.carbs = row['碳水化合物'] || 0;       // Ensure header matches CSV file
                         input.dataset.fiber = row['膳食纖維'] || 0;       // Ensure header matches CSV file
-                        input.dataset.netcarb = row['淨碳'] || 0;       // Ensure header matches CSV file
-                        input.dataset.itemname = row['商品名稱'] || '未知'; // Ensure header matches CSV file
+                        input.dataset.netcarb = row['淨碳'] || 0;          // Ensure header matches CSV file
+                        input.dataset.weight = row['重量'] || 0;    // Add weight attribute if matches CSV file
                         td.appendChild(input);
                         tr.appendChild(td);
 
-                        if (rowHasData) { // Only append row if it contains data
+                        tbody.appendChild(tr);
+
+                        if (rowHasData) { // Only append the row if it has data
                             tbody.appendChild(tr);
                         }
                     });
+
                     table.appendChild(tbody);
                     subDiv.appendChild(table);
                     div.appendChild(subDiv);
@@ -242,44 +276,63 @@
         }
 
         function calculateTotal() {
+            const quantities = document.querySelectorAll('.quantity-input');
             let totalCalories = 0;
             let totalProtein = 0;
             let totalFat = 0;
             let totalCarbs = 0;
+            let totalfiber = 0;
             let totalnetcarb = 0;
-            let totalfiber=0;
-            
-            let selectedItemsHtml = '';
+            const selectedItems = [];
 
-            document.querySelectorAll('.quantity-input').forEach(input => {
-                const quantity = parseFloat(input.value) || 0;
-                const calories = parseFloat(input.dataset.calories) || 0;
-                const protein = parseFloat(input.dataset.protein) || 0;
-                const fat = parseFloat(input.dataset.fat) || 0;
-                const carbs = parseFloat(input.dataset.carbs) || 0;
-                const fiber = parseFloat(input.dataset.fiber) || 0;
-                const netcarb = parseFloat(input.dataset.netcarb) || 0;
-                const itemName = input.dataset.itemname || '未知'; // Ensure item name is included
-
-                totalCalories += quantity * calories;
-                totalProtein += quantity * protein;
-                totalFat += quantity * fat;
-                totalCarbs += quantity * carbs;
-                totalfiber += quantity * fiber;
-                totalnetcarb += quantity * netcarb;
-
+            quantities.forEach(input => {
+                const quantity = parseFloat(input.value);
                 if (quantity > 0) {
-                    selectedItemsHtml += `<div class="selected-item">${itemName}: ${quantity} 個</div>`;
+                    const calories = parseFloat(input.dataset.calories) || 0;
+                    const protein = parseFloat(input.dataset.protein) || 0;
+                    const fat = parseFloat(input.dataset.fat) || 0;
+                    const carbs = parseFloat(input.dataset.carbs) || 0;
+                    const fiber = parseFloat(input.dataset.fiber) || 0;
+                    const netcarb = parseFloat(input.dataset.netcarb) || 0;
+                    const weight = parseFloat(input.dataset.weight) || 0;
+
+                    totalCalories += calories * quantity;
+                    totalProtein += protein * quantity;
+                    totalFat += fat * quantity;
+                    totalCarbs += carbs * quantity;
+                    totalfiber += fiber * quantity;
+                    totalnetcarb += netcarb * quantity;
+
+                    const row = input.closest('tr');
+                    const itemName = row.cells[0].textContent;
+
+                    selectedItems.push({ name: itemName, quantity, weight: weight * quantity });
                 }
             });
 
-            document.getElementById('totalCalories').textContent = `總熱量: ${totalCalories.toFixed(2)} 卡路里`;
-            document.getElementById('totalProtein').textContent = `總蛋白質: ${totalProtein.toFixed(2)} 克`;
-            document.getElementById('totalFat').textContent = `總脂肪: ${totalFat.toFixed(2)} 克`;
-            document.getElementById('totalCarbs').textContent = `總碳水化合物: ${totalCarbs.toFixed(2)} 克`;
-            document.getElementById('totalfiber').textContent = `膳食纖維: ${totalfiber.toFixed(2)} 克`;
-            document.getElementById('totalnetcarb').textContent = `淨碳水: ${totalnetcarb.toFixed(2)} 克`;
-            document.getElementById('selectedItems').innerHTML = selectedItemsHtml;
+            document.getElementById('totalCalories').textContent = `${totalCalories.toFixed(2)} 卡路里`;
+            document.getElementById('totalProtein').textContent = `${totalProtein.toFixed(2)} 克`;
+            document.getElementById('totalFat').textContent = `${totalFat.toFixed(2)} 克`;
+            document.getElementById('totalCarbs').textContent = `${totalCarbs.toFixed(2)} 克`;
+            document.getElementById('totalfiber').textContent = `${totalfiber.toFixed(2)} 克`;
+            document.getElementById('totalnetcarb').textContent = `${totalnetcarb.toFixed(2)} 克`;
+
+            const selectedItemsTable = document.getElementById('selectedItems');
+            selectedItemsTable.innerHTML = '';
+            selectedItems.forEach(item => {
+                const row = document.createElement('tr');
+                const itemNameCell = document.createElement('td');
+                itemNameCell.textContent = item.name;
+                const quantityCell = document.createElement('td');
+                quantityCell.textContent = item.quantity;
+                const weightCell = document.createElement('td');
+                weightCell.textContent = item.weight.toFixed(2); // Display weight rounded to 2 decimals
+
+                row.appendChild(itemNameCell);
+                row.appendChild(quantityCell);
+                row.appendChild(weightCell);
+                selectedItemsTable.appendChild(row);
+            });
         }
     </script>
 </body>
