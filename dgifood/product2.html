@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>商品分類目錄</title>
+  <title>商品分類搜尋目錄</title>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
@@ -17,7 +17,7 @@
 <body>
 
 <h2>📦 商品分類清單</h2>
-<input type="text" id="searchBar" placeholder="🔍 搜尋商品或分類名稱..." />
+<input type="text" id="searchBar" placeholder="🔍 搜尋商品名稱或說明..." />
 
 <div id="output">載入中...</div>
 
@@ -38,9 +38,10 @@ fetch('TEST.xlsx')
 
     for (let i = 1; i < jsonData.length; i++) {
       const row = jsonData[i];
-      const category = row[0];
-      const productName = row[3];
-      const productUrl = row[4];
+      const category = row[0];  // A欄
+      const productName = row[3];  // D欄
+      const productUrl = row[4];   // E欄
+      const productDesc = row[5];  // F欄：商品說明
 
       if (category && category.trim() !== '') {
         currentCategory = category.trim();
@@ -50,7 +51,8 @@ fetch('TEST.xlsx')
       if (productName && productName.trim() !== '') {
         categories[currentCategory].push({
           name: productName.trim(),
-          url: productUrl ? productUrl.trim() : ''
+          url: productUrl ? productUrl.trim() : '',
+          desc: productDesc ? productDesc.trim() : ''
         });
       }
     }
@@ -58,7 +60,7 @@ fetch('TEST.xlsx')
     const outputDiv = document.getElementById('output');
     outputDiv.innerHTML = '';
 
-    const allCategoryDivs = []; // 儲存分類與子項 DOM 結構，給搜尋用
+    const allCategoryDivs = [];
 
     for (const cat in categories) {
       const catDiv = document.createElement('div');
@@ -77,6 +79,7 @@ fetch('TEST.xlsx')
         a.textContent = p.name;
         a.href = p.url || '#';
         a.target = '_blank';
+        a.dataset.desc = p.desc;  // 存下說明，方便搜尋時比對
         prodDiv.appendChild(a);
         links.push(a);
       });
@@ -98,12 +101,11 @@ fetch('TEST.xlsx')
       });
     }
 
-    // 搜尋功能邏輯
+    // 搜尋功能
     const searchInput = document.getElementById('searchBar');
     searchInput.addEventListener('input', function () {
       const keyword = this.value.trim().toLowerCase();
 
-      // 清除所有高亮與關閉展開
       allCategoryDivs.forEach(({ catDiv, prodDiv, links }) => {
         catDiv.textContent = '▶ ' + catDiv.textContent.replace(/^▶ |^▼ /, '');
         prodDiv.style.display = 'none';
@@ -117,13 +119,10 @@ fetch('TEST.xlsx')
       allCategoryDivs.forEach(({ catDiv, prodDiv, catName, links }) => {
         let matched = false;
 
-        if (catName.toLowerCase().includes(keyword)) {
-          matched = true;
-        }
-
         links.forEach(link => {
-          const text = link.textContent.toLowerCase();
-          if (text.includes(keyword)) {
+          const name = link.textContent.toLowerCase();
+          const desc = link.dataset.desc.toLowerCase();
+          if (name.includes(keyword) || desc.includes(keyword)) {
             matched = true;
             link.classList.add('highlight');
             if (!firstMatch) firstMatch = link;
@@ -138,7 +137,6 @@ fetch('TEST.xlsx')
         }
       });
 
-      // 自動捲動至第一個結果
       if (firstMatch) {
         firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
@@ -151,3 +149,4 @@ fetch('TEST.xlsx')
 
 </body>
 </html>
+
