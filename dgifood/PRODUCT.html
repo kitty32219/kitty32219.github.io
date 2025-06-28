@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>商品分類目錄</title>
+  <title>商品搜尋分類目錄</title>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
@@ -10,12 +10,41 @@
     .products { margin-left: 20px; display: none; }
     .product-link { display: block; margin: 3px 0; color: #2980b9; text-decoration: none; }
     .product-link:hover { text-decoration: underline; }
+    #searchBar { margin-bottom: 20px; padding: 6px; font-size: 16px; width: 100%; max-width: 400px; }
+    .highlight { background: yellow; }
+    #searchResults {
+      margin-top: 30px;
+      padding: 15px;
+      background: #eef;
+      border: 1px solid #aac;
+      border-radius: 6px;
+      display: none;
+    }
+    #searchResults h3 { margin: 0 0 10px; }
+    .search-result-item {
+      margin: 5px 0;
+    }
+    .search-result-item a {
+      color: #2c3e50;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .search-result-item a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
-<h2>📦 商品分類清單</h2>
+<h2>📦 商品分類清單（來自 TEST.xlsx）</h2>
+<input type="text" id="searchBar" placeholder="🔍 搜尋商品名稱或說明..." />
+
 <div id="output">載入中...</div>
+
+<div id="searchResults">
+  <h3>🔍 搜尋結果</h3>
+  <div id="resultsList"></div>
+</div>
 
 <script>
 fetch('TEST.xlsx')
@@ -25,8 +54,7 @@ fetch('TEST.xlsx')
   })
   .then(data => {
     const workbook = XLSX.read(data, { type: 'array' });
-    const sheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[sheetName];
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
     let categories = {};
@@ -34,25 +62,29 @@ fetch('TEST.xlsx')
 
     for (let i = 1; i < jsonData.length; i++) {
       const row = jsonData[i];
-      const category = row[0];
-      const productName = row[3];
-      const productUrl = row[4];
+      const category = row[0];      // A欄：分類
+      const productName = row[3];   // D欄：商品名稱
+      const productUrl = row[4];    // E欄：連結
+      const productDesc = row[5];   // F欄：說明（僅搜尋用）
 
-      if (category && category.trim() !== '') {
+      if (category && category.trim()) {
         currentCategory = category.trim();
         if (!categories[currentCategory]) categories[currentCategory] = [];
       }
 
-      if (productName && productName.trim() !== '') {
+      if (productName && productName.trim()) {
         categories[currentCategory].push({
           name: productName.trim(),
-          url: productUrl ? productUrl.trim() : ''
+          url: productUrl ? productUrl.trim() : '',
+          desc: productDesc ? productDesc.trim() : '',
+          category: currentCategory
         });
       }
     }
 
     const outputDiv = document.getElementById('output');
     outputDiv.innerHTML = '';
+    const allCategoryDivs = [];
 
     for (const cat in categories) {
       const catDiv = document.createElement('div');
@@ -63,13 +95,18 @@ fetch('TEST.xlsx')
       prodDiv.className = 'products';
       prodDiv.style.display = 'none';
 
+      const links = [];
+
       categories[cat].forEach(p => {
         const a = document.createElement('a');
         a.className = 'product-link';
         a.textContent = p.name;
         a.href = p.url || '#';
         a.target = '_blank';
+        a.dataset.desc = p.desc;
+        a.dataset.cat = p.category;
         prodDiv.appendChild(a);
+        links.push(a);
       });
 
       catDiv.addEventListener('click', () => {
@@ -80,7 +117,73 @@ fetch('TEST.xlsx')
 
       outputDiv.appendChild(catDiv);
       outputDiv.appendChild(prodDiv);
+
+      allCategoryDivs.push({
+        catDiv,
+        prodDiv,
+        catName: cat,
+        links
+      });
     }
+
+    const searchInput = document.getElementById('searchBar');
+    const resultsPanel = document.getElementById('searchResults');
+    const resultsList = document.getElementById('resultsList');
+
+    searchInput.addEventListener('input', function () {
+      const keyword = this.value.trim().toLowerCase();
+      resultsList.innerHTML = '';
+      resultsPanel.style.display = 'none';
+
+      allCategoryDivs.forEach(({ catDiv, prodDiv, links }) => {
+        catDiv.textContent = '▶ ' + catDiv.textContent.replace(/^▶ |^▼ /, '');
+        prodDiv.style.display = 'none';
+        links.forEach(link => link.classList.remove('highlight'));
+      });
+
+      if (keyword === '') return;
+
+      let firstMatch = null;
+      let matches = [];
+
+      allCategoryDivs.forEach(({ catDiv, prodDiv, catName, links }) => {
+        let matched = false;
+
+        links.forEach(link => {
+          const name = link.textContent.toLowerCase();
+          const desc = link.dataset.desc.toLowerCase();
+          if (name.includes(keyword) || desc.includes(keyword)) {
+            matched = true;
+            link.classList.add('highlight');
+            if (!firstMatch) firstMatch = link;
+            matches.push({
+              name: link.textContent,
+              url: link.href,
+              category: link.dataset.cat
+            });
+          }
+        });
+
+        if (matched) {
+          prodDiv.style.display = 'block';
+          catDiv.textContent = '▼ ' + catName;
+        }
+      });
+
+      if (matches.length > 0) {
+        resultsPanel.style.display = 'block';
+        matches.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'search-result-item';
+          div.innerHTML = `<a href="${item.url}" target="_blank">${item.name}</a>（${item.category}）`;
+          resultsList.appendChild(div);
+        });
+
+        if (firstMatch) {
+          firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
   })
   .catch(error => {
     document.getElementById('output').textContent = '載入失敗：' + error.message;
