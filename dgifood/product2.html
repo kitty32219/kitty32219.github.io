@@ -12,14 +12,39 @@
     .product-link:hover { text-decoration: underline; }
     #searchBar { margin-bottom: 20px; padding: 6px; font-size: 16px; width: 100%; max-width: 400px; }
     .highlight { background: yellow; }
+    #searchResults {
+      margin-top: 40px;
+      padding: 15px;
+      background: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    #searchResults h3 { margin-top: 0; }
+    .search-result-item {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .search-result-item a {
+      font-weight: bold;
+      color: #2c3e50;
+      text-decoration: none;
+    }
+    .search-result-item a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
-<h2>📦 商品分類清單</h2>
+<h2>📦 商品分類清單（來自 TEST.xlsx）</h2>
 <input type="text" id="searchBar" placeholder="🔍 搜尋商品名稱或說明..." />
 
 <div id="output">載入中...</div>
+
+<div id="searchResults" style="display: none;">
+  <h3>🔍 搜尋結果</h3>
+  <div id="resultsList"></div>
+</div>
 
 <script>
 fetch('TEST.xlsx')
@@ -38,10 +63,10 @@ fetch('TEST.xlsx')
 
     for (let i = 1; i < jsonData.length; i++) {
       const row = jsonData[i];
-      const category = row[0];  // A欄
-      const productName = row[3];  // D欄
-      const productUrl = row[4];   // E欄
-      const productDesc = row[5];  // F欄：商品說明
+      const category = row[0];      // A欄
+      const productName = row[3];   // D欄：商品名稱
+      const productUrl = row[4];    // E欄：商品連結
+      const productDesc = row[5];   // F欄：商品說明
 
       if (category && category.trim() !== '') {
         currentCategory = category.trim();
@@ -52,14 +77,14 @@ fetch('TEST.xlsx')
         categories[currentCategory].push({
           name: productName.trim(),
           url: productUrl ? productUrl.trim() : '',
-          desc: productDesc ? productDesc.trim() : ''
+          desc: productDesc ? productDesc.trim() : '',
+          category: currentCategory
         });
       }
     }
 
     const outputDiv = document.getElementById('output');
     outputDiv.innerHTML = '';
-
     const allCategoryDivs = [];
 
     for (const cat in categories) {
@@ -79,7 +104,8 @@ fetch('TEST.xlsx')
         a.textContent = p.name;
         a.href = p.url || '#';
         a.target = '_blank';
-        a.dataset.desc = p.desc;  // 存下說明，方便搜尋時比對
+        a.dataset.desc = p.desc;
+        a.dataset.cat = p.category;
         prodDiv.appendChild(a);
         links.push(a);
       });
@@ -101,10 +127,17 @@ fetch('TEST.xlsx')
       });
     }
 
-    // 搜尋功能
+    // 搜尋邏輯
     const searchInput = document.getElementById('searchBar');
+    const resultsPanel = document.getElementById('searchResults');
+    const resultsList = document.getElementById('resultsList');
+
     searchInput.addEventListener('input', function () {
       const keyword = this.value.trim().toLowerCase();
+
+      // 清除前一次結果
+      resultsList.innerHTML = '';
+      resultsPanel.style.display = 'none';
 
       allCategoryDivs.forEach(({ catDiv, prodDiv, links }) => {
         catDiv.textContent = '▶ ' + catDiv.textContent.replace(/^▶ |^▼ /, '');
@@ -115,6 +148,7 @@ fetch('TEST.xlsx')
       if (keyword === '') return;
 
       let firstMatch = null;
+      let matches = [];
 
       allCategoryDivs.forEach(({ catDiv, prodDiv, catName, links }) => {
         let matched = false;
@@ -126,6 +160,11 @@ fetch('TEST.xlsx')
             matched = true;
             link.classList.add('highlight');
             if (!firstMatch) firstMatch = link;
+            matches.push({
+              name: link.textContent,
+              url: link.href,
+              category: link.dataset.cat
+            });
           } else {
             link.classList.remove('highlight');
           }
@@ -137,8 +176,19 @@ fetch('TEST.xlsx')
         }
       });
 
-      if (firstMatch) {
-        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // 顯示搜尋結果（只顯示名稱與分類）
+      if (matches.length > 0) {
+        resultsPanel.style.display = 'block';
+        matches.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'search-result-item';
+          div.innerHTML = `<a href="${item.url}" target="_blank">${item.name}</a>（${item.category}）`;
+          resultsList.appendChild(div);
+        });
+
+        if (firstMatch) {
+          firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       }
     });
   })
