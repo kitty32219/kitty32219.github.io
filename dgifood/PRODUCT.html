@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>商品分類目錄</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .category { cursor: pointer; margin: 10px 0; font-weight: bold; color: #2c3e50; }
+    .products { margin-left: 20px; display: none; }
+    .product-link { display: block; margin: 3px 0; color: #2980b9; text-decoration: none; }
+    .product-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<h2>📦 商品分類清單（來自 TEST.xlsx）</h2>
+<div id="output">載入中...</div>
+
+<script>
+fetch('TEST.xlsx')
+  .then(response => {
+    if (!response.ok) throw new Error("無法載入 TEST.xlsx");
+    return response.arrayBuffer();
+  })
+  .then(data => {
+    const workbook = XLSX.read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+    let categories = {};
+    let currentCategory = '';
+
+    for (let i = 1; i < jsonData.length; i++) {
+      const row = jsonData[i];
+      const category = row[0];
+      const productName = row[3];
+      const productUrl = row[4];
+
+      if (category && category.trim() !== '') {
+        currentCategory = category.trim();
+        if (!categories[currentCategory]) categories[currentCategory] = [];
+      }
+
+      if (productName && productName.trim() !== '') {
+        categories[currentCategory].push({
+          name: productName.trim(),
+          url: productUrl ? productUrl.trim() : ''
+        });
+      }
+    }
+
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = '';
+
+    for (const cat in categories) {
+      const catDiv = document.createElement('div');
+      catDiv.className = 'category';
+      catDiv.textContent = '▶ ' + cat;
+
+      const prodDiv = document.createElement('div');
+      prodDiv.className = 'products';
+      prodDiv.style.display = 'none';
+
+      categories[cat].forEach(p => {
+        const a = document.createElement('a');
+        a.className = 'product-link';
+        a.textContent = p.name;
+        a.href = p.url || '#';
+        a.target = '_blank';
+        prodDiv.appendChild(a);
+      });
+
+      catDiv.addEventListener('click', () => {
+        const isHidden = prodDiv.style.display === 'none';
+        prodDiv.style.display = isHidden ? 'block' : 'none';
+        catDiv.textContent = (isHidden ? '▼ ' : '▶ ') + cat;
+      });
+
+      outputDiv.appendChild(catDiv);
+      outputDiv.appendChild(prodDiv);
+    }
+  })
+  .catch(error => {
+    document.getElementById('output').textContent = '載入失敗：' + error.message;
+  });
+</script>
+
+</body>
+</html>
+
+
