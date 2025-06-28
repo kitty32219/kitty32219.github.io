@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>商品分類目錄</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .category { cursor: pointer; margin: 10px 0; font-weight: bold; color: #2c3e50; }
+    .products { margin-left: 20px; display: none; }
+    .product-link { display: block; margin: 3px 0; color: #2980b9; text-decoration: none; }
+    .product-link:hover { text-decoration: underline; }
+    #searchBar { margin-bottom: 20px; padding: 6px; font-size: 16px; width: 100%; max-width: 400px; }
+    .highlight { background: yellow; }
+  </style>
+</head>
+<body>
+
+<h2>📦 商品分類清單（來自 TEST.xlsx）</h2>
+<input type="text" id="searchBar" placeholder="🔍 搜尋商品或分類名稱..." />
+
+<div id="output">載入中...</div>
+
+<script>
+fetch('TEST.xlsx')
+  .then(response => {
+    if (!response.ok) throw new Error("無法載入 TEST.xlsx");
+    return response.arrayBuffer();
+  })
+  .then(data => {
+    const workbook = XLSX.read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+    let categories = {};
+    let currentCategory = '';
+
+    for (let i = 1; i < jsonData.length; i++) {
+      const row = jsonData[i];
+      const category = row[0];
+      const productName = row[3];
+      const productUrl = row[4];
+
+      if (category && category.trim() !== '') {
+        currentCategory = category.trim();
+        if (!categories[currentCategory]) categories[currentCategory] = [];
+      }
+
+      if (productName && productName.trim() !== '') {
+        categories[currentCategory].push({
+          name: productName.trim(),
+          url: productUrl ? productUrl.trim() : ''
+        });
+      }
+    }
+
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = '';
+
+    const allCategoryDivs = []; // 儲存分類與子項 DOM 結構，給搜尋用
+
+    for (const cat in categories) {
+      const catDiv = document.createElement('div');
+      catDiv.className = 'category';
+      catDiv.textContent = '▶ ' + cat;
+
+      const prodDiv = document.createElement('div');
+      prodDiv.className = 'products';
+      prodDiv.style.display = 'none';
+
+      const links = [];
+
+      categories[cat].forEach(p => {
+        const a = document.createElement('a');
+        a.className = 'product-link';
+        a.textContent = p.name;
+        a.href = p.url || '#';
+        a.target = '_blank';
+        prodDiv.appendChild(a);
+        links.push(a);
+      });
+
+      catDiv.addEventListener('click', () => {
+        const isHidden = prodDiv.style.display === 'none';
+        prodDiv.style.display = isHidden ? 'block' : 'none';
+        catDiv.textContent = (isHidden ? '▼ ' : '▶ ') + cat;
+      });
+
+      outputDiv.appendChild(catDiv);
+      outputDiv.appendChild(prodDiv);
+
+      allCategoryDivs.push({
+        catDiv,
+        prodDiv,
+        catName: cat,
+        links
+      });
+    }
+
+    // 搜尋功能邏輯
+    const searchInput = document.getElementById('searchBar');
+    searchInput.addEventListener('input', function () {
+      const keyword = this.value.trim().toLowerCase();
+
+      // 清除所有高亮與關閉展開
+      allCategoryDivs.forEach(({ catDiv, prodDiv, links }) => {
+        catDiv.textContent = '▶ ' + catDiv.textContent.replace(/^▶ |^▼ /, '');
+        prodDiv.style.display = 'none';
+        links.forEach(link => link.classList.remove('highlight'));
+      });
+
+      if (keyword === '') return;
+
+      let firstMatch = null;
+
+      allCategoryDivs.forEach(({ catDiv, prodDiv, catName, links }) => {
+        let matched = false;
+
+        if (catName.toLowerCase().includes(keyword)) {
+          matched = true;
+        }
+
+        links.forEach(link => {
+          const text = link.textContent.toLowerCase();
+          if (text.includes(keyword)) {
+            matched = true;
+            link.classList.add('highlight');
+            if (!firstMatch) firstMatch = link;
+          } else {
+            link.classList.remove('highlight');
+          }
+        });
+
+        if (matched) {
+          prodDiv.style.display = 'block';
+          catDiv.textContent = '▼ ' + catName;
+        }
+      });
+
+      // 自動捲動至第一個結果
+      if (firstMatch) {
+        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  })
+  .catch(error => {
+    document.getElementById('output').textContent = '載入失敗：' + error.message;
+  });
+</script>
+
+</body>
+</html>
