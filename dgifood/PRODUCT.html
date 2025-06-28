@@ -37,7 +37,7 @@
 </head>
 <body>
 
-<h2>📦 商品分類清單（來自 TEST.xlsx）</h2>
+<h2>📦 商品分類清單</h2>
 
 <!-- 搜尋欄 -->
 <input type="text" id="searchBar" placeholder="🔍 搜尋商品名稱或說明..." />
@@ -184,9 +184,7 @@ fetch('TEST.xlsx')
           resultsList.appendChild(div);
         });
 
-        if (firstMatch) {
-          firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+
       }
     });
   })
