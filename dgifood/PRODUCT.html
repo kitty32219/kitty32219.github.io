@@ -10,10 +10,11 @@
     .products { margin-left: 20px; display: none; }
     .product-link { display: block; margin: 3px 0; color: #2980b9; text-decoration: none; }
     .product-link:hover { text-decoration: underline; }
-    #searchBar { margin-bottom: 20px; padding: 6px; font-size: 16px; width: 100%; max-width: 400px; }
+    #searchBar { margin-bottom: 10px; padding: 6px; font-size: 16px; width: 100%; max-width: 400px; }
     .highlight { background: yellow; }
     #searchResults {
-      margin-top: 30px;
+      margin-top: 10px;
+      margin-bottom: 30px;
       padding: 15px;
       background: #eef;
       border: 1px solid #aac;
@@ -36,15 +37,19 @@
 </head>
 <body>
 
-<h2>📦 商品分類清單</h2>
+<h2>📦 商品分類清單（來自 TEST.xlsx）</h2>
+
+<!-- 搜尋欄 -->
 <input type="text" id="searchBar" placeholder="🔍 搜尋商品名稱或說明..." />
 
-<div id="output">載入中...</div>
-
+<!-- 搜尋結果顯示區（已移上） -->
 <div id="searchResults">
   <h3>🔍 搜尋結果</h3>
   <div id="resultsList"></div>
 </div>
+
+<!-- 主資料顯示 -->
+<div id="output">載入中...</div>
 
 <script>
 fetch('TEST.xlsx')
@@ -192,5 +197,4 @@ fetch('TEST.xlsx')
 
 </body>
 </html>
-
 
