@@ -33,8 +33,8 @@
 <h3>選項</h3>
 <div class="container" id="options">
   <div class="item" draggable="true" data-value="2kcal">2 kcal/g</div>
-  <div class="item" draggable="true" data-value="0/2kcal">水溶性 2 / 非水溶性 0/聚葡萄糖 1 kcal/g</div>
   <div class="item" draggable="true" data-value="0/1/2kcal">分 0 / 1 / 2 kcal/g </div>
+  <div class="item" draggable="true" data-value="0/2kcal">水溶性 2 / 非水溶性 0/聚葡萄糖 1 kcal/g</div>
   <div class="item" draggable="true" data-value="2/1kcal">2（聚葡萄糖例外 1）kcal/g </div>
 </div>
 
@@ -71,7 +71,12 @@
     const allFilled = Array.from(dropzones).every(z => z.dataset.filled === 'true');
     if (allFilled) {
       document.getElementById('result').innerHTML = `
-        🎉 恭喜你全部答對！這是你的折扣碼：<strong>FIBER2025</strong>
+        🎉 恭喜你全部答對！這是你的折扣碼：<p>
+  <strong>
+    <span style="color: #d9534f;">790149</span><br>
+    <span style="color: #6c757d;">使用期限：2025-08-06～2025-08-13，滿 999 折 30</span>
+  </strong>
+</p>
       `;
     }
   }
