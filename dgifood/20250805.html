@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>膳食纖維熱量配對小遊戲</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  .container { display: flex; gap: 30px; flex-wrap: wrap; }
+  .item, .dropzone {
+    padding: 10px 15px;
+    border: 2px dashed #ccc;
+    margin: 5px;
+    min-width: 150px;
+    text-align: center;
+    cursor: grab;
+    border-radius: 8px;
+  }
+  .dropzone.filled { background-color: #e0ffe0; }
+</style>
+</head>
+<body>
+
+<h2>配對挑戰：拖曳正確熱量到對應國家</h2>
+
+<div class="container" id="dropzones">
+  <div class="dropzone" data-answer="2">台灣</div>
+  <div class="dropzone" data-answer="0/2">美國</div>
+  <div class="dropzone" data-answer="0/1/2">日本</div>
+  <div class="dropzone" data-answer="2">歐盟</div>
+  <div class="dropzone" data-answer="2/1">紐澳</div>
+</div>
+
+<h3>選項</h3>
+<div class="container" id="options">
+  <div class="item" draggable="true" data-value="2">2 kcal/g</div>
+  <div class="item" draggable="true" data-value="0/2">水溶性 2 / 非水溶性 0/聚葡萄糖 1 kcal</div>
+  <div class="item" draggable="true" data-value="0/1/2">分 0 / 1 / 2 kcal </div>
+  <div class="item" draggable="true" data-value="2/1">2（聚葡萄糖例外 1）kcal </div>
+</div>
+
+<div id="result" style="margin-top:20px;"></div>
+
+<script>
+  const items = document.querySelectorAll('.item');
+  const dropzones = document.querySelectorAll('.dropzone');
+
+  items.forEach(item => {
+    item.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text', item.dataset.value);
+      e.dataTransfer.setData('id', item.textContent);
+    });
+  });
+
+  dropzones.forEach(zone => {
+    zone.addEventListener('dragover', e => e.preventDefault());
+    zone.addEventListener('drop', e => {
+      const data = e.dataTransfer.getData('text');
+      if (zone.dataset.answer === data) {
+        zone.textContent += ` ✅ (${data})`;
+        zone.classList.add('filled');
+        zone.dataset.filled = 'true';
+      } else {
+        alert("配對錯誤，請再試一次！");
+      }
+
+      checkAll();
+    });
+  });
+
+  function checkAll() {
+    const allFilled = Array.from(dropzones).every(z => z.dataset.filled === 'true');
+    if (allFilled) {
+      document.getElementById('result').innerHTML = `
+        🎉 恭喜你全部答對！這是你的折扣碼：<strong>FIBER2025</strong>
+      `;
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
+
