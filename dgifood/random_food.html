@@ -212,7 +212,7 @@
   </div>
 
   <script>
-    const CSV_URL = 'https://kitty32219.github.io/dgifood/data.csv';
+    const CSV_URL = 'https://kitty32219.github.io/dgifood/data_with_description.csv';
     let filteredData = [];
 
     const recipes = [
@@ -226,7 +226,149 @@
       "https://icook.tw/recipes/451742",
       "https://icook.tw/recipes/451738",
       "https://icook.tw/recipes/451736",
-      "https://icook.tw/recipes/451735"
+      "https://icook.tw/recipes/451735",
+      "https://icook.tw/recipes/451712",
+      "https://icook.tw/recipes/451710",
+      "https://icook.tw/recipes/451709",
+      "https://icook.tw/recipes/451706",
+      "https://icook.tw/recipes/451704",
+      "https://icook.tw/recipes/451703",
+      "https://icook.tw/recipes/451702",
+      "https://icook.tw/recipes/451701",
+      "https://icook.tw/recipes/451708",
+      "https://icook.tw/recipes/451700",
+      "https://icook.tw/recipes/451699",
+      "https://icook.tw/recipes/451697",
+      "https://icook.tw/recipes/451696",
+      "https://icook.tw/recipes/451695",
+      "https://icook.tw/recipes/451694",
+      "https://icook.tw/recipes/450190",
+      "https://icook.tw/recipes/450138",
+      "https://icook.tw/recipes/450180",
+      "https://icook.tw/recipes/450139",
+      "https://icook.tw/recipes/450171",
+      "https://icook.tw/recipes/450172",
+      "https://icook.tw/recipes/450173",
+      "https://icook.tw/recipes/450175",
+      "https://icook.tw/recipes/450176",
+      "https://icook.tw/recipes/450181",
+      "https://icook.tw/recipes/450178",
+      "https://icook.tw/recipes/450177",
+      "https://icook.tw/recipes/450179",
+      "https://icook.tw/recipes/450182",
+      "https://icook.tw/recipes/450183",
+      "https://icook.tw/recipes/449801",
+      "https://icook.tw/recipes/449800",
+      "https://icook.tw/recipes/449799",
+      "https://icook.tw/recipes/449798",
+      "https://icook.tw/recipes/449797",
+      "https://icook.tw/recipes/449796",
+      "https://icook.tw/recipes/448747",
+      "https://icook.tw/recipes/448745",
+      "https://icook.tw/recipes/448746",
+      "https://icook.tw/recipes/448744",
+      "https://icook.tw/recipes/448730",
+      "https://icook.tw/recipes/448729",
+      "https://icook.tw/recipes/448573",
+      "https://icook.tw/recipes/448572",
+      "https://icook.tw/recipes/448568",
+      "https://icook.tw/recipes/448567",
+      "https://icook.tw/recipes/448537",
+      "https://icook.tw/recipes/448542",
+      "https://icook.tw/recipes/448536",
+      "https://icook.tw/recipes/448538",
+      "https://icook.tw/recipes/448535",
+      "https://icook.tw/recipes/448527",
+      "https://icook.tw/recipes/448169",
+      "https://icook.tw/recipes/448168",
+      "https://icook.tw/recipes/448167",
+      "https://icook.tw/recipes/448166",
+      "https://icook.tw/recipes/448082",
+      "https://icook.tw/recipes/448165",
+      "https://icook.tw/recipes/448164",
+      "https://icook.tw/recipes/448162",
+      "https://icook.tw/recipes/448083",
+      "https://icook.tw/recipes/448078",
+      "https://icook.tw/recipes/447659",
+      "https://icook.tw/recipes/447656",
+      "https://icook.tw/recipes/447654",
+      "https://icook.tw/recipes/447151",
+      "https://icook.tw/recipes/446899",
+      "https://icook.tw/recipes/446803",
+      "https://icook.tw/recipes/446802",
+      "https://icook.tw/recipes/446801",
+      "https://icook.tw/recipes/446800",
+      "https://icook.tw/recipes/446799",
+      "https://icook.tw/recipes/444293",
+      "https://icook.tw/recipes/444105",
+      "https://icook.tw/recipes/444102",
+      "https://icook.tw/recipes/443419",
+      "https://icook.tw/recipes/443417",
+      "https://icook.tw/recipes/443346",
+      "https://icook.tw/recipes/443350",
+      "https://icook.tw/recipes/443351",
+      "https://icook.tw/recipes/443348",
+      "https://icook.tw/recipes/443312",
+      "https://icook.tw/recipes/443310",
+      "https://icook.tw/recipes/443311",
+      "https://icook.tw/recipes/443301",
+      "https://icook.tw/recipes/443215",
+      "https://icook.tw/recipes/443213",
+      "https://icook.tw/recipes/443108",
+      "https://icook.tw/recipes/443103",
+      "https://icook.tw/recipes/443019",
+      "https://icook.tw/recipes/443017",
+      "https://icook.tw/recipes/443016",
+      "https://icook.tw/recipes/443015",
+      "https://icook.tw/recipes/442879",
+      "https://icook.tw/recipes/442880",
+      "https://icook.tw/recipes/442812",
+      "https://icook.tw/recipes/442811",
+      "https://icook.tw/recipes/442810",
+      "https://icook.tw/recipes/442808",
+      "https://icook.tw/recipes/442727",
+      "https://icook.tw/recipes/442725",
+      "https://icook.tw/recipes/442728",
+      "https://icook.tw/recipes/442636",
+      "https://icook.tw/recipes/442635",
+      "https://icook.tw/recipes/442453",
+      "https://icook.tw/recipes/442449",
+      "https://icook.tw/recipes/442446",
+      "https://icook.tw/recipes/442444",
+      "https://icook.tw/recipes/442443",
+      "https://icook.tw/recipes/442441",
+      "https://icook.tw/recipes/442354",
+      "https://icook.tw/recipes/442351",
+      "https://icook.tw/recipes/442347",
+      "https://icook.tw/recipes/442355",
+      "https://icook.tw/recipes/442352",
+      "https://icook.tw/recipes/441664",
+      "https://icook.tw/recipes/441666",
+      "https://icook.tw/recipes/441663",
+      "https://icook.tw/recipes/441661",
+      "https://icook.tw/recipes/441040",
+      "https://icook.tw/recipes/442047",
+      "https://icook.tw/recipes/442344",
+      "https://icook.tw/recipes/442343",
+      "https://icook.tw/recipes/442341",
+      "https://icook.tw/recipes/442206",
+      "https://icook.tw/recipes/442348",
+      "https://icook.tw/recipes/442203",
+      "https://icook.tw/recipes/442204",
+      "https://icook.tw/recipes/442085",
+      "https://icook.tw/recipes/442084",
+      "https://icook.tw/recipes/442051",
+      "https://icook.tw/recipes/442049",
+      "https://icook.tw/recipes/442048",
+      "https://icook.tw/recipes/441665",
+      "https://icook.tw/recipes/441662",
+      "https://icook.tw/recipes/441667",
+      "https://icook.tw/recipes/441668",
+      "https://icook.tw/recipes/441660",
+      "https://icook.tw/recipes/441659",
+      "https://icook.tw/recipes/441037"
+
+
     ];
 
     const statusEl = document.getElementById('status');
@@ -305,7 +447,7 @@
       recipeLink.textContent = '載入中…';
       recipeCard.style.display = 'block';
       const title = await resolveRecipeTitle(url);
-      recipeLink.textContent = title || '前往看看';
+      recipeLink.textContent = title|| '前往看看';
     }
 
     async function draw() {
@@ -333,13 +475,18 @@
         groupTitle.className = 'group-title';
         groupTitle.textContent = titleText;
         resultEl.appendChild(groupTitle);
+	let matched;
 
-        let matched;
         if (kw) {
-          matched = filteredData.filter(r => r['商品名稱'].includes(kw));
-        } else {
-          matched = [...filteredData];
-        }
+         matched = filteredData.filter(r =>
+         (r['商品名稱'] && r['商品名稱'].includes(kw)) ||
+         (r['說明'] && r['說明'].includes(kw))
+             );
+         } else {
+             matched = [...filteredData];
+         }
+
+
 
         if (matched.length === 0) {
           const empty = document.createElement('div');
