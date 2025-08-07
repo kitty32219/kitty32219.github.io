@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>隨機餐盤 - 動態關鍵字+數量設定</title>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --bg: #f9f9fb;
+      --card-bg: #fff;
+      --text: #333;
+      --border: #e5e5e5;
+      --shadow: rgba(0, 0, 0, 0.08);
+      font-family: "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      text-align: center;
+      color: var(--primary);
+    }
+    .controls {
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center; /* ⬅ 讓所有filter-group在中間 */
+    }
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center; /* ⬅ 置中對齊 */
+      max-width: 600px;
+      margin-bottom: 8px;
+    }
+    .filter-group input[type="text"],
+    .filter-group input[type="number"] {
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+    /* 先給一般text欄位彈性，但會被 keyword 專屬規則覆蓋 */
+    .filter-group input[type="text"] {
+      flex: 1;
+      min-width: 0;
+    }
+    /* 關鍵字欄位要短一些：覆蓋上面的 flex 規則並固定寬度 */
+    .filter-group input.keyword {
+      flex: none !important;
+      width: 120px !important;   /* 想更短或更長可調整這裡 */
+      min-width: unset !important;
+    }
+    .filter-group input[type="number"] {
+      width: 80px;
+      flex: none;
+    }
+    .filter-group button.remove-btn {
+      background: #e53935;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      line-height: 24px;
+      text-align: center;
+      user-select: none;
+      display: none; /* 最少一組時隱藏 */
+    }
+    .filter-group button.remove-btn:hover {
+      background: #c62828;
+    }
+    /* 新增 + 按鈕的樣式（固定放在最後一組的數量旁） */
+    .filter-group button.add-btn {
+      background: var(--primary);
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      line-height: 26px;
+      font-size: 24px;
+      user-select: none;
+      padding: 0;
+      margin-left: 4px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .filter-group button.add-btn:hover {
+      background: #43a047;
+    }
+    button#drawBtn {
+      padding: 10px 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 4px var(--shadow);
+      transition: background 0.2s;
+      margin-top: 12px;
+      max-width: 120px;
+      align-self: center;
+    }
+    button#drawBtn:hover:not(:disabled) {
+      background: #43a047;
+    }
+    button#drawBtn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .status {
+      margin: 12px 0 16px;
+      color: #555;
+      font-size: 14px;
+      text-align: center;
+      max-width: 600px;
+      word-break: break-word;
+    }
+    .group-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 12px 0 6px;
+      color: #444;
+      max-width: 600px;
+      text-align: left;
+    }
+    .grid {
+      display: grid;
+      gap: 12px;
+      max-width: 600px;
+      width: 100%;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 6px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .card a {
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: bold;
+      word-break: break-word;
+    }
+    .card span {
+      font-size: 14px;
+      margin-top: 4px;
+      color: #555;
+    }
+    .recipe-card {
+      margin-top: 20px;
+      background: #fff7ec;
+      border: 1px solid #f5d9a7;
+      text-align: center;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px var(--shadow);
+      max-width: 600px;
+      width: 100%;
+    }
+    .recipe-card a {
+      color: #e67e22;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 16px;
+      word-break: break-word;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <h1>商品隨機抽取</h1>
+
+  <div class="controls" id="filtersContainer">
+    <!-- 動態加入的篩選組會在這 -->
+  </div>
+  
+  <button id="drawBtn" disabled>抽取</button>
+
+  <div id="status" class="status">資料載入中…</div>
+
+  <div id="result"></div>
+
+  <!-- 食譜推薦卡片 -->
+  <div id="recipeCard" class="recipe-card" style="display:none;">
+    <span>🎯 今日推薦食譜：</span>
+    <a id="recipeLink" href="#" target="_blank" rel="noopener noreferrer">載入中…</a>
+  </div>
+
+  <script>
+    const CSV_URL = 'https://kitty32219.github.io/dgifood/data.csv';
+    let filteredData = [];
+
+    const recipes = [
+      "https://icook.tw/recipes/478628",
+      "https://icook.tw/recipes/451756",
+      "https://icook.tw/recipes/451755",
+      "https://icook.tw/recipes/451758",
+      "https://icook.tw/recipes/451746",
+      "https://icook.tw/recipes/451745",
+      "https://icook.tw/recipes/451744",
+      "https://icook.tw/recipes/451742",
+      "https://icook.tw/recipes/451738",
+      "https://icook.tw/recipes/451736",
+      "https://icook.tw/recipes/451735"
+    ];
+
+    const statusEl = document.getElementById('status');
+    const resultEl = document.getElementById('result');
+    const filtersContainer = document.getElementById('filtersContainer');
+    const drawBtn = document.getElementById('drawBtn');
+    const recipeCard = document.getElementById('recipeCard');
+    const recipeLink = document.getElementById('recipeLink');
+
+    function setStatus(msg, isError = false) {
+      statusEl.textContent = msg;
+      statusEl.className = 'status' + (isError ? ' error' : '');
+    }
+
+    function sanitizeString(v) {
+      return (v || '').trim();
+    }
+
+    function loadCSV() {
+      setStatus('資料載入中…');
+      drawBtn.disabled = true;
+      resultEl.innerHTML = '';
+
+      Papa.parse(CSV_URL, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: function(res) {
+          const rows = Array.isArray(res.data) ? res.data : [];
+          filteredData = rows.filter(r => sanitizeString(r['超連結']).length > 0 && sanitizeString(r['商品名稱']).length > 0);
+          if (filteredData.length === 0) {
+            setStatus('載入成功，但沒有符合條件的資料。', true);
+            return;
+          }
+          setStatus(`載入完成，共 ${filteredData.length} 筆資料。`);
+          drawBtn.disabled = false;
+        },
+        error: function() {
+          setStatus('載入失敗，請重試', true);
+        }
+      });
+    }
+
+    function pickRandom(arr, count) {
+      const shuffled = [...arr].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, Math.min(count, arr.length));
+    }
+
+    async function resolveRecipeTitle(url) {
+      try {
+        const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+        const res = await fetch(proxy);
+        if (!res.ok) throw new Error('proxy fetch failed');
+        const data = await res.json();
+        const html = data.contents;
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        let title = '';
+        const og = doc.querySelector('meta[property="og:title"]');
+        if (og && og.getAttribute('content')) {
+          title = og.getAttribute('content');
+        } else if (doc.title) {
+          title = doc.title;
+        }
+        title = (title || '').replace(/\s*[|｜]\s*iCook.*$/i, '').replace(/\s*－\s*愛料理.*$/i, '').trim();
+        return title || '';
+      } catch (e) {
+        console.warn('resolveRecipeTitle failed for', url, e);
+        return '';
+      }
+    }
+
+    async function showRandomRecipe() {
+      if (!recipes.length) return;
+      const url = recipes[Math.floor(Math.random() * recipes.length)];
+      recipeLink.href = url;
+      recipeLink.textContent = '載入中…';
+      recipeCard.style.display = 'block';
+      const title = await resolveRecipeTitle(url);
+      recipeLink.textContent = title || '前往看看';
+    }
+
+    async function draw() {
+      const groups = Array.from(filtersContainer.querySelectorAll('.filter-group'));
+      if (groups.length === 0) {
+        setStatus('請新增至少一組關鍵字條件', true);
+        return;
+      }
+
+      resultEl.innerHTML = '';
+
+      let validGroupCount = 0;
+
+      for (const group of groups) {
+        const kw = sanitizeString(group.querySelector('input.keyword').value);
+        let count = parseInt(group.querySelector('input.count').value);
+        if (isNaN(count) || count < 0) count = 0;
+
+        if (count === 0) continue; // 不抽取
+
+        validGroupCount++;
+
+        const titleText = kw ? `關鍵字：「${kw}」抽取 ${count} 項` : `關鍵字：空白（不篩選）抽取 ${count} 項`;
+        const groupTitle = document.createElement('div');
+        groupTitle.className = 'group-title';
+        groupTitle.textContent = titleText;
+        resultEl.appendChild(groupTitle);
+
+        let matched;
+        if (kw) {
+          matched = filteredData.filter(r => r['商品名稱'].includes(kw));
+        } else {
+          matched = [...filteredData];
+        }
+
+        if (matched.length === 0) {
+          const empty = document.createElement('div');
+          empty.textContent = '❌ 沒有找到符合的商品';
+          empty.style.color = '#b00020';
+          empty.style.marginBottom = '12px';
+          resultEl.appendChild(empty);
+        } else {
+          const picks = pickRandom(matched, count);
+          const groupDiv = document.createElement('div');
+          groupDiv.className = 'grid';
+          picks.forEach(item => groupDiv.appendChild(createCard(item)));
+          resultEl.appendChild(groupDiv);
+        }
+      }
+
+      if (validGroupCount === 0) {
+        setStatus('請至少輸入一組數量大於0的條件', true);
+      } else {
+        setStatus(`已為你抽出 ${validGroupCount} 組商品。`);
+      }
+
+      await showRandomRecipe();
+    }
+
+    function createCard(r) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const a = document.createElement('a');
+      a.href = r['超連結'];
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = r['商品名稱'];
+      const cal = document.createElement('span');
+      cal.textContent = `熱量：${r['熱量'] || '—'}`;
+      card.appendChild(a);
+      card.appendChild(cal);
+      return card;
+    }
+
+    function addFilterGroup(kw = '', count = '') {
+      const group = document.createElement('div');
+      group.className = 'filter-group';
+
+      const kwInput = document.createElement('input');
+      kwInput.type = 'text';
+      kwInput.placeholder = '關鍵字（可留空）';
+      kwInput.className = 'keyword';
+      kwInput.value = kw;
+
+      const countInput = document.createElement('input');
+      countInput.type = 'number';
+      countInput.min = '0';
+      countInput.step = '1';
+      countInput.placeholder = '數量';
+      countInput.className = 'count';
+      countInput.value = count;
+
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-btn';
+      removeBtn.title = '移除此組';
+      removeBtn.textContent = '×';
+      removeBtn.addEventListener('click', () => {
+        filtersContainer.removeChild(group);
+        updateRemoveButtons();
+        updateAddButton();
+      });
+
+      group.appendChild(kwInput);
+      group.appendChild(countInput);
+      group.appendChild(removeBtn);
+
+      filtersContainer.appendChild(group);
+
+      updateRemoveButtons();
+      updateAddButton();
+    }
+
+    function updateRemoveButtons() {
+      const groups = filtersContainer.querySelectorAll('.filter-group');
+      groups.forEach((g) => {
+        const btn = g.querySelector('button.remove-btn');
+        btn.style.display = groups.length > 1 ? 'inline-block' : 'none';
+      });
+    }
+
+    function updateAddButton() {
+      // 先移除所有現有的 + 按鈕
+      const oldAddBtns = filtersContainer.querySelectorAll('button.add-btn');
+      oldAddBtns.forEach(btn => btn.remove());
+
+      // 在最後一組 filter-group 加入一個 + 按鈕
+      const groups = filtersContainer.querySelectorAll('.filter-group');
+      if (groups.length === 0) return;
+
+      const lastGroup = groups[groups.length - 1];
+      const addBtn = document.createElement('button');
+      addBtn.className = 'add-btn';
+      addBtn.title = '新增關鍵字條件';
+      addBtn.textContent = '+';
+      addBtn.addEventListener('click', () => addFilterGroup());
+      lastGroup.appendChild(addBtn);
+    }
+
+    drawBtn.addEventListener('click', () => {
+      drawBtn.disabled = true;
+      draw().finally(() => drawBtn.disabled = false);
+    });
+
+    // 初始化：先加一組輸入欄，並載入 CSV
+    addFilterGroup();
+    loadCSV();
+  </script>
+</body>
+</html>
