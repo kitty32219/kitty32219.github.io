@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>隨機餐盤 - 動態關鍵字+數量設定</title>
   <style>
+    #commonKeywords {
+  display: inline-block;
+  gap: 8px;
+  user-select: none;
+}
+#commonKeywords span {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--primary);
+  color: white;
+  border-radius: 16px;
+  margin: 0 4px 4px 0;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+}
     :root {
       --primary: #4CAF50;
       --bg: #f9f9fb;
@@ -201,6 +217,14 @@
     <li>留空不輸入，會從所有品項中隨機抽取。</li>
     <li>點擊加號（➕）可新增更多搜尋條件。</li>
   </ul>
+</div>
+<div style="max-width:600px; margin-bottom:12px; text-align:center; color:#555; font-size:14px;">
+  <strong>常見關鍵字：</strong>
+  <span id="commonKeywords" style="user-select:none; cursor:pointer; color: var(--primary);">
+    無糖 低卡 麥麩皮 蛋糕 冰淇淋 餅乾 主食 吐司 麵包
+  </span>
+  <br />
+  你也可以試試看自己輸入想要的關鍵字！
 </div>
 
   <div class="controls" id="filtersContainer">
@@ -605,8 +629,57 @@
     });
 
     // 初始化：先加一組輸入欄，並載入 CSV
+    // 生成常見關鍵字的span，讓它們可拖拉和點擊快速輸入
+(function setupCommonKeywords() {
+  const keywordsStr = '無糖 低卡 麥麩皮 蛋糕 冰淇淋 餅乾 主食 吐司 麵包';
+  const container = document.getElementById('commonKeywords');
+  container.innerHTML = ''; // 清空預設文字
+
+  keywordsStr.split(' ').forEach(kw => {
+    const span = document.createElement('span');
+    span.textContent = kw;
+    span.draggable = true;
+
+    // 拖拉開始事件，設定 dataTransfer 資料
+    span.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', kw);
+    });
+
+    // 點擊事件：直接填入最後一組 keyword 輸入框（覆蓋內容）
+    span.addEventListener('click', () => {
+      const groups = document.querySelectorAll('.filter-group');
+      if (groups.length === 0) return;
+      const lastGroup = groups[groups.length - 1];
+      const kwInput = lastGroup.querySelector('input.keyword');
+      if (kwInput) {
+        kwInput.value = kw;
+      }
+    });
+
+    container.appendChild(span);
+  });
+
+  // 允許拖放到 keyword 輸入框
+  document.addEventListener('dragover', e => {
+    if (e.target.classList.contains('keyword')) {
+      e.preventDefault();
+    }
+  });
+
+  document.addEventListener('drop', e => {
+    if (e.target.classList.contains('keyword')) {
+      e.preventDefault();
+      const data = e.dataTransfer.getData('text/plain');
+      if (data) {
+        e.target.value = data;
+      }
+    }
+  });
+})();
+
     addFilterGroup();
     loadCSV();
   </script>
 </body>
 </html>
+
