@@ -172,6 +172,10 @@
         <div id="drop-zone">
           <p>拖拉選項到這裡</p>
         </div>
+	<!-- 重置按鈕 -->
+        <button type="button" id="reset-q2" style="margin-top:10px; background:#888; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">
+         重置第二題
+        </button>
 
       </div>
     </div>
@@ -310,6 +314,15 @@
   });
 
   // 提交判斷邏輯
+  document.getElementById('reset-q2').addEventListener('click', function () {
+  // 清空右邊放置區
+  dropZone.innerHTML = '<p>拖拉選項到這裡</p>';
+
+  // 顯示左邊所有選項
+  dragItems.forEach(i => {
+    i.style.display = 'block';
+  });
+   });
   document.getElementById('submit-btn').addEventListener('click', function () {
     const resultDiv = document.getElementById('result');
     resultDiv.style.color = 'red';
