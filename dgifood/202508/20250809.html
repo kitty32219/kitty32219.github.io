@@ -365,7 +365,10 @@
 
     if (score === 3) {
       resultDiv.style.color = 'green';
-      resultDiv.innerHTML = `恭喜你全部答對！你的折扣碼是：<strong>待輸入</strong><br>
+      resultDiv.innerHTML = `🎉 恭喜你全部答對！這是你的折扣碼
+      <strong>
+      <span style="color: #d9534f;">待輸入</span><br>
+      </strong><br>
       <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank" rel="noopener">點我使用</a>`;
     } else {
       resultDiv.innerHTML = `你答對了 ${score} 題。再接再厲，答對三題即可獲得折扣碼！`;
@@ -375,5 +378,6 @@
 
 </body>
 </html>
+
 
 
