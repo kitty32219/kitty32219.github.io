@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>小問答遊戲：營養標籤知識測試</title>
+<style>
+  /* 無印良品風格主色調 */
+  #quiz-container {
+    max-width: 650px;
+    margin: 30px auto;
+    font-family: "Noto Sans TC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 25px 30px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    color: #333;
+  }
+  #quiz-container h2 {
+    font-weight: 500;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  #quiz-container p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+  }
+  form {
+    margin-top: 20px;
+  }
+  .question {
+    margin-bottom: 25px;
+  }
+  .question p {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus {
+    border-color: #a5a5a5;
+    outline: none;
+  }
+  label {
+    font-weight: 400;
+    font-size: 1rem;
+    color: #555;
+    cursor: pointer;
+  }
+  label input[type="radio"] {
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  #drag-items, #drop-zone {
+    flex: 1;
+    min-width: 200px;
+    border-radius: 6px;
+    min-height: 140px;
+    background: #fff;
+  }
+  #drag-items {
+    border: 1.5px solid #ddd;
+    padding: 15px;
+  }
+  #drag-items p, #drop-zone p {
+    margin: 6px 4px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  #drag-items p {
+    background: #f0f0f0;
+    cursor: grab;
+    color: #555;
+  }
+  #drag-items p:active {
+    cursor: grabbing;
+    background-color: #ddd;
+  }
+  #drop-zone {
+    border: 2px dashed #bbb;
+    padding: 15px;
+    color: #999;
+    font-weight: 400;
+  }
+  #drop-zone p {
+    background: #e8e8e8;
+    color: #444;
+    cursor: grab;
+  }
+  #submit-btn {
+    display: inline-block;
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #submit-btn:hover {
+    background: #666;
+  }
+  #result {
+    margin-top: 22px;
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+  /* 拖拉時外觀提示 */
+  #drop-zone.dragover {
+    background-color: #f0f0f0;
+  }
+  #drag-items.dragover {
+    background-color: #f9f9f9;
+  }
+  #result a {
+    display: inline-block;
+    margin-top: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #2a6ebb;
+  }
+  #result a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<div id="quiz-container">
+
+  <h2>小問答遊戲：測試你對營養標籤的了解！</h2>
+  <p>答對三題即可獲得折扣碼！</p>
+
+  <form id="quiz-form">
+
+    <!-- 簡答題 -->
+    <div class="question" data-answer="水">
+      <p><strong>1. 麥麩皮吐司中因為什麼成分最多，所以熱量低？（請輸入中文回答）</strong></p>
+      <input type="text" id="q1-input" name="q1" placeholder="請輸入答案">
+    </div>
+
+    <!-- 拖拉排序題 -->
+    <div class="question">
+      <p><strong>2. 以下哪些食材常用於取代一般烘焙食材，以減少熱量或增加飽足感？請將正確的食材拖到旁邊的框內。（多選）</strong></p>
+
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+
+        <!-- 拖拉區 -->
+        <div id="drag-items">
+          <p draggable="true" data-id="赤藻糖醇">赤藻糖醇</p>
+          <p draggable="true" data-id="麥麩皮">麥麩皮</p>
+          <p draggable="true" data-id="磷酸二澱粉">磷酸二澱粉</p>
+          <p draggable="true" data-id="亞硝酸鹽">亞硝酸鹽</p>
+          <p draggable="true" data-id="豆渣">豆渣</p>
+        </div>
+
+        <!-- 放置區 -->
+        <div id="drop-zone">
+          <p>拖拉選項到這裡</p>
+        </div>
+	<!-- 重置按鈕 -->
+        <button type="button" id="reset-q2" style="margin-top:10px; background:#888; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">
+         重置第二題
+        </button>
+
+      </div>
+    </div>
+
+    <!-- 單選題 -->
+    <div class="question" data-answer="c">
+      <p><strong>3. 食品成分標示中，成分排序代表什麼意思？</strong></p>
+      <label><input type="radio" name="q3" value="a"> 熱量最高的成分排第一</label><br>
+      <label><input type="radio" name="q3" value="b"> 按字母排序</label><br>
+      <label><input type="radio" name="q3" value="c"> 含量由多至少排列</label>
+    </div>
+
+    <button type="button" id="submit-btn">提交答案</button>
+  </form>
+
+  <div id="result"></div>
+
+</div>
+
+<script>
+  const dragItems = document.querySelectorAll('#drag-items p');
+  const dropZone = document.getElementById('drop-zone');
+  const dragArea = document.getElementById('drag-items');
+
+  // 拖拉左邊項目事件
+  dragItems.forEach(item => {
+    item.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', e.target.textContent);
+      e.dataTransfer.effectAllowed = "move";
+      setTimeout(() => {
+        e.target.style.display = "none";
+      }, 0);
+    });
+    item.addEventListener('dragend', e => {
+      // 拖放結束如果仍隱藏，代表成功拖出，否則恢復顯示
+      if (e.target.style.display === 'none') {
+        // 不恢復顯示
+      } else {
+        e.target.style.display = "block";
+      }
+    });
+  });
+
+  // 拖拉右邊放置區項目事件 (可拖回左邊)
+  dropZone.addEventListener('dragstart', e => {
+    if (e.target.tagName === 'P') {
+      e.dataTransfer.setData('text/plain', e.target.textContent);
+      e.dataTransfer.effectAllowed = "move";
+      setTimeout(() => {
+        e.target.style.display = "none";
+      }, 0);
+    }
+  });
+  dropZone.addEventListener('dragend', e => {
+    if (e.target.tagName === 'P') {
+      if (e.target.style.display === 'none') {
+        // 不恢復顯示
+      } else {
+        e.target.style.display = "block";
+      }
+    }
+  });
+
+  // 放到右邊放置區
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+    e.dataTransfer.dropEffect = "move";
+  });
+  dropZone.addEventListener('dragleave', e => {
+    dropZone.classList.remove('dragover');
+  });
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const text = e.dataTransfer.getData('text/plain');
+
+    if ([...dropZone.children].some(c => c.textContent === text)) return;
+
+    // 移除提示文字
+    const placeholder = dropZone.querySelector('p');
+    if (placeholder && placeholder.textContent === "拖拉選項到這裡") {
+      dropZone.removeChild(placeholder);
+    }
+
+    const p = document.createElement('p');
+    p.textContent = text;
+    p.style.margin = "6px 4px";
+    p.style.padding = "8px 10px";
+    p.style.background = "#e8e8e8";
+    p.style.borderRadius = "4px";
+    p.style.color = "#444";
+    p.style.fontWeight = "500";
+    p.style.cursor = "grab";
+    p.setAttribute('draggable', 'true');
+    dropZone.appendChild(p);
+
+    // 隱藏左邊對應項目
+    dragItems.forEach(i => {
+      if (i.textContent === text) i.style.display = 'none';
+    });
+  });
+
+  // 放回左邊拖拉區
+  dragArea.addEventListener('dragover', e => {
+    e.preventDefault();
+    dragArea.classList.add('dragover');
+    e.dataTransfer.dropEffect = "move";
+  });
+  dragArea.addEventListener('dragleave', e => {
+    dragArea.classList.remove('dragover');
+  });
+  dragArea.addEventListener('drop', e => {
+    e.preventDefault();
+    dragArea.classList.remove('dragover');
+    const text = e.dataTransfer.getData('text/plain');
+
+    // 移除右邊放置區該項目（若存在）
+    const dropChildren = [...dropZone.children];
+    const removeItem = dropChildren.find(c => c.textContent === text);
+    if (removeItem) dropZone.removeChild(removeItem);
+
+    // 顯示左邊原本的項目
+    dragItems.forEach(i => {
+      if (i.textContent === text) i.style.display = 'block';
+    });
+
+    // 放置區空了，顯示提示
+    if (dropZone.children.length === 0) {
+      const p = document.createElement('p');
+      p.textContent = "拖拉選項到這裡";
+      p.style.color = "#999";
+      p.style.fontWeight = "400";
+      dropZone.appendChild(p);
+    }
+  });
+
+  // 提交判斷邏輯
+  document.getElementById('reset-q2').addEventListener('click', function () {
+  // 清空右邊放置區
+  dropZone.innerHTML = '<p>拖拉選項到這裡</p>';
+
+  // 顯示左邊所有選項
+  dragItems.forEach(i => {
+    i.style.display = 'block';
+  });
+   });
+  document.getElementById('submit-btn').addEventListener('click', function () {
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.color = 'red';
+    resultDiv.innerHTML = '';
+
+    // 第一題
+    const q1 = document.getElementById('q1-input').value.trim();
+    if (q1 === '') {
+      resultDiv.textContent = '請回答第一題的簡答問題喔！';
+      return;
+    }
+
+    // 第二題
+    const correctSecondItems = ['赤藻糖醇', '麥麩皮', '磷酸二澱粉', '豆渣'];
+    // 亞硝酸鹽是錯誤選項
+
+    const selectedSecondItems = [...dropZone.children].map(p => p.textContent).filter(t => t !== "拖拉選項到這裡");
+
+    if (selectedSecondItems.length === 0) {
+      resultDiv.textContent = '請將第二題的食材拖入右側框內！';
+      return;
+    }
+
+    // 第三題
+    const q3 = document.querySelector('input[name="q3"]:checked');
+    if (!q3) {
+      resultDiv.textContent = '請選擇第三題的答案！';
+      return;
+    }
+
+    // 判斷第一題
+    // 允許答案包含「水」即可視為正確（不區分大小寫）
+    const q1_correct = q1.includes('水');
+
+    // 判斷第二題
+    // 正確：赤藻糖醇、麥麩皮、磷酸二澱粉、豆渣都要選，且不能選錯誤項目（亞硝酸鹽）
+    let q2_correct = true;
+    for (const c of correctSecondItems) {
+      if (!selectedSecondItems.includes(c)) {
+        q2_correct = false;
+        break;
+      }
+    }
+    if (selectedSecondItems.includes('亞硝酸鹽')) q2_correct = false;
+
+    // 判斷第三題
+    const q3_correct = q3.value === 'c';
+
+    let score = 0;
+    if (q1_correct) score++;
+    if (q2_correct) score++;
+    if (q3_correct) score++;
+
+    if (score === 3) {
+      resultDiv.style.color = 'green';
+      resultDiv.innerHTML = `🎉 恭喜你全部答對！這是你的折扣碼
+      <strong>
+      <span style="color: #d9534f;">待輸入</span><br>
+      </strong><br>
+      <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank" rel="noopener">點我使用</a>`;
+    } else {
+      resultDiv.innerHTML = `你答對了 ${score} 題。再接再厲，答對三題即可獲得折扣碼！`;
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
+
