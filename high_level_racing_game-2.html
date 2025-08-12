@@ -66,6 +66,13 @@
   </div>
 
 <script>
+let tiltX = 0;
+window.addEventListener('deviceorientation', (event) => {
+    if (event.gamma !== null) {
+      tiltX = event.gamma;
+    }
+  });
+
 // ------------------ 基本設定 ------------------
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
@@ -81,6 +88,37 @@ function fitCanvas(){
   const maxW = Math.min(window.innerWidth - 40, 900);
   const sizeW = maxW;
   canvas.style.width = sizeW + 'px';
+}
+function updatePlayerWithTilt(dt) { 
+  if (gameOver) return;
+
+  const threshold = 10; // 小於這個角度忽略避免晃動
+  const maxTilt = 40;   // 最大傾斜角度限制
+
+  // 限制傾斜值範圍在 [-maxTilt, maxTilt]
+  let val = Math.min(Math.max(tiltX, -maxTilt), maxTilt);
+
+  if (Math.abs(val) > threshold) {
+    // 把傾斜角度映射成 0~1 的比例
+    const normalized = (val + maxTilt) / (2 * maxTilt);
+
+    // 根據比例設定車子目標 X 座標
+    player.targetX = ROAD.x + normalized * ROAD.w - player.w / 2;
+  }
+  // 小於閾值就保持原本目標位置不變
+}
+function loop(ts) {
+  // ...其他程式碼...
+
+  updatePlayerWithTilt(dt); // 加這行呼叫傾斜控制
+
+  // 原本讓車子平滑移動到目標位置
+  player.x += (player.targetX - player.x) * clamp((player.speed * (dt/16))/10, 0.06, 1);
+
+  // ...其他程式碼...
+}
+function clamp(num, min, max) {
+  return num < min ? min : num > max ? max : num;
 }
 window.addEventListener('resize', fitCanvas);
 fitCanvas();
