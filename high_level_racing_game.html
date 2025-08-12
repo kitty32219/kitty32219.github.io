@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>高階版賽車遊戲（HTML5 Canvas）</title>
+  <style>
+    :root{--bg:#0b1220;--road:#2b2b2b;--line:#ffffff;--panel:#0f1724;--accent:#ffd166}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans TC',"Microsoft JhengHei",sans-serif;background:var(--bg);color:#e6eef8}
+    #gameWrap{max-width:900px;margin:18px auto;padding:12px;box-sizing:border-box}
+    canvas{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6);background:linear-gradient(#101826,#0b1220)}
+    .ui{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:10px}
+    .panel{background:var(--panel);padding:10px;border-radius:10px;min-width:160px}
+    .controls{display:flex;gap:8px;align-items:center}
+    button{background:#142030;border:1px solid rgba(255,255,255,0.06);color:#e6eef8;padding:8px 12px;border-radius:8px;cursor:pointer}
+    button:hover{transform:translateY(-1px)}
+    #msg{opacity:0.9;font-size:14px}
+    .small{font-size:13px;color:#9fb0c8}
+    .touch-controls{display:none;gap:8px}
+    @media (max-width:700px){.touch-controls{display:flex}} 
+  </style>
+</head>
+<body>
+  <div id="gameWrap">
+    <canvas id="c" width="600" height="800" aria-label="賽車遊戲畫布"></canvas>
+
+    <div class="ui">
+      <div class="panel">
+        <div id="msg"><strong>高階版賽車遊戲</strong></div>
+        <div class="small">方向鍵左右移動 / 或 點擊左右區塊（手機）</div>
+      </div>
+
+      <div class="panel controls">
+        <div>分數: <span id="score">0</span></div>
+        <div>速度: <span id="spd">1.00</span>x</div>
+        <button id="pauseBtn">暫停</button>
+        <button id="restartBtn">重新開始</button>
+      </div>
+
+      <div class="panel small">
+        <div>版本：HTML5 • 無需安裝</div>
+        <div class="small">建議使用桌機 Chrome/Edge 或手機橫向瀏覽</div>
+      </div>
+    </div>
+
+    <div class="touch-controls" style="margin-top:8px;justify-content:center;">
+      <button id="leftTouch">◀︎</button>
+      <button id="rightTouch">▶︎</button>
+    </div>
+  </div>
+
+<script>
+// ------------------ 基本設定 ------------------
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W = canvas.width, H = canvas.height;
+const scoreEl = document.getElementById('score');
+const spdEl = document.getElementById('spd');
+const pauseBtn = document.getElementById('pauseBtn');
+const restartBtn = document.getElementById('restartBtn');
+
+// Resize canvas while keeping internal resolution consistent
+function fitCanvas(){
+  const ratio = W / H;
+  const maxW = Math.min(window.innerWidth - 40, 900);
+  const sizeW = maxW;
+  canvas.style.width = sizeW + 'px';
+}
+window.addEventListener('resize', fitCanvas);
+fitCanvas();
+
+// 道路與車設定
+const ROAD = {x: 80, w: W - 160};
+const LANE_COUNT = 3;
+const LANE_W = ROAD.w / LANE_COUNT;
+
+const player = {
+  lane: 1, // 0,1,2
+  x: 0,
+  y: H - 140,
+  w: Math.min(56, LANE_W * 0.6),
+  h: 110,
+  targetX:0,
+  speed: 8, // 橫向插值速度
+  color: '#ffd166'
+};
+
+let enemies = []; // 敵車
+let particles = [];
+let lastSpawn = 0;
+let spawnInterval = 1200; // ms
+let gameSpeed = 1.0; // 隨時間增加
+let baseSpeed = 6; // 垂直速度基準
+let score = 0;
+let running = true;
+let lastTime = 0;
+let gameOver = false;
+
+// 音效（可選） - 使用小型 WebAudio API 產生音效
+const audioCtx = (typeof AudioContext !== 'undefined') ? new AudioContext() : null;
+function beep(freq, duration=0.06, vol=0.1){
+  if(!audioCtx) return;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type='sine'; o.frequency.value = freq;
+  g.gain.value = vol;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start();
+  o.stop(audioCtx.currentTime + duration);
+}
+
+// ------------------ 工具函式 ------------------
+function rand(min,max){return Math.random()*(max-min)+min}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+
+function laneToX(lane){
+  return ROAD.x + lane * LANE_W + (LANE_W - player.w)/2;
+}
+
+// ------------------ 初始化 ------------------
+player.x = laneToX(player.lane);
+player.targetX = player.x;
+
+// ------------------ 玩家控制 ------------------
+const keys = {};
+window.addEventListener('keydown', e=>{
+  keys[e.key] = true;
+  if(e.key === 'ArrowLeft' || e.key === 'a') moveLeft();
+  if(e.key === 'ArrowRight' || e.key === 'd') moveRight();
+  if(e.key === ' '){ // 空白鍵 - 加速短促
+    gameSpeed = clamp(gameSpeed + 0.5, 1, 3);
+    beep(880,0.05,0.05);
+  }
+});
+window.addEventListener('keyup', e=>{keys[e.key]=false});
+
+function moveLeft(){ if(gameOver) return; player.lane = clamp(player.lane-1,0,LANE_COUNT-1); player.targetX = laneToX(player.lane); }
+function moveRight(){ if(gameOver) return; player.lane = clamp(player.lane+1,0,LANE_COUNT-1); player.targetX = laneToX(player.lane); }
+
+// 手機觸控左右
+document.getElementById('leftTouch').addEventListener('touchstart', (e)=>{ e.preventDefault(); moveLeft(); });
+document.getElementById('rightTouch').addEventListener('touchstart', (e)=>{ e.preventDefault(); moveRight(); });
+
+// 暫停 / 重新開始
+pauseBtn.addEventListener('click', ()=>{ running = !running; pauseBtn.textContent = running ? '暫停' : '繼續'; if(running) requestAnimationFrame(loop); });
+restartBtn.addEventListener('click', resetGame);
+
+// ------------------ 敵人生成 ------------------
+function spawnEnemy(){
+  const lane = Math.floor(rand(0, LANE_COUNT));
+  const type = Math.random() < 0.2 ? 'truck' : 'car';
+  const w = player.w * (type==='truck'?1.2:0.9);
+  const h = player.h * (type==='truck'?1.05:0.9);
+  enemies.push({
+    lane, x: laneToX(lane) + (player.w - w)/2,
+    y: -h - rand(10,200), w, h,
+    speed: baseSpeed + rand(0,2),
+    color: type==='truck' ? '#ef476f' : '#06d6a0',
+    wobble: rand(-0.4,0.4)
+  });
+}
+
+// ------------------ 碰撞偵測 ------------------
+function rectsCollide(a,b){
+  return !(a.x + a.w < b.x || b.x + b.w < a.x || a.y + a.h < b.y || b.y + b.h < a.y);
+}
+
+// ------------------ 粒子效果 ------------------
+function spawnParticles(x,y,col,count=12){
+  for(let i=0;i<count;i++){
+    particles.push({x,y,vx:rand(-3,3),vy:rand(-6,2),r:rand(2,6),life:rand(40,80),col});
+  }
+}
+
+// ------------------ 繪圖 ------------------
+function drawRoad(offsetY){
+  // 背景
+  ctx.fillStyle = '#0b1220';
+  ctx.fillRect(0,0,W,H);
+
+  // 道路底色
+  ctx.fillStyle = '#202427';
+  ctx.fillRect(ROAD.x - 20, 0, ROAD.w + 40, H);
+
+  // 道路邊緣
+  ctx.strokeStyle = '#111'; ctx.lineWidth = 6;
+  roundRect(ctx, ROAD.x - 20, 0, ROAD.w + 40, H, 12);
+
+  // 車道線
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 2;
+  for(let i=1;i<LANE_COUNT;i++){
+    const lx = ROAD.x + i*LANE_W;
+    for(let y = (offsetY%40)-40; y < H; y += 40){
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.fillRect(lx - 3, y + 8, 6, 24);
+    }
+  }
+
+  // 左右護欄
+  ctx.fillStyle = '#111827';
+  ctx.fillRect(ROAD.x - 36, 0, 16, H);
+  ctx.fillRect(ROAD.x + ROAD.w + 20, 0, 16, H);
+}
+
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+  ctx.stroke();
+}
+
+function drawCar(obj, fill=true, rot=0){
+  ctx.save();
+  ctx.translate(obj.x + obj.w/2, obj.y + obj.h/2);
+  if(rot) ctx.rotate(rot);
+  ctx.translate(-obj.w/2, -obj.h/2);
+
+  // 車身
+  const grad = ctx.createLinearGradient(0,0,obj.w,0);
+  grad.addColorStop(0, shadeColor(obj.color, -20));
+  grad.addColorStop(1, obj.color);
+  ctx.fillStyle = grad;
+  roundRectFill(ctx, 0, 0, obj.w, obj.h, 10);
+
+  // 車窗
+  ctx.fillStyle = 'rgba(255,255,255,0.22)';
+  ctx.fillRect(obj.w*0.18, obj.h*0.14, obj.w*0.64, obj.h*0.36);
+
+  // 輪胎
+  ctx.fillStyle = '#1b1b1b';
+  const tw = obj.w*0.18, th = obj.h*0.22;
+  ctx.fillRect(obj.w*0.08, obj.h - th*0.6, tw, th);
+  ctx.fillRect(obj.w - obj.w*0.08 - tw, obj.h - th*0.6, tw, th);
+
+  ctx.restore();
+}
+
+function roundRectFill(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function shadeColor(col, percent) {
+  // col like #rrggbb
+  const num = parseInt(col.slice(1),16);
+  const r = Math.min(255, Math.max(0, (num>>16) + Math.round(255*percent/100)));
+  const g = Math.min(255, Math.max(0, ((num>>8)&0x00FF) + Math.round(255*percent/100)));
+  const b = Math.min(255, Math.max(0, (num&0x0000FF) + Math.round(255*percent/100)));
+  return `rgb(${r},${g},${b})`;
+}
+
+// ------------------ 遊戲主迴圈 ------------------
+let roadOffset = 0;
+function loop(ts){
+  if(!lastTime) lastTime = ts;
+  const dt = Math.min(40, ts - lastTime); // cap dt for stability
+  lastTime = ts;
+  if(!running) { requestAnimationFrame(loop); return; }
+
+  // 增加難度
+  gameSpeed += dt*0.00008; // 慢慢加速
+  spdEl.textContent = gameSpeed.toFixed(2);
+
+  // 背景 & 道路
+  roadOffset += (baseSpeed * gameSpeed) * (dt/16);
+  drawRoad(roadOffset);
+
+  // 玩家平滑移動
+  player.x += (player.targetX - player.x) * clamp((player.speed * (dt/16))/10, 0.06, 1);
+
+  // 繪製玩家
+  const playerObj = {x:player.x, y:player.y, w:player.w, h:player.h, color:player.color};
+  drawCar(playerObj, true, Math.sin(ts/120)*0.02);
+
+  // 生成敵人
+  if(ts - lastSpawn > spawnInterval){ spawnEnemy(); lastSpawn = ts; spawnInterval = clamp(1200 - score*8, 520, 1600); }
+
+  // 更新敵人
+  for(let i=enemies.length-1;i>=0;i--){
+    const e = enemies[i];
+    e.y += (e.speed + baseSpeed*0.5) * (gameSpeed * (dt/16));
+    e.x += Math.sin(ts/100 + (i))*0.2 * e.w * e.wobble/12; // 微小左右擺動
+    drawCar(e,false,0);
+
+    // 過畫面移除並加分
+    if(e.y > H + 60){ enemies.splice(i,1); score += 10; scoreEl.textContent = score; beep(400,0.02,0.01); }
+
+    // 碰撞偵測
+    if(rectsCollide(playerObj, e)){
+      // 撞擊效果
+      spawnParticles(playerObj.x + playerObj.w/2, playerObj.y + playerObj.h/2, '#ff7b7b', 30);
+      spawnParticles(e.x + e.w/2, e.y + e.h/2, '#ffb86b', 24);
+      gameOver = true; running = false; pauseBtn.textContent = '暫停';
+      beep(120,0.12,0.14);
+      showGameOver();
+      break;
+    }
+  }
+
+  // 粒子更新
+  for(let i=particles.length-1;i>=0;i--){
+    const p = particles[i];
+    p.x += p.vx; p.y += p.vy; p.vy += 0.25; p.life--;
+    ctx.globalAlpha = clamp(p.life/80,0,1);
+    ctx.fillStyle = p.col; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); ctx.globalAlpha = 1;
+    if(p.life<=0) particles.splice(i,1);
+  }
+
+  // HUD / 速度線條
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.fillRect(12,12,160,46);
+  ctx.fillStyle = '#fff'; ctx.font = '18px system-ui'; ctx.fillText('Score: ' + score, 22, 36);
+
+  if(!gameOver) requestAnimationFrame(loop);
+}
+
+function showGameOver(){
+  // 繪製文字（覆蓋畫面）
+  ctx.fillStyle = 'rgba(2,6,23,0.7)'; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = '#ffd166'; ctx.font = 'bold 46px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText('GAME OVER', W/2, H/2 - 20);
+  ctx.fillStyle = '#fff'; ctx.font = '20px system-ui';
+  ctx.fillText('最終分數: ' + score, W/2, H/2 + 18);
+  ctx.fillStyle = '#9fb0c8'; ctx.font = '14px system-ui';
+  ctx.fillText('按 R 重新開始或點擊重新開始按鈕', W/2, H/2 + 46);
+}
+
+// 監聽 R 鍵重新開始
+window.addEventListener('keydown', (e)=>{ if(e.key.toLowerCase()==='r'){ resetGame(); } });
+
+function resetGame(){
+  enemies = []; particles = []; score = 0; scoreEl.textContent = score; gameSpeed = 1; baseSpeed = 6; spawnInterval = 1200; lastSpawn = 0; gameOver = false; running = true; player.lane = 1; player.x = laneToX(1); player.targetX = player.x; lastTime = 0; requestAnimationFrame(loop);
+}
+
+// 簡單的 start
+requestAnimationFrame(loop);
+
+// 幫助函式
+function laneToX(lane){ return ROAD.x + lane * LANE_W + (LANE_W - player.w)/2; }
+
+// 初始化畫面尺寸 / 更新 ROAD/LANE_W
+(function recalc(){
+  // 將內部參數根據 canvas 寬度自動調整（若你改變 canvas 屬性，可呼叫此函式）
+  const scale = W / 600; // base
+  player.w = Math.round(Math.min(68, LANE_W * 0.6));
+})();
+
+// 先給使用者些提示音（靜音瀏覽器會阻止）
+window.addEventListener('pointerdown', ()=>{ if(audioCtx && audioCtx.state==='suspended') audioCtx.resume(); }, {once:true});
+
+</script>
+</body>
+</html>
