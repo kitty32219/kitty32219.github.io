@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>膳食纖維小測驗</title>
+<style>
+body { font-family: 'Arial', sans-serif; background-color: #f8f8f8; padding: 20px; }
+h1 { text-align: center; }
+.question { background-color: #fff; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.draggables { display: flex; gap: 10px; margin-top: 10px; }
+.draggable { padding: 8px 12px; background-color: #e0e0e0; border-radius: 5px; cursor: grab; }
+.droppable-container { margin-top: 10px; }
+.droppable { min-height: 50px; padding: 10px; border: 2px dashed #ccc; border-radius: 5px; }
+button { margin-top: 10px; padding: 8px 12px; border: none; border-radius: 5px; background-color: #333; color: #fff; cursor: pointer; }
+button:hover { background-color: #555; }
+.selected { background-color: #a0e0a0; }
+</style>
+</head>
+<body>
+<h1>膳食纖維小測驗</h1>
+<div class="question">
+  <p>1. 是非題：一個食物含有非水溶性纖維，還可能含有水溶性纖維嗎？</p>
+  <button onclick="selectAnswer(1,true,this)">是</button>
+  <button onclick="selectAnswer(1,false,this)">否</button>
+</div>
+<div class="question">
+  <p>2. 配對題（拉移式，手機使用時記得久按以正常執行）：將下列食材拖放到其主要含有的纖維類型</p>
+  <div class="draggables" id="draggables">
+    <div class="draggable" draggable="true" id="豆渣">豆渣</div>
+    <div class="draggable" draggable="true" id="洋車前子">洋車前子</div>
+    <div class="draggable" draggable="true" id="麥麩皮">麥麩皮</div>
+  </div>
+  <div class="droppable-container">
+    <p>水溶性纖維：</p>
+    <div class="droppable" id="water-soluble"></div>
+  </div>
+  <div class="droppable-container">
+    <p>非水溶性纖維：</p>
+    <div class="droppable" id="insoluble"></div>
+  </div>
+  <button onclick="resetDragDrop()">重製</button>
+</div>
+<div class="question">
+  <p>3. 腸道菌主要發酵何種纖維？</p>
+  <button onclick="selectAnswer(3,'水溶性',this)">水溶性纖維</button>
+  <button onclick="selectAnswer(3,'非水溶性',this)">非水溶性纖維</button>
+</div>
+<div class="question">
+  <button onclick="submitAll()">提交答案</button>
+</div>
+<div id="result" class="question" style="display:none;"></div>
+<script>
+let score1 = null;
+let score2 = 0;
+let score3 = null;
+let ans1 = null;
+let ans3 = null;
+
+function selectAnswer(q, val, btn) {
+  if(q===1){
+    ans1 = val;
+    score1 = null; // 等提交時計分
+    document.querySelectorAll('.question:nth-of-type(1) button').forEach(b=>b.classList.remove('selected'));
+  } else if(q===3){
+    ans3 = val;
+    score3 = null;
+    document.querySelectorAll('.question:nth-of-type(3) button').forEach(b=>b.classList.remove('selected'));
+  }
+  btn.classList.add('selected');
+}
+
+// Drag & Drop
+const draggables = document.querySelectorAll('.draggable');
+const droppables = document.querySelectorAll('.droppable');
+draggables.forEach(d => d.addEventListener('dragstart', e=> e.dataTransfer.setData('text', e.target.id)));
+droppables.forEach(drop => {
+  drop.addEventListener('dragover', e=>e.preventDefault());
+  drop.addEventListener('drop', e=>{
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text');
+    const el = document.getElementById(id);
+    drop.appendChild(el);
+    checkDragDrop();
+  });
+});
+
+function resetDragDrop(){
+  ['豆渣','洋車前子','麥麩皮'].forEach(id => document.getElementById(id).remove());
+  const parent = document.getElementById('draggables');
+  ['豆渣','洋車前子','麥麩皮'].forEach(id => {
+    const div = document.createElement('div');
+    div.className='draggable';
+    div.draggable=true;
+    div.id=id;
+    div.textContent=id;
+    div.addEventListener('dragstart', e=>e.dataTransfer.setData('text', e.target.id));
+    parent.appendChild(div);
+  });
+  document.getElementById('water-soluble').innerHTML='';
+  document.getElementById('insoluble').innerHTML='';
+  score2 = 0;
+}
+
+function checkDragDrop(){
+  const waterIDs = Array.from(document.getElementById('water-soluble').children).map(c=>c.id);
+  const insolubleIDs = Array.from(document.getElementById('insoluble').children).map(c=>c.id);
+  if (waterIDs.includes('洋車前子') && waterIDs.length===1 && insolubleIDs.includes('豆渣') && insolubleIDs.includes('麥麩皮') && insolubleIDs.length===2){
+    score2=1;
+  } else {
+    score2=0;
+  }
+}
+
+function submitAll(){
+  // 計分
+  score1 = ans1 ? 1:0;
+  score3 = (ans3==='水溶性')?1:0;
+  const total = score1 + score2 + score3;
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display='block';
+  resultDiv.innerHTML=`<p>答對 ${total}/3 題</p>`+(total===3?`<p>恭喜！你的專屬折扣碼：<strong>DISCOUNT</strong></p>`:'');
+}
+</script>
+</body>
+</html>
