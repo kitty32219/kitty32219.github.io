@@ -25,7 +25,7 @@ button:hover { background-color: #555; }
   <button onclick="selectAnswer(1,false,this)">否</button>
 </div>
 <div class="question">
-  <p>2. 配對題（拉移式，手機使用時記得久按以正常執行）：將下列食材拖放到其主要含有的纖維類型</p>
+  <p>2. 配對題（拉移式，手機使用時記得久按以正常執行）：將下列食材拖放到其主要含有的纖維類型(可複選)</p>
   <div class="draggables" id="draggables">
     <div class="draggable" draggable="true" id="豆渣">豆渣</div>
     <div class="draggable" draggable="true" id="洋車前子">洋車前子</div>
@@ -119,9 +119,15 @@ function submitAll(){
   const total = score1 + score2 + score3;
   const resultDiv = document.getElementById('result');
   resultDiv.style.display='block';
-  resultDiv.innerHTML=`<p>答對 ${total}/3 題</p>`+(total===3?`<p>恭喜！你的專屬折扣碼：<strong>DISCOUNT</strong></p>`:'');
-}
+  resultDiv.innerHTML=`<p>答對 ${total}/3 題</p>`+(total===3?`<p>恭喜！你的專屬折扣碼：
+  <strong>
+  <span style="color: #d9534f;">520073</span><br>
+	<span style="color: #6c757d;">無使用期限，滿 999 折 30</span>
+  </strong><br>
+  <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank" rel="noopener">點我使用</a>`;
+  )}
 </script>
 </body>
 
 </html>
+
