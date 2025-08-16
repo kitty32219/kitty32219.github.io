@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>FB心得文觀看步驟</title>
+  <style>
+.image-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.image-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image-box img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.image-box .label {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 6px;
+}
+.desktop img {
+  width: 620px;
+}
+.mobile img {
+  width: 235px;
+}
+
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      background-color: #fffaf5;
+      padding: 40px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .note {
+      font-size: 1em;
+      color: #888;
+      margin-bottom: 30px;
+    }
+    .description {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #555;
+      white-space: pre-line;
+    }
+    .subtext {
+      text-align: left;
+      font-size: 0.95em;
+      color: #888;
+      margin-top: 12px;
+      white-space: pre-line;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .step-image {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .step-image img {
+      max-width:60%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .button-group {
+      margin-top: 30px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1em;
+      border: none;
+      background-color: #ffb6b9;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 0 10px;
+    }
+    button:hover {
+      background-color: #ff8c94;
+    }
+    .fb-link {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 20px;
+      background-color: #a2ded0;
+      color: white;
+      font-size: 1em;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    .fb-link:hover {
+      background-color: #7ec9b1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>FB心得文觀看步驟</h1>
+  <div class="note">
+    觀看【參考索引】建議使用手機板，因心得文眾多加上電腦版FB存取關係，網頁有時候會跑較久或無法正常跑出。
+  </div>
+
+  <div class="description" id="slideText"></div>
+
+  <a href="https://www.facebook.com/groups/ilovehealth?locale=zh_TW" target="_blank" class="fb-link" id="fbLink">
+    點我前往FB社團
+  </a>
+
+  <div class="button-group">
+    <button onclick="prevSlide()">上一頁</button>
+    <button onclick="nextSlide()">下一頁</button>
+  </div>
+
+  <script>
+    const texts = [
+      `步驟一：點入社團，若尚未加入點選「加入社團」
+      <div class="step-image">
+        <img src="https://kitty32219.github.io/dgifood/202508/step1.png" alt="步驟1">
+      </div>`,
+
+      `步驟二：點擊參考索引
+<div class="image-row">
+  <div class="image-box desktop">
+    <div class="label">電腦版</div>
+    <img src="https://kitty32219.github.io/dgifood/202508/step2.png" alt="電腦版 Step 2 畫面">
+  </div>
+  <div class="image-box mobile">
+    <div class="label">手機版</div>
+    <img src="https://kitty32219.github.io/dgifood/202508/step4.png" alt="手機版 Step 2 畫面">
+  </div>
+</div>`,
+
+      `步驟三：選擇有興趣的分類，若有想觀看的指定商品，可使用搜尋鍵尋找！
+      <div class="subtext">
+        總共有9類參考索引：
+        1. 知識文：認識更多健康相關知識  
+        2. 膳纖主食麵包：味道類似一般麵包的替代品  
+        3. 麥麩皮主食：追求熱量更低、碳水更低的主食選項  
+        4. 甜點類：不加精緻糖的美味甜點  
+        5. 餅乾糖果：適合嘴饞時刻的小點心  
+        6. 鹹食麵點：中式台式小吃  
+        7. 熟食調理包：多樣快速加熱即食品，從偽炸物、丸子、肉排到花椰菜米菜飯等，應有盡有  
+        8. 調味湯品：減少熱量的調味料與湯品  
+        9. 無糖飲料：不加糖也好喝的飲料
+<div class="image-row">
+  <div class="image-box desktop">
+    <div class="label">電腦版參考索引頁，右上方有搜尋鍵</div>
+    <img src="https://kitty32219.github.io/dgifood/202508/step3.png" alt="電腦版 Step 3 畫面">
+  </div>
+  <div class="image-box mobile">
+    <div class="label">手機版參考索引頁&手機版搜尋鍵位於社團主頁右上方</div>
+    <div class="image-row">
+    <img src="https://kitty32219.github.io/dgifood/202508/step5.png" alt="手機版 Step 3 畫面">
+    <img src="https://kitty32219.github.io/dgifood/202508/step5-2.jpg" alt="手機版 Step 3-2 畫面">
+  </div>
+</div>`
+   ];
+
+
+    let current = 0;
+
+    function updateSlide() {
+      document.getElementById("slideText").innerHTML = texts[current];
+
+      const fbLink = document.getElementById("fbLink");
+      fbLink.style.display = current === 0 ? "inline-block" : "none";
+    }
+
+    function nextSlide() {
+      current = (current + 1) % texts.length;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      current = (current - 1 + texts.length) % texts.length;
+      updateSlide();
+    }
+
+    updateSlide();
+  </script>
+
+</body>
+</html>
