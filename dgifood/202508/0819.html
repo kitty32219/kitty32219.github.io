@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>甜味劑小測驗（3題）</title>
+  <style>
+    :root {
+      --bg:#fff; --card:#fff; --fg:#111; --muted:#666;
+      --accent:#000; --ok:#008000; --err:#c00; --border:#ddd;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family: "Noto Sans TC", "Noto Sans JP", system-ui, sans-serif;
+      background:var(--bg); color:var(--fg); line-height:1.6;
+    }
+    .wrap { max-width:700px; margin:40px auto; padding:20px; }
+    .card {
+      background:var(--card);
+      border:1px solid var(--border); border-radius:6px;
+      padding:20px;
+    }
+    h1 {
+      font-size:22px; margin:0 0 8px;
+      font-weight:600;
+    }
+    p.lead { margin:0 0 18px; color:var(--muted); font-size:15px; }
+    .q {
+      margin:20px 0; padding:16px;
+      border:1px solid var(--border); border-radius:6px; background:#fafafa;
+    }
+    .q-title { font-weight:600; margin-bottom:12px; }
+    .choices { display:grid; gap:8px; }
+    label.choice {
+      display:flex; gap:8px; align-items:center;
+      padding:8px 10px; border:1px solid var(--border); border-radius:4px;
+      cursor:pointer;
+    }
+    label.choice:hover { background:#f0f0f0; }
+    .actions { display:flex; gap:10px; margin-top:16px; }
+    button {
+      appearance:none; border:1px solid var(--border); border-radius:4px;
+      padding:8px 14px; font-weight:500; background:#fff; cursor:pointer;
+    }
+    button.primary { background:#000; color:#fff; }
+    button.secondary { background:#fff; }
+    .result { margin-top:8px; font-weight:600; font-size:15px; }
+    .explain { margin-top:6px; color:var(--muted); font-size:14px; }
+    .correct { color: var(--ok); }
+    .incorrect { color: var(--err); }
+    #reward {
+      margin-top:24px; padding:16px; border:1px dashed var(--fg);
+      border-radius:6px; background:#fdfdfd;
+    }
+    #reward .code { color:var(--err); font-size:18px; font-weight:700; margin-top:6px; }
+    #reward .desc { color:var(--muted); margin-top:4px; }
+    #reward a { color:var(--accent); text-decoration:underline; margin-top:8px; display:inline-block; }
+    footer { margin-top:20px; color:var(--muted); font-size:13px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-labelledby="title">
+      <h1 id="title">甜味劑小測驗（3題）</h1>
+      <p class="lead">答對全部題目即可獲得折扣碼 🎁</p>
+
+      <!-- Q1 -->
+      <section class="q" id="q1" aria-labelledby="q1label">
+        <div class="q-title" id="q1label">題目 1：以下哪一類甜味劑<strong>以益生元功能著名，能幫助腸道益生菌生長</strong>？</div>
+        <div class="choices" role="radiogroup" aria-labelledby="q1label">
+          <label class="choice"><input type="radio" name="q1" value="A"> A. 寡糖</label>
+          <label class="choice"><input type="radio" name="q1" value="B"> B. 糖醇</label>
+          <label class="choice"><input type="radio" name="q1" value="C"> C. 人工甜味劑</label>
+        </div>
+        <div class="result" id="r1" aria-live="polite"></div>
+        <div class="explain" id="e1"></div>
+      </section>
+
+      <!-- Q2 -->
+      <section class="q" id="q2" aria-labelledby="q2label">
+        <div class="q-title" id="q2label">題目 2：哪一種糖醇<strong>熱量最低，幾乎可標示為 0 大卡</strong>？</div>
+        <div class="choices" role="radiogroup" aria-labelledby="q2label">
+          <label class="choice"><input type="radio" name="q2" value="A"> A. 木糖醇</label>
+          <label class="choice"><input type="radio" name="q2" value="B"> B. 赤藻糖醇</label>
+          <label class="choice"><input type="radio" name="q2" value="C"> C. 麥芽糖醇</label>
+        </div>
+        <div class="result" id="r2" aria-live="polite"></div>
+        <div class="explain" id="e2"></div>
+      </section>
+
+      <!-- Q3 -->
+      <section class="q" id="q3" aria-labelledby="q3label">
+        <div class="q-title" id="q3label">題目 3：若一位<strong>苯酮尿症 (PKU)</strong>患者需要避免的甜味劑是？</div>
+        <div class="choices" role="radiogroup" aria-labelledby="q3label">
+          <label class="choice"><input type="radio" name="q3" value="A"> A. 糖精</label>
+          <label class="choice"><input type="radio" name="q3" value="B"> B. 阿斯巴甜</label>
+          <label class="choice"><input type="radio" name="q3" value="C"> C. 蔗糖素</label>
+        </div>
+        <div class="result" id="r3" aria-live="polite"></div>
+        <div class="explain" id="e3"></div>
+      </section>
+
+      <!-- Buttons -->
+      <div class="actions">
+        <button class="primary" id="check">提交答案</button>
+        <button class="secondary" id="reset">重設</button>
+      </div>
+
+      <!-- Reward -->
+      <div id="reward" style="display:none;">
+        <div>🎉 恭喜全對！這是你的折扣碼：</div>
+        <div class="code">634626</div>
+        <div class="desc">無使用期限，滿999折30</div>
+        <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank">點此使用</a>
+      </div>
+    </div>
+    <footer></footer>
+  </div>
+
+  <script>
+    document.getElementById("check").addEventListener("click", function () {
+      const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+      const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+      // 判斷 (只有正確才顯示解析)
+      document.getElementById("r1").textContent = q1 === "A" ? "✔️ 正確" : "❌ 錯誤";
+      document.getElementById("r1").className = q1 === "A" ? "result correct" : "result incorrect";
+      document.getElementById("e1").textContent = q1 === "A" ? "寡糖屬於益生元，可以促進腸道益生菌生長。" : "";
+
+      document.getElementById("r2").textContent = q2 === "B" ? "✔️ 正確" : "❌ 錯誤";
+      document.getElementById("r2").className = q2 === "B" ? "result correct" : "result incorrect";
+      document.getElementById("e2").textContent = q2 === "B" ? "赤藻糖醇熱量最低，幾乎可標示為 0 大卡。" : "";
+
+      document.getElementById("r3").textContent = q3 === "B" ? "✔️ 正確" : "❌ 錯誤";
+      document.getElementById("r3").className = q3 === "B" ? "result correct" : "result incorrect";
+      document.getElementById("e3").textContent = q3 === "B" ? "阿斯巴甜含有苯丙氨酸，PKU 患者需避免。" : "";
+
+      // 檢查是否全對
+      if (q1 === "A" && q2 === "B" && q3 === "B") {
+        document.getElementById("reward").style.display = "block";
+      } else {
+        document.getElementById("reward").style.display = "none";
+      }
+    });
+
+    // 重設
+    document.getElementById("reset").addEventListener("click", function () {
+      document.querySelectorAll("input[type=radio]").forEach(el => el.checked = false);
+      document.querySelectorAll(".result").forEach(el => el.textContent = "");
+      document.querySelectorAll(".explain").forEach(el => el.textContent = "");
+      document.getElementById("reward").style.display = "none";
+    });
+  </script>
+</body>
+</html>
