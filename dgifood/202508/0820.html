@@ -204,20 +204,7 @@ function addBinHandlers(el){
     dragging = null;
   });
 
-  // 點擊填槽位
-  el.addEventListener('click', () => {
-    const pick = document.querySelector('.bin');
-    if (!pick) return;
-    const emptySlot = Array.from(slots).find(s => !s.classList.contains('filled'));
-    if (!emptySlot) return;
-    emptySlot.textContent = pick.textContent;
-    emptySlot.dataset.type = pick.dataset.type;
-    emptySlot.classList.add('filled');
-    pick.remove();
-  });
-}
 
-bins.forEach(addBinHandlers);
     // 提交作答
     document.getElementById('submit').addEventListener('click', () => {
       let allCorrect = true;
