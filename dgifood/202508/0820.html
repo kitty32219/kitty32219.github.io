@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>生酮飲食小測驗｜無印風</title>
+  <style>
+    /* 無印風：留白、輕色、簡單線條 */
+    :root{
+      --bg:#fafafa;--card:#ffffff;--ink:#222;--muted:#6b7280;--line:#e5e7eb;--ok:#16a34a;--err:#dc2626;--accent:#111827;
+      --chip:#f3f4f6;--chip-border:#e5e7eb;--link:#0ea5e9;--code:#ef4444;--note:#9ca3af;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif;background:var(--bg);color:var(--ink);}
+    .wrap{max-width:880px;margin:42px auto;padding:0 20px}
+    h1{font-size:28px;font-weight:700;margin:0 0 16px;color:var(--accent)}
+    p.lead{margin:0 0 24px;color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin-bottom:16px}
+    .q-title{font-weight:700;margin-bottom:10px}
+    .choices{display:grid;gap:10px;margin-top:8px}
+    label.choice{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
+    label.choice:hover{background:#fcfcfc}
+    .drag-area{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .targets{display:grid;gap:10px}
+    .target{display:flex;justify-content:space-between;align-items:center;border:1px dashed var(--line);border-radius:12px;padding:10px 12px;min-height:44px}
+    .nutri{font-weight:600}
+    .bins{display:flex;flex-wrap:wrap;gap:8px}
+    .bin{user-select:none;border:1px solid var(--chip-border);background:var(--chip);border-radius:999px;padding:8px 12px;cursor:grab}
+    .bin[draggable="true"]:active{cursor:grabbing}
+    .bin.dragging{opacity:.6}
+    .slot{min-width:72px;text-align:center;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);background:#fff}
+    .slot.filled{color:var(--ink);background:#f8fafc}
+    .result{margin-top:8px;font-weight:700;}
+    .correct{color:var(--ok)}
+    .incorrect{color:var(--err)}
+    .explain{margin-top:4px;color:var(--muted);font-size:14px}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    button{appearance:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 16px;font-weight:700;cursor:pointer}
+    button.primary{background:#111827;color:#fff;border-color:#111827}
+    .gift{display:none;border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin-top:14px}
+    .gift .big{font-size:16px;font-weight:800;margin-bottom:6px}
+    .code{color:var(--code);font-weight:900;font-size:16px}
+    .note{color:var(--note)}
+    a.link{color:var(--link);text-decoration:none;border-bottom:1px solid #bae6fd}
+    a.link:hover{opacity:.8}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>生酮飲食小測驗</h1>
+    <p class="lead">全對將解鎖專屬折扣碼。</p>
+
+    <!-- Q1 單選題 -->
+    <section class="card" id="q1" aria-labelledby="q1label">
+      <div class="q-title" id="q1label">問題 1：生酮飲食的主要代謝特徵是什麼？</div>
+      <div class="choices" role="radiogroup" aria-labelledby="q1label">
+        <label class="choice"><input type="radio" name="q1" value="A"> A. 使用葡萄糖作為能量來源</label>
+        <label class="choice"><input type="radio" name="q1" value="B"> B. 使用酮體與脂肪作為能量來源</label>
+        <label class="choice"><input type="radio" name="q1" value="C"> C. 使用蛋白質作為能量來源</label>
+        <label class="choice"><input type="radio" name="q1" value="D"> D. 使用維生素作為能量來源</label>
+      </div>
+      <div class="result" id="r1" aria-live="polite"></div>
+      <div class="explain" id="e1"></div>
+    </section>
+
+    <!-- Q2 拉移配對題 -->
+    <section class="card" id="q2" aria-labelledby="q2label">
+      <div class="q-title" id="q2label">問題 2（拉移配對題）：傳統生酮飲食「蛋白質、脂肪、碳水化合物」比例（手機請長按再拖曳）</div>
+
+      <div class="drag-area">
+        <div class="targets">
+          <div class="target" data-accept="P">
+            <span class="nutri">蛋白質</span>
+            <span class="slot" data-slot="P">拖曳比例至此</span>
+          </div>
+          <div class="target" data-accept="F">
+            <span class="nutri">脂肪</span>
+            <span class="slot" data-slot="F">拖曳比例至此</span>
+          </div>
+          <div class="target" data-accept="C">
+            <span class="nutri">碳水化合物</span>
+            <span class="slot" data-slot="C">拖曳比例至此</span>
+          </div>
+        </div>
+        <div class="bins" id="bins">
+          <div class="bin" draggable="true" data-type="P">20%</div>
+          <div class="bin" draggable="true" data-type="C">5%</div>
+          <div class="bin" draggable="true" data-type="F">75%</div>
+        </div>
+      </div>
+
+      <div class="result" id="r2" aria-live="polite"></div>
+      <div class="explain" id="e2"></div>
+    </section>
+
+    <!-- Q3 是非題（單選） -->
+    <section class="card" id="q3" aria-labelledby="q3label">
+      <div class="q-title" id="q3label">問題 3：在分解脂肪時，還會產生任何的葡萄糖嗎？</div>
+      <div class="choices" role="radiogroup" aria-labelledby="q3label">
+        <label class="choice"><input type="radio" name="q3" value="Y"> 是</label>
+        <label class="choice"><input type="radio" name="q3" value="N"> 否</label>
+      </div>
+      <div class="result" id="r3" aria-live="polite"></div>
+      <div class="explain" id="e3"></div>
+    </section>
+
+<div class="actions">
+  <button class="primary" id="submit">提交作答</button>
+</div>
+
+    <!-- 全對獎勵區塊 -->
+    <section class="gift" id="gift">
+      <div class="big">🎉 恭喜全對！這是你的折扣碼： <span class="code">634626</span></div>
+      <div class="note">無使用期限，滿999折30</div>
+      <div style="margin-top:6px"><a class="link" href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank" rel="noopener">點此使用</a></div>
+    </section>
+  </div>
+
+  <script>
+    // 答案與解析
+    const answers = {
+      q1: 'B',
+      q2: { P:'20%', F:'75%', C:'5%' },
+      q3: 'Y'
+    };
+    const explains = {
+      q1: '生酮狀態以脂肪氧化與酮體供能為主，降低對葡萄糖的依賴。',
+      q2: '傳統生酮比例為脂肪約 75%、蛋白質約 20%、碳水約 5%。',
+      q3: '會的。脂肪分解產生的甘油可經由糖質新生轉化為少量葡萄糖。'
+    };
+
+    // Q2 拖曳邏輯（含行動裝置長按支援）
+    const bins = document.querySelectorAll('.bin');
+    const slots = document.querySelectorAll('.slot');
+    let dragging = null;
+
+    bins.forEach(bin => {
+      bin.addEventListener('dragstart', e => { dragging = bin; bin.classList.add('dragging'); });
+      bin.addEventListener('dragend', e => { dragging = null; bin.classList.remove('dragging'); });
+
+      // 行動裝置：長按拖曳（簡化版）
+      let touchId = null;
+      bin.addEventListener('touchstart', e => { touchId = e.changedTouches[0].identifier; dragging = bin; bin.classList.add('dragging'); });
+      bin.addEventListener('touchend', e => { dragging = null; bin.classList.remove('dragging'); touchId = null; });
+    });
+
+    slots.forEach(slot => {
+      slot.addEventListener('dragover', e => { e.preventDefault(); });
+      slot.addEventListener('drop', e => {
+        e.preventDefault();
+        if (!dragging) return;
+        // 若 slot 已有值，將原本值放回 bins
+        if (slot.classList.contains('filled')) {
+          const old = document.createElement('div');
+          old.className = 'bin';
+          old.textContent = slot.textContent;
+          old.setAttribute('draggable','true');
+          old.dataset.type = slot.dataset.type || '';
+          addBinHandlers(old);
+          document.getElementById('bins').appendChild(old);
+        }
+        slot.textContent = dragging.textContent;
+        slot.dataset.type = dragging.dataset.type;
+        slot.classList.add('filled');
+        dragging.remove();
+      });
+
+      // 觸控放置（簡化）：點擊 slot 也可循環填入下一個可用 bin
+      slot.addEventListener('click', () => {
+        const pick = document.querySelector('.bin');
+        if (!pick) return;
+        slot.textContent = pick.textContent;
+        slot.dataset.type = pick.dataset.type;
+        slot.classList.add('filled');
+        pick.remove();
+      });
+    });
+
+    function addBinHandlers(el){
+      el.addEventListener('dragstart', e => { dragging = el; el.classList.add('dragging'); });
+      el.addEventListener('dragend', e => { dragging = null; el.classList.remove('dragging'); });
+      el.addEventListener('touchstart', e => { dragging = el; el.classList.add('dragging'); });
+      el.addEventListener('touchend', e => { dragging = null; el.classList.remove('dragging'); });
+    }
+
+    // 提交作答
+    document.getElementById('submit').addEventListener('click', () => {
+      let allCorrect = true;
+
+      // Q1 評分
+      const c1 = (document.querySelector('input[name="q1"]:checked')||{}).value;
+      const r1 = document.getElementById('r1');
+      const e1 = document.getElementById('e1');
+      if (c1 === answers.q1){ r1.className='result correct'; r1.textContent='✔ 答對了！'; e1.textContent = explains.q1; }
+      else { r1.className='result incorrect'; r1.textContent='✖ 答錯了'; e1.textContent=''; allCorrect = false; }
+
+      // Q2 評分
+      const getText = key => (document.querySelector(`.slot[data-slot="${key}"]`)||{}).textContent || '';
+      const m = { P:getText('P').trim(), F:getText('F').trim(), C:getText('C').trim() };
+      const r2 = document.getElementById('r2');
+      const e2 = document.getElementById('e2');
+      const ok2 = m.P === answers.q2.P && m.F === answers.q2.F && m.C === answers.q2.C;
+      if (ok2){ r2.className='result correct'; r2.textContent='✔ 答對了！'; e2.textContent = explains.q2; }
+      else { r2.className='result incorrect'; r2.textContent='✖ 答錯了'; e2.textContent=''; allCorrect = false; }
+
+      // Q3 評分
+      const c3 = (document.querySelector('input[name="q3"]:checked')||{}).value;
+      const r3 = document.getElementById('r3');
+      const e3 = document.getElementById('e3');
+      if (c3 === answers.q3){ r3.className='result correct'; r3.textContent='✔ 答對了！'; e3.textContent = explains.q3; }
+      else { r3.className='result incorrect'; r3.textContent='✖ 答錯了'; e3.textContent=''; allCorrect = false; }
+
+      // 全對顯示禮物
+      document.getElementById('gift').style.display = allCorrect ? 'block' : 'none';
+    });
+
+
+  </script>
+</body>
+</html>
