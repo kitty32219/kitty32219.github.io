@@ -133,112 +133,126 @@
     };
 
     // Q2 拖曳邏輯（含行動裝置長按支援）
-const binsContainer = document.getElementById('bins');
 const bins = document.querySelectorAll('.bin');
 const slots = document.querySelectorAll('.slot');
-
 let dragging = null;
-let offset = {x:0, y:0};
+let touchOffset = { x: 0, y: 0 };
 
-// 初始化 bin
-function addBinHandlers(bin) {
-  // 讓 bin 可視為絕對定位
-  bin.style.position = 'relative';
-  bin.style.cursor = 'grab';
-
+function addBinHandlers(el) {
   // 電腦拖拉
-  bin.addEventListener('mousedown', e => {
-    dragging = bin;
-    const rect = bin.getBoundingClientRect();
-    offset.x = e.clientX - rect.left;
-    offset.y = e.clientY - rect.top;
-    bin.style.position = 'absolute';
-    bin.style.zIndex = 1000;
-    bin.style.left = `${e.clientX - offset.x}px`;
-    bin.style.top = `${e.clientY - offset.y}px`;
-    bin.style.cursor = 'grabbing';
-    document.body.appendChild(bin); // 提升層級到 body
-    e.preventDefault();
+  el.addEventListener('dragstart', e => {
+    dragging = el;
+    el.classList.add('dragging');
+  });
+  el.addEventListener('dragend', e => {
+    dragging = null;
+    el.classList.remove('dragging');
   });
 
   // 手機拖拉
-  bin.addEventListener('touchstart', e => {
-    dragging = bin;
+  el.addEventListener('touchstart', e => {
+    dragging = el;
+    el.classList.add('dragging');
     const touch = e.touches[0];
-    const rect = bin.getBoundingClientRect();
-    offset.x = touch.clientX - rect.left;
-    offset.y = touch.clientY - rect.top;
-    bin.style.position = 'absolute';
-    bin.style.zIndex = 1000;
-    bin.style.left = `${touch.clientX - offset.x}px`;
-    bin.style.top = `${touch.clientY - offset.y}px`;
-    document.body.appendChild(bin);
-    e.preventDefault();
+    const rect = el.getBoundingClientRect();
+    touchOffset.x = touch.clientX - rect.left;
+    touchOffset.y = touch.clientY - rect.top;
+    el.style.position = 'absolute';
+    el.style.zIndex = 1000;
+    el.style.left = `${touch.clientX - touchOffset.x}px`;
+    el.style.top = `${touch.clientY - touchOffset.y}px`;
   });
-}
 
-// 拖動事件
-function onMove(x, y) {
-  if (!dragging) return;
-  dragging.style.left = `${x - offset.x}px`;
-  dragging.style.top = `${y - offset.y}px`;
-}
+  el.addEventListener('touchmove', e => {
+    e.preventDefault(); // 阻止頁面滾動
+    if (!dragging) return;
+    const touch = e.touches[0];
+    dragging.style.left = `${touch.clientX - touchOffset.x}px`;
+    dragging.style.top = `${touch.clientY - touchOffset.y}px`;
+  }, { passive: false });
 
-// 放置事件
-function onRelease(x, y) {
-  if (!dragging) return;
-  let placed = false;
-  slots.forEach(slot => {
-    const rect = slot.getBoundingClientRect();
-    if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
-      // slot 已有值先回 bins
-      if (slot.classList.contains('filled')) {
-        const old = document.createElement('div');
-        old.className = 'bin';
-        old.textContent = slot.textContent;
-        old.dataset.type = slot.dataset.type || '';
-        addBinHandlers(old);
-        binsContainer.appendChild(old);
+  el.addEventListener('touchend', e => {
+    if (!dragging) return;
+    let placed = false;
+    const touch = e.changedTouches[0];
+
+    slots.forEach(slot => {
+      const target = slot.parentElement; // 用 target div 判斷範圍
+      const rect = target.getBoundingClientRect();
+      if (
+        touch.clientX > rect.left && touch.clientX < rect.right &&
+        touch.clientY > rect.top && touch.clientY < rect.bottom
+      ) {
+        // slot 內已有值先回 bins
+        if (slot.classList.contains('filled')) {
+          const old = document.createElement('div');
+          old.className = 'bin';
+          old.textContent = slot.textContent;
+          old.setAttribute('draggable', 'true');
+          old.dataset.type = slot.dataset.type || '';
+          addBinHandlers(old);
+          document.getElementById('bins').appendChild(old);
+        }
+        slot.textContent = dragging.textContent;
+        slot.dataset.type = dragging.dataset.type;
+        slot.classList.add('filled');
+        placed = true;
       }
-      // 填入 slot
-      slot.textContent = dragging.textContent;
-      slot.dataset.type = dragging.dataset.type;
-      slot.classList.add('filled');
-      placed = true;
+    });
+
+    // 若未放到 slot，回到 bins
+    if (!placed) {
+      dragging.style.position = '';
+      dragging.style.zIndex = '';
+      dragging.style.left = '';
+      dragging.style.top = '';
+      document.getElementById('bins').appendChild(dragging);
+    } else {
+      dragging.remove();
     }
+    dragging = null;
   });
-  if (!placed) {
-    // 回到 bins
-    dragging.style.position = 'relative';
-    dragging.style.zIndex = '';
-    dragging.style.left = '';
-    dragging.style.top = '';
-    binsContainer.appendChild(dragging);
-  } else {
-    dragging.remove();
-  }
-  dragging = null;
 }
 
-// 監聽滑鼠
-document.addEventListener('mousemove', e => onMove(e.clientX, e.clientY));
-document.addEventListener('mouseup', e => onRelease(e.clientX, e.clientY));
+// 綁定初始 bins
+document.querySelectorAll('.bin').forEach(bin => addBinHandlers(bin));
 
-// 監聽手指
-document.addEventListener('touchmove', e => {
-  if (!dragging) return;
-  const touch = e.touches[0];
-  onMove(touch.clientX, touch.clientY);
-  e.preventDefault();
-}, {passive:false});
-document.addEventListener('touchend', e => {
-  if (!dragging) return;
-  const touch = e.changedTouches[0];
-  onRelease(touch.clientX, touch.clientY);
+// slot 點擊填入 bin（手機方便操作）
+slots.forEach(slot => {
+  slot.addEventListener('click', () => {
+    const pick = document.querySelector('.bin');
+    if (!pick) return;
+    slot.textContent = pick.textContent;
+    slot.dataset.type = pick.dataset.type;
+    slot.classList.add('filled');
+    pick.remove();
+  });
 });
 
-// 初始化所有 bins
-bins.forEach(addBinHandlers);
+// 電腦拖拉 slot 判斷
+slots.forEach(slot => {
+  slot.addEventListener('dragover', e => e.preventDefault());
+  slot.addEventListener('drop', e => {
+    e.preventDefault();
+    if (!dragging) return;
+    // slot 已有值，放回 bins
+    if (slot.classList.contains('filled')) {
+      const old = document.createElement('div');
+      old.className = 'bin';
+      old.textContent = slot.textContent;
+      old.setAttribute('draggable', 'true');
+      old.dataset.type = slot.dataset.type || '';
+      addBinHandlers(old);
+      document.getElementById('bins').appendChild(old);
+    }
+    slot.textContent = dragging.textContent;
+    slot.dataset.type = dragging.dataset.type;
+    slot.classList.add('filled');
+    dragging.remove();
+    dragging = null;
+  });
+});
+
 
 
 
