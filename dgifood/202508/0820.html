@@ -136,10 +136,12 @@
 const bins = document.querySelectorAll('.bin');
 const slots = document.querySelectorAll('.slot');
 let dragging = null;
+let ghost = null; // 影子元素
+let offset = { x: 0, y: 0 };
 
 // 綁定 bin 的拖拉
 function addBinHandlers(el) {
-  // 電腦拖拉
+  // 電腦拖拉保持原本
   el.addEventListener('dragstart', e => {
     dragging = el;
     el.classList.add('dragging');
@@ -149,21 +151,38 @@ function addBinHandlers(el) {
     el.classList.remove('dragging');
   });
 
-  // 手機拖拉 (不移動 bin 元素)
+  // 手機拖拉
   el.addEventListener('touchstart', e => {
     dragging = el;
-    // 不改位置，不加 dragging class
+    const touch = e.touches[0];
+    const rect = el.getBoundingClientRect();
+
+    offset.x = touch.clientX - rect.left;
+    offset.y = touch.clientY - rect.top;
+
+    // 創建影子元素
+    ghost = el.cloneNode(true);
+    ghost.style.position = 'absolute';
+    ghost.style.pointerEvents = 'none'; // 不阻擋手指
+    ghost.style.opacity = 0.5;
+    ghost.style.zIndex = 1000;
+    ghost.style.left = `${touch.clientX - offset.x}px`;
+    ghost.style.top = `${touch.clientY - offset.y}px`;
+    document.body.appendChild(ghost);
   });
 
   el.addEventListener('touchmove', e => {
-    e.preventDefault(); // 阻止頁面滾動
-    // 不改 bin 位置，只判斷手指落點
+    e.preventDefault();
+    if (!ghost) return;
+    const touch = e.touches[0];
+    ghost.style.left = `${touch.clientX - offset.x}px`;
+    ghost.style.top = `${touch.clientY - offset.y}px`;
   }, { passive: false });
 
   el.addEventListener('touchend', e => {
     if (!dragging) return;
-    let placed = false;
     const touch = e.changedTouches[0];
+    let placed = false;
 
     slots.forEach(slot => {
       const rect = slot.parentElement.getBoundingClientRect();
@@ -192,6 +211,13 @@ function addBinHandlers(el) {
     if (placed) {
       dragging.remove();
     }
+
+    // 移除影子
+    if (ghost) {
+      ghost.remove();
+      ghost = null;
+    }
+
     dragging = null;
   });
 }
@@ -223,45 +249,6 @@ slots.forEach(slot => {
       old.textContent = slot.textContent;
       old.dataset.type = slot.dataset.type || '';
       old.setAttribute('draggable', 'true');
-      addBinHandlers(old);
-      document.getElementById('bins').appendChild(old);
-    }
-    slot.textContent = dragging.textContent;
-    slot.dataset.type = dragging.dataset.type;
-    slot.classList.add('filled');
-    dragging.remove();
-    dragging = null;
-  });
-});
-
-// 綁定初始 bins
-document.querySelectorAll('.bin').forEach(bin => addBinHandlers(bin));
-
-// slot 點擊填入 bin（手機方便操作）
-slots.forEach(slot => {
-  slot.addEventListener('click', () => {
-    const pick = document.querySelector('.bin');
-    if (!pick) return;
-    slot.textContent = pick.textContent;
-    slot.dataset.type = pick.dataset.type;
-    slot.classList.add('filled');
-    pick.remove();
-  });
-});
-
-// 電腦拖拉 slot 判斷
-slots.forEach(slot => {
-  slot.addEventListener('dragover', e => e.preventDefault());
-  slot.addEventListener('drop', e => {
-    e.preventDefault();
-    if (!dragging) return;
-    // slot 已有值，放回 bins
-    if (slot.classList.contains('filled')) {
-      const old = document.createElement('div');
-      old.className = 'bin';
-      old.textContent = slot.textContent;
-      old.setAttribute('draggable', 'true');
-      old.dataset.type = slot.dataset.type || '';
       addBinHandlers(old);
       document.getElementById('bins').appendChild(old);
     }
