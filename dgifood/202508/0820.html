@@ -87,6 +87,9 @@
           <div class="bin" draggable="true" data-type="C">5%</div>
           <div class="bin" draggable="true" data-type="F">75%</div>
         </div>
+        <div class="actions">
+        <button id="reset-q2">重設第二題</button>
+        </div>
       </div>
 
       <div class="result" id="r2" aria-live="polite"></div>
@@ -213,6 +216,38 @@
       // 全對顯示禮物
       document.getElementById('gift').style.display = allCorrect ? 'block' : 'none';
     });
+    document.getElementById('reset-q2').addEventListener('click', () => {
+  const slots = document.querySelectorAll('.slot');
+  const binsContainer = document.getElementById('bins');
+  const originalBins = [
+    { type: 'P', text: '20%' },
+    { type: 'F', text: '75%' },
+    { type: 'C', text: '5%' }
+  ];
+
+  // 清空 slots
+  slots.forEach(slot => {
+    slot.textContent = '拖曳比例至此';
+    slot.dataset.type = '';
+    slot.classList.remove('filled');
+  });
+
+  // 清空 bins
+  binsContainer.innerHTML = '';
+  originalBins.forEach(b => {
+    const bin = document.createElement('div');
+    bin.className = 'bin';
+    bin.textContent = b.text;
+    bin.setAttribute('draggable','true');
+    bin.dataset.type = b.type;
+    addBinHandlers(bin);
+    binsContainer.appendChild(bin);
+  });
+
+  // 清空結果與解析
+  document.getElementById('r2').textContent = '';
+  document.getElementById('e2').textContent = '';
+});
 
 
   </script>
