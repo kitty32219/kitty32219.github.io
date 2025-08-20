@@ -164,7 +164,7 @@ function addBinHandlers(el) {
   });
 
   el.addEventListener('touchmove', e => {
-    e.preventDefault(); // 阻止滾動
+    e.preventDefault(); // 阻止頁面滾動
     if (!dragging) return;
     const touch = e.touches[0];
     dragging.style.left = `${touch.clientX - touchOffset.x}px`;
@@ -214,10 +214,10 @@ function addBinHandlers(el) {
   });
 }
 
-// 為初始 bins 綁定事件
+// 綁定初始 bins
 document.querySelectorAll('.bin').forEach(bin => addBinHandlers(bin));
 
-// 讓 slot 也可點擊循環填入 bin（方便手機）
+// slot 點擊填入 bin（手機方便操作）
 slots.forEach(slot => {
   slot.addEventListener('click', () => {
     const pick = document.querySelector('.bin');
@@ -228,6 +228,31 @@ slots.forEach(slot => {
     pick.remove();
   });
 });
+
+// 電腦拖拉 slot 判斷
+slots.forEach(slot => {
+  slot.addEventListener('dragover', e => e.preventDefault());
+  slot.addEventListener('drop', e => {
+    e.preventDefault();
+    if (!dragging) return;
+    // slot 已有值，放回 bins
+    if (slot.classList.contains('filled')) {
+      const old = document.createElement('div');
+      old.className = 'bin';
+      old.textContent = slot.textContent;
+      old.setAttribute('draggable', 'true');
+      old.dataset.type = slot.dataset.type || '';
+      addBinHandlers(old);
+      document.getElementById('bins').appendChild(old);
+    }
+    slot.textContent = dragging.textContent;
+    slot.dataset.type = dragging.dataset.type;
+    slot.classList.add('filled');
+    dragging.remove();
+    dragging = null;
+  });
+});
+
 
 
     // 提交作答
