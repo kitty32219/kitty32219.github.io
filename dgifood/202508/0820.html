@@ -136,23 +136,20 @@
 const bins = document.querySelectorAll('.bin');
 const slots = document.querySelectorAll('.slot');
 let dragging = null;
-let touchOffset = { x: 0, y: 0 };
+let touchOffset = {x:0, y:0};
 
-function addBinHandlers(el) {
+function addBinHandlers(el){
   // 電腦拖拉
-  el.addEventListener('dragstart', e => {
-    dragging = el;
-    el.classList.add('dragging');
-  });
-  el.addEventListener('dragend', e => {
-    dragging = null;
-    el.classList.remove('dragging');
-  });
+  el.addEventListener('dragstart', e => { dragging = el; el.classList.add('dragging'); });
+  el.addEventListener('dragend', e => { dragging = null; el.classList.remove('dragging'); });
 
   // 手機拖拉
   el.addEventListener('touchstart', e => {
     dragging = el;
     el.classList.add('dragging');
+    el.dataset.text = el.textContent; // 暫存文字
+    el.textContent = ''; // 隱藏文字
+
     const touch = e.touches[0];
     const rect = el.getBoundingClientRect();
     touchOffset.x = touch.clientX - rect.left;
@@ -164,21 +161,18 @@ function addBinHandlers(el) {
   });
 
   el.addEventListener('touchmove', e => {
-    e.preventDefault(); // 阻止頁面滾動
     if (!dragging) return;
     const touch = e.touches[0];
     dragging.style.left = `${touch.clientX - touchOffset.x}px`;
     dragging.style.top = `${touch.clientY - touchOffset.y}px`;
-  }, { passive: false });
+  });
 
   el.addEventListener('touchend', e => {
     if (!dragging) return;
     let placed = false;
-    const touch = e.changedTouches[0];
-
     slots.forEach(slot => {
-      const target = slot.parentElement; // 用 target div 判斷範圍
-      const rect = target.getBoundingClientRect();
+      const rect = slot.getBoundingClientRect();
+      const touch = e.changedTouches[0];
       if (
         touch.clientX > rect.left && touch.clientX < rect.right &&
         touch.clientY > rect.top && touch.clientY < rect.bottom
@@ -186,22 +180,22 @@ function addBinHandlers(el) {
         // slot 內已有值先回 bins
         if (slot.classList.contains('filled')) {
           const old = document.createElement('div');
-          old.className = 'bin';
+          old.className='bin';
           old.textContent = slot.textContent;
-          old.setAttribute('draggable', 'true');
+          old.setAttribute('draggable','true');
           old.dataset.type = slot.dataset.type || '';
           addBinHandlers(old);
           document.getElementById('bins').appendChild(old);
         }
-        slot.textContent = dragging.textContent;
+        slot.textContent = dragging.dataset.text; // 放入原文字
         slot.dataset.type = dragging.dataset.type;
         slot.classList.add('filled');
         placed = true;
       }
     });
-
     // 若未放到 slot，回到 bins
     if (!placed) {
+      dragging.textContent = dragging.dataset.text; // 還原文字
       dragging.style.position = '';
       dragging.style.zIndex = '';
       dragging.style.left = '';
@@ -214,44 +208,9 @@ function addBinHandlers(el) {
   });
 }
 
-// 綁定初始 bins
-document.querySelectorAll('.bin').forEach(bin => addBinHandlers(bin));
+// 初始化
+document.querySelectorAll('.bin').forEach(addBinHandlers);
 
-// slot 點擊填入 bin（手機方便操作）
-slots.forEach(slot => {
-  slot.addEventListener('click', () => {
-    const pick = document.querySelector('.bin');
-    if (!pick) return;
-    slot.textContent = pick.textContent;
-    slot.dataset.type = pick.dataset.type;
-    slot.classList.add('filled');
-    pick.remove();
-  });
-});
-
-// 電腦拖拉 slot 判斷
-slots.forEach(slot => {
-  slot.addEventListener('dragover', e => e.preventDefault());
-  slot.addEventListener('drop', e => {
-    e.preventDefault();
-    if (!dragging) return;
-    // slot 已有值，放回 bins
-    if (slot.classList.contains('filled')) {
-      const old = document.createElement('div');
-      old.className = 'bin';
-      old.textContent = slot.textContent;
-      old.setAttribute('draggable', 'true');
-      old.dataset.type = slot.dataset.type || '';
-      addBinHandlers(old);
-      document.getElementById('bins').appendChild(old);
-    }
-    slot.textContent = dragging.textContent;
-    slot.dataset.type = dragging.dataset.type;
-    slot.classList.add('filled');
-    dragging.remove();
-    dragging = null;
-  });
-});
 
 
 
