@@ -136,28 +136,36 @@
 const bins = document.querySelectorAll('.bin');
 const slots = document.querySelectorAll('.slot');
 let dragging = null;
-let touchOffset = {x:0, y:0};
+let touchOffset = { x: 0, y: 0 };
 
-function addBinHandlers(el){
-  // 電腦拖拉
-  el.addEventListener('dragstart', e => { dragging = el; el.classList.add('dragging'); });
-  el.addEventListener('dragend', e => { dragging = null; el.classList.remove('dragging'); });
+function addBinHandlers(el) {
+  // --- 電腦拖拉 ---
+  el.addEventListener('dragstart', e => {
+    dragging = el;
+    el.classList.add('dragging');
+  });
+  el.addEventListener('dragend', e => {
+    dragging = null;
+    el.classList.remove('dragging');
+  });
 
-  // 手機拖拉
+  // --- 手機拖拉 ---
   el.addEventListener('touchstart', e => {
     dragging = el;
     el.classList.add('dragging');
-    el.dataset.text = el.textContent; // 暫存文字
-    el.textContent = ''; // 隱藏文字
 
     const touch = e.touches[0];
     const rect = el.getBoundingClientRect();
+
     touchOffset.x = touch.clientX - rect.left;
     touchOffset.y = touch.clientY - rect.top;
+
+    // 手機拖拉時文字隱藏或距離手指近
     el.style.position = 'absolute';
     el.style.zIndex = 1000;
     el.style.left = `${touch.clientX - touchOffset.x}px`;
     el.style.top = `${touch.clientY - touchOffset.y}px`;
+    el.style.pointerEvents = 'none'; // 讓拖拉更順暢
   });
 
   el.addEventListener('touchmove', e => {
@@ -170,47 +178,61 @@ function addBinHandlers(el){
   el.addEventListener('touchend', e => {
     if (!dragging) return;
     let placed = false;
+    const touch = e.changedTouches[0];
+
     slots.forEach(slot => {
       const rect = slot.getBoundingClientRect();
-      const touch = e.changedTouches[0];
       if (
         touch.clientX > rect.left && touch.clientX < rect.right &&
         touch.clientY > rect.top && touch.clientY < rect.bottom
       ) {
-        // slot 內已有值先回 bins
+        // slot 已有值先回 bins
         if (slot.classList.contains('filled')) {
           const old = document.createElement('div');
-          old.className='bin';
+          old.className = 'bin';
           old.textContent = slot.textContent;
-          old.setAttribute('draggable','true');
+          old.setAttribute('draggable', 'true');
           old.dataset.type = slot.dataset.type || '';
           addBinHandlers(old);
           document.getElementById('bins').appendChild(old);
         }
-        slot.textContent = dragging.dataset.text; // 放入原文字
+        slot.textContent = dragging.textContent;
         slot.dataset.type = dragging.dataset.type;
         slot.classList.add('filled');
         placed = true;
       }
     });
-    // 若未放到 slot，回到 bins
+
+    // 放不進 slot 回 bins
     if (!placed) {
-      dragging.textContent = dragging.dataset.text; // 還原文字
       dragging.style.position = '';
       dragging.style.zIndex = '';
       dragging.style.left = '';
       dragging.style.top = '';
+      dragging.style.pointerEvents = '';
       document.getElementById('bins').appendChild(dragging);
     } else {
       dragging.remove();
     }
+
     dragging = null;
   });
 }
 
-// 初始化
-document.querySelectorAll('.bin').forEach(addBinHandlers);
+// 初始化所有 bin
+bins.forEach(bin => addBinHandlers(bin));
 
+// --- slot 點擊（手機快速填入） ---
+slots.forEach(slot => {
+  slot.addEventListener('click', () => {
+    const pick = document.querySelector('.bin');
+    if (!pick) return;
+    slot.textContent = pick.textContent;
+    slot.dataset.type = pick.dataset.type;
+    slot.classList.add('filled');
+    pick.remove();
+  });
+});
 
 
 
