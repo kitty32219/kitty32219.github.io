@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿金飲食法小測驗</title>
+<style>
+  body { font-family: "Arial", sans-serif; background-color: #fefefe; padding: 20px; color: #333; }
+  h1 { text-align: center; font-weight: normal; }
+  .notice { text-align: center; margin-bottom: 20px; font-size: 16px; color: #555; }
+  .question { margin-bottom: 20px; text-align: center; }
+  .options button { display: block; margin: 5px auto; padding: 10px 20px; border: 1px solid #ccc; background: #fff; cursor: pointer; text-align: center; width: fit-content; }
+  .options button.selected { border-color: #007bff; background: #f0f8ff; }
+  .feedback { margin-top: 5px; font-size: 14px; color: #666; }
+  .discount { display: none; margin-top: 20px; padding: 15px; border: 1px solid #ddd; text-align: center; }
+  .discount .code { color: #d9534f; font-weight: bold; font-size: 18px; }
+  .discount .desc { color: #6c757d; margin: 5px 0; }
+  .discount a { color: #007bff; text-decoration: none; }
+  button#submitBtn { margin-top: 20px; padding: 10px 20px; cursor: pointer; display: block; margin-left: auto; margin-right: auto; }
+</style>
+</head>
+<body>
+
+<h1>阿金飲食法小測驗</h1>
+<div class="notice">全對可以獲得專屬折扣碼！</div>
+
+<div class="question" data-answer="C" data-explanation="解析: 在引導期，應避免高碳水化合物食物，如馬鈴薯、香蕉、白麵包等。">
+  <p>1. 在阿金飲食法的初期階段（引導期），以下哪類食物應該盡量避免？</p>
+  <div class="options">
+    <button>A. 蘆筍、花椰菜</button>
+    <button>B. 鮭魚、鱒魚</button>
+    <button>C. 馬鈴薯、香蕉、白麵包</button>
+    <button>D. 雞蛋、起司</button>
+  </div>
+  <div class="feedback"></div>
+</div>
+
+<div class="question" data-answer="是" data-explanation="解析: 阿金飲食法的四個階段不必一定按照順序執行，可以依個人減重目標選擇開始階段與延長階段執行時間。">
+  <p>2. 阿金飲食法的四個階段不一定需要按照順序從頭執行，依減重目標可選擇階段開始。 (是/否)</p>
+  <div class="options">
+    <button>是</button>
+    <button>否</button>
+  </div>
+  <div class="feedback"></div>
+</div>
+
+<div class="question" data-answer="B" data-explanation="解析: 阿金20、阿金40、阿金100的20、40、100代表每日淨碳水限制攝取公克數。">
+  <p>3. 阿金20、阿金40、阿金100的20、40、100代表什麼？</p>
+  <div class="options">
+    <button>A. 每日蛋白質需要攝取的公克數</button>
+    <button>B. 每日淨碳水限制攝取公克數</button>
+    <button>C. 每日油脂需要攝取的公克數</button>
+  </div>
+  <div class="feedback"></div>
+</div>
+
+<button id="submitBtn">提交答案</button>
+
+<div class="discount">
+  <p>🎉 恭喜全對！這是你的折扣碼：<span class="code">831883</span></p>
+  <p class="desc">無使用期限，滿999折30</p>
+  <p><a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank">點此使用</a></p>
+</div>
+
+<script>
+const questions = document.querySelectorAll('.question');
+const submitBtn = document.getElementById('submitBtn');
+
+questions.forEach(q => {
+  const buttons = q.querySelectorAll('button');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  });
+});
+
+submitBtn.addEventListener('click', () => {
+  let correctCount = 0;
+
+  questions.forEach(q => {
+    const selected = q.querySelector('button.selected');
+    const answer = q.dataset.answer;
+    const feedback = q.querySelector('.feedback');
+    const explanation = q.dataset.explanation;
+
+    if(selected){
+      if(selected.textContent === answer || selected.textContent.startsWith(answer)){
+        feedback.textContent = "正確 ✅ " + explanation;
+        correctCount++;
+      } else {
+        feedback.textContent = "錯誤 ❌";
+      }
+    } else {
+      feedback.textContent = "尚未選擇答案";
+    }
+  });
+
+  if(correctCount === questions.length){
+    document.querySelector('.discount').style.display = 'block';
+  }
+});
+</script>
+
+</body>
+</html>
