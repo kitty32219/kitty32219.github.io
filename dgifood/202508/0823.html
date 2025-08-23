@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fibersym® RW｜無印風 3 題互動小測驗</title>
+  <style>
+    .result-card strong {
+  color: #c0392b; /* 紅色 */
+}
+    :root{
+      --bg:#f7f7f5;       /* 柔和米白：無印風底色 */
+      --card:#ffffff;     /* 卡片白 */
+      --ink:#333333;      /* 內文字色 */
+      --sub:#666666;      /* 次要文字 */
+      --line:#e6e6e3;     /* 極淡邊線 */
+      --accent:#111111;   /* 純淨黑：按鈕與重點文字 */
+      --ok:#1a7f37;       /* 成功訊息（深綠，低彩度）*/
+      --error:#9a2a2a;    /* 錯誤訊息（磚紅，低彩度）*/
+      --radius:16px;
+    }
+    html, body{ height:100%; }
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Segoe UI", Roboto, Arial, "PingFang TC", "Heiti TC", sans-serif;
+      line-height:1.8; letter-spacing: .3px;
+    }
+    .wrap{ max-width:760px; margin:40px auto 80px; padding:0 16px; }
+    header{
+      margin-bottom:20px;
+    }
+    h1{ font-size:28px; margin:0 0 8px; font-weight:700; }
+    .subtitle{ color:var(--sub); font-size:15px; }
+
+    .card{
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+      padding:20px; margin:16px 0; box-shadow: 0 2px 8px rgba(0,0,0,.03);
+    }
+    fieldset{ border:0; padding:0; margin:0; }
+    legend{ font-size:18px; font-weight:600; margin-bottom:8px; }
+
+    .options{ display:grid; gap:8px; margin-top:8px; }
+    .option{
+      display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px;
+      border:1px solid var(--line); background:#fff; cursor:pointer;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .option:hover{ background:#fafafa; }
+    .option input{ transform:scale(1.1); }
+
+    .feedback{ margin-top:10px; font-size:14px; }
+    .feedback.ok{ color:var(--ok); }
+    .feedback.err{ color:var(--error); }
+
+    .submitbar{ display:flex; align-items:center; gap:12px; margin-top:18px; }
+    button[type="submit"]{
+      appearance:none; border:1px solid #111; background:var(--accent); color:#fff;
+      padding:12px 18px; font-size:16px; border-radius:999px; cursor:pointer;
+      transition: opacity .2s ease, transform .02s ease; letter-spacing:.5px;
+    }
+    button[type="submit"][disabled]{ opacity:.4; cursor:not-allowed; }
+    button[type="submit"]:active{ transform: translateY(1px); }
+
+    .result-all{ display:none; margin-top:24px; }
+    .result-card{
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+      padding:20px; box-shadow: 0 2px 8px rgba(0,0,0,.03);
+    }
+    .coupon{ font-size:16px; margin-top:8px; }
+    .coupon strong{ 
+  font-weight:800; 
+  color:#c0392b; /* 紅色折扣碼 */
+}
+    .coupon a{ color:var(--accent); text-decoration: none; border-bottom:1px solid var(--accent); }
+    .hint{ color:var(--sub); font-size:14px; margin-top:8px; }
+
+    /* 正確或錯誤的卡片邊框提示（極低彩度） */
+    .card.ok{ border-color: #cfe7d8; }
+    .card.err{ border-color: #e8c9c9; }
+
+    /* 小螢幕優化 */
+    @media (max-width:480px){
+      h1{ font-size:22px; }
+      legend{ font-size:16px; }
+      .option{ padding:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Fibersym® RW｜ 3 題互動小測驗</h1>
+      <div class="subtitle">全對可獲得專屬折扣碼。</div>
+    </header>
+
+    <form id="quiz" novalidate>
+      <!-- Q1 -->
+      <section class="card" id="card-q1">
+        <fieldset>
+          <legend>1. Fibersym® RW 屬於哪一類型的抗性澱粉？</legend>
+          <div class="options" role="radiogroup" aria-labelledby="q1">
+            <label class="option"><input type="radio" name="q1" value="A" /> A. RS1</label>
+            <label class="option"><input type="radio" name="q1" value="B" /> B. RS2</label>
+            <label class="option"><input type="radio" name="q1" value="C" /> C. RS3</label>
+            <label class="option"><input type="radio" name="q1" value="D" /> D. RS4</label>
+          </div>
+        </fieldset>
+        <div class="feedback" id="fb-q1" aria-live="polite"></div>
+      </section>
+
+      <!-- Q2 -->
+      <section class="card" id="card-q2">
+        <fieldset>
+          <legend>2. Fibersym® RW 在乾燥基準下，膳食纖維含量至少幾％？</legend>
+          <div class="options" role="radiogroup" aria-labelledby="q2">
+            <label class="option"><input type="radio" name="q2" value="A" /> A. 30%</label>
+            <label class="option"><input type="radio" name="q2" value="B" /> B. 50%</label>
+            <label class="option"><input type="radio" name="q2" value="C" /> C. 70%</label>
+            <label class="option"><input type="radio" name="q2" value="D" /> D. 90%</label>
+          </div>
+        </fieldset>
+        <div class="feedback" id="fb-q2" aria-live="polite"></div>
+      </section>
+
+      <!-- Q3 -->
+      <section class="card" id="card-q3">
+        <fieldset>
+          <legend>3. Fibersym® RW 算是一種低卡、無麩質的食材嗎？</legend>
+          <div class="options" role="radiogroup" aria-labelledby="q3">
+            <label class="option"><input type="radio" name="q3" value="A" /> A. 是</label>
+            <label class="option"><input type="radio" name="q3" value="B" /> B. 否</label>
+          </div>
+        </fieldset>
+        <div class="feedback" id="fb-q3" aria-live="polite"></div>
+      </section>
+
+      <div class="submitbar">
+        <button type="submit" id="submitBtn" disabled>提交</button>
+        <span class="hint" id="hint">請先完成所有題目再提交。</span>
+      </div>
+
+      <!-- 全對顯示的結果 -->
+      <div class="result-all" id="resultAll">
+        <div class="result-card">
+          <div style="font-size:18px">🎉 恭喜全對！這是你的折扣碼：<strong>681401</strong></div>
+          <div class="coupon">無使用期限，滿999折30</div>
+          <div class="coupon">點此使用：<a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank" rel="noopener">前往會員中心使用優惠</a></div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    (function(){
+      const key = { q1: 'D', q2: 'D', q3: 'A' };
+      const explain = {
+        q1: 'Fibersym® RW 為顆粒狀 RS4（抗性小麥澱粉），具低熱量、高纖維並獲美國 FDA 認可為膳食纖維。',
+        q2: '依乾燥基準（AOAC 991.43）膳食纖維含量 ≥ 90%。',
+        q3: '是。其熱量約 0.4 kcal/g（約 35.1 kcal/100g），且可製成符合 FDA 無麩質（< 20 ppm）的產品。'
+      };
+
+      const form = document.getElementById('quiz');
+      const submitBtn = document.getElementById('submitBtn');
+      const resultAll = document.getElementById('resultAll');
+      const hint = document.getElementById('hint');
+
+      const groups = ['q1','q2','q3'];
+
+      function allAnswered(){
+        return groups.every(name => form.querySelector(`input[name="${name}"]:checked`));
+      }
+
+      function setSubmitState(){
+        submitBtn.disabled = !allAnswered();
+        hint.textContent = submitBtn.disabled ? '請先完成所有題目再提交。' : '已完成作答，請按「提交」。';
+      }
+
+      form.addEventListener('change', setSubmitState);
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        resultAll.style.display = 'none';
+
+        let allCorrect = true;
+
+        groups.forEach(name => {
+          const selected = form.querySelector(`input[name="${name}"]:checked`);
+          const value = selected ? selected.value : '';
+          const correct = key[name] === value;
+
+          const fb = document.getElementById(`fb-${name}`);
+          const card = document.getElementById(`card-${name}`);
+
+          if(correct){
+            fb.className = 'feedback ok';
+            fb.textContent = '✅ 正確｜' + explain[name];
+            card.classList.remove('err');
+            card.classList.add('ok');
+          } else {
+            fb.className = 'feedback err';
+            fb.textContent = '❌ 答錯';
+            card.classList.remove('ok');
+            card.classList.add('err');
+          }
+          if(!correct) allCorrect = false;
+        });
+
+        if(allCorrect){
+          resultAll.style.display = 'block';
+          // 平滑捲動至結果
+          resultAll.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      });
+
+      // 初始狀態
+      setSubmitState();
+    })();
+  </script>
+</body>
+</html>
