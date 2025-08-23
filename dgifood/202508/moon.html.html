@@ -48,18 +48,6 @@
       display: block;
       border: 1px solid #ccc;
     }
-
-    .share {
-      margin-top: 30px;
-      font-size: 18px;
-    }
-
-    .share a {
-      margin: 0 10px;
-      color: #ff69b4;
-      text-decoration: none;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
@@ -67,20 +55,11 @@
   <h1>🌕 中秋節快樂</h1>
   <h2>寫下祝福送出吧！</h2>
 
-  <!-- 明信片預覽區（45% 尺寸） -->
   <canvas id="postcardCanvas" width="786" height="558"></canvas>
 
-  <!-- 文字輸入區 -->
   <textarea id="message" placeholder="在這裡寫下你的祝福..." oninput="updateCanvas()"></textarea><br>
   <button onclick="downloadPostcard()">下載明信片</button>
-
-  <!-- 分享區 -->
-  <div class="share">
-    <p>分享出去吧：</p>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://kitty32219.github.io/dgifood/202508/moon-fes.png" target="_blank">Facebook</a>
-    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-    <a href="https://line.me/R/msg/text/?中秋節快樂！%0Ahttps://kitty32219.github.io/dgifood/202508/moon-fes.png" target="_blank">LINE</a>
-  </div>
+  <button onclick="sharePostcard()">分享到 FB 或其他 App</button>
 
   <script>
     const canvas = document.getElementById('postcardCanvas');
@@ -104,7 +83,7 @@
 
       const lines = message.split('\n');
       lines.forEach((line, i) => {
-        ctx.fillText(line, canvas.width / 2, 200 + i * 28); // 文字位置依比例上移
+        ctx.fillText(line, canvas.width / 2, 200 + i * 28);
       });
     }
 
@@ -113,6 +92,27 @@
       link.download = "中秋明信片.png";
       link.href = canvas.toDataURL();
       link.click();
+    }
+
+    async function sharePostcard() {
+      try {
+        const dataUrl = canvas.toDataURL('image/png');
+        const blob = await (await fetch(dataUrl)).blob();
+        const file = new File([blob], '中秋明信片.png', { type: 'image/png' });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: '中秋明信片',
+            text: '給你我的中秋祝福！'
+          });
+        } else {
+          alert('此裝置或瀏覽器不支援直接分享，請先下載圖片再分享到 FB。');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('分享失敗，請先下載圖片再分享到 FB。');
+      }
     }
   </script>
 
