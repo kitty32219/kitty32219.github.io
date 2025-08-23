@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>中秋明信片祝福</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #fffaf5;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    #message {
+      width: 80%;
+      max-width: 600px;
+      height: 100px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #ffcc00;
+      color: #333;
+      cursor: pointer;
+    }
+
+    canvas {
+      margin: 30px auto 20px;
+      display: block;
+      border: 1px solid #ccc;
+    }
+
+    .share {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+
+    .share a {
+      margin: 0 10px;
+      color: #ff69b4;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌕 中秋節快樂</h1>
+  <h2>寫下祝福送出吧！</h2>
+
+  <!-- 明信片預覽區（45% 尺寸） -->
+  <canvas id="postcardCanvas" width="786" height="558"></canvas>
+
+  <!-- 文字輸入區 -->
+  <textarea id="message" placeholder="在這裡寫下你的祝福..." oninput="updateCanvas()"></textarea><br>
+  <button onclick="downloadPostcard()">下載明信片</button>
+
+  <!-- 分享區 -->
+  <div class="share">
+    <p>分享出去吧：</p>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://kitty32219.github.io/dgifood/202508/moon-fes.png" target="_blank">Facebook</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+    <a href="https://line.me/R/msg/text/?中秋節快樂！%0Ahttps://kitty32219.github.io/dgifood/202508/moon-fes.png" target="_blank">LINE</a>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('postcardCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = 'https://kitty32219.github.io/dgifood/202508/moon-fes.png';
+
+    img.onload = function () {
+      updateCanvas();
+    };
+
+    function updateCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      const message = document.getElementById('message').value;
+      ctx.font = "20px Segoe UI";
+      ctx.fillStyle = "#333";
+      ctx.textAlign = "center";
+
+      const lines = message.split('\n');
+      lines.forEach((line, i) => {
+        ctx.fillText(line, canvas.width / 2, 200 + i * 28); // 文字位置依比例上移
+      });
+    }
+
+    function downloadPostcard() {
+      const link = document.createElement('a');
+      link.download = "中秋明信片.png";
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
