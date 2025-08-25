@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>生酮風險小測驗</title>
+  <style>
+    :root{
+      --bg:#f7f6f2;
+      --card:#ffffff;
+      --ink:#2f2f2f;
+      --mute:#7a7a7a;
+      --line:#e6e3dc;
+      --accent:#3a3a3a;
+      --ok:#1a7f37;
+      --err:#b3261e;
+      --code:#c70039;
+      --note:#9aa0a6;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; padding:0; background:var(--bg); color:var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Hiragino Sans", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+      line-height:1.75;
+      letter-spacing: .2px;
+    }
+    .wrap{max-width:860px; margin:48px auto 96px; padding:0 20px;}
+    header{margin-bottom:18px;}
+    h1{font-weight:600; font-size:28px; margin:0 0 6px;}
+    .subtitle{font-size:14px; color:var(--mute); margin:0 0 18px;}
+    .reward{display:none; font-size:15px; border-top:1px solid var(--line); padding-top:16px; margin-top:8px;}
+    .reward b.code{color:var(--code); letter-spacing:1px;}
+    .reward small{color:var(--note);}
+    .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; margin:18px 0; box-shadow:0 1px 0 rgba(0,0,0,0.02);}    
+    h2{font-size:18px; margin:0 0 10px; font-weight:600;}
+    .q-title{margin:0 0 12px; font-weight:500;}
+    .options{display:grid; gap:8px; margin:10px 0 6px;}
+    label.option{display:flex; align-items:flex-start; gap:10px; cursor:pointer;}
+    label.option input{margin-top:6px;}
+    .controls{display:flex; gap:10px; align-items:center; margin-top:10px;}
+    button{appearance:none; border:1px solid var(--line); background:#fafafa; color:var(--accent); padding:8px 14px; border-radius:999px; cursor:pointer; font-size:14px;}
+    button:hover{background:#f0f0ec;}
+    button.reset{background:#fff;}
+    .feedback{margin-top:10px; font-size:14px;}
+    .feedback.ok{color:var(--ok);}    
+    .feedback.err{color:var(--err);}    
+    .explain{margin-top:6px; padding:10px 12px; background:#fbfbfb; border:1px dashed var(--line); border-radius:10px; font-size:14px;}
+    .pair-grid{display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
+    .pair-col{border:1px solid var(--line); border-radius:12px; padding:12px; background:#fff;}
+    .pair-col h3{font-size:15px; margin:0 0 8px; color:var(--mute); font-weight:600;}
+    .pairs{display:grid; gap:8px;}
+    .pair-row{display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center;}
+    select{padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:#fafafa; font-size:14px;}
+    .right-list{font-size:14px; color:#444;}
+    .right-list li{margin:4px 0;}
+    a.link{color:var(--accent); text-decoration: underline; text-underline-offset: 3px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>生酮風險小測驗</h1>
+      <p class="subtitle">全對可以獲得專屬折扣碼。</p>
+    </header>
+
+    <!-- 問題 1 -->
+    <section class="card" id="q1">
+      <h2>問題 1：酮流感</h2>
+      <p class="q-title">什麼是酮流感？</p>
+      <div class="options" role="group" aria-labelledby="q1">
+        <label class="option"><input type="radio" name="q1" value="A"> A. 生酮飲食容易感染的流感</label>
+        <label class="option"><input type="radio" name="q1" value="B"> B. 生酮狀態可以透過口沫傳遞</label>
+        <label class="option"><input type="radio" name="q1" value="C"> C. 生酮飲食開始時出現的不適</label>
+        <label class="option"><input type="radio" name="q1" value="D"> D. 生酮飲食變成潮流的現象</label>
+      </div>
+      <div class="feedback" id="q1fb"></div>
+      <div class="explain" id="q1exp" style="display:none;">解析：酮流感是指剛開始生酮飲食時，身體對代謝模式轉換的不適應症狀，例如頭痛、疲勞、易怒、腸胃不適。</div>
+    </section>
+
+    <!-- 問題 2（配對題） -->
+    <section class="card" id="q2">
+      <h2>問題 2：營養缺乏影響配對</h2>
+      <p class="q-title">將下列營養素缺乏與可能的影響正確配對。</p>
+      <div class="pair-grid">
+        <div class="pair-col">
+          <h3>左邊（營養素）</h3>
+          <div class="pairs">
+            <div class="pair-row"><span>1. 維生素 C</span>
+              <select id="p1">
+                <option value="">—</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+              </select>
+            </div>
+            <div class="pair-row"><span>2. 鈣與維生素 D</span>
+              <select id="p2">
+                <option value="">—</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+              </select>
+            </div>
+            <div class="pair-row"><span>3. 纖維</span>
+              <select id="p3">
+                <option value="">—</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+              </select>
+            </div>
+            <div class="pair-row"><span>4. 維生素 B 群</span>
+              <select id="p4">
+                <option value="">—</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+              </select>
+            </div>
+            <div class="pair-row"><span>5. 電解質（鈉、鉀、鎂）</span>
+              <select id="p5">
+                <option value="">—</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="pair-col">
+          <h3>右邊（可能影響）</h3>
+          <ol class="right-list" type="A">
+            <li>骨質疏鬆、肌少症風險增加</li>
+            <li>代謝變慢、注意力下降</li>
+            <li>免疫力降低、牙齦出血、傷口恢復變慢</li>
+            <li>肌肉痙攣、心悸</li>
+            <li>便秘</li>
+          </ol>
+        </div>
+      </div>
+      <div class="controls">
+        <button type="button" class="reset" onclick="resetPairs()">重設配對</button>
+      </div>
+      <div class="feedback" id="q2fb"></div>
+      <div class="explain" id="q2exp" style="display:none;">
+        解析：
+        <ul style="margin:6px 0 0 18px; padding:0;">
+          <li>1 → C：維生素 C 缺乏易造成免疫力下降、牙齦出血、傷口癒合變慢。</li>
+          <li>2 → A：鈣與維生素 D 不足與骨質疏鬆、肌少症風險增加相關。</li>
+          <li>3 → E：膳食纖維不足常導致便秘。</li>
+          <li>4 → B：維生素 B 群缺乏會影響能量代謝，出現代謝變慢、注意力下降。</li>
+          <li>5 → D：電解質不足（鈉、鉀、鎂）可能引起肌肉痙攣、心悸等。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 問題 3 -->
+    <section class="card" id="q3">
+      <h2>問題 3：生酮初期水分流失</h2>
+      <p class="q-title">進入生酮飲食時，哪種能量儲備被消耗導致大量水分流失？</p>
+      <div class="options" role="group" aria-labelledby="q3">
+        <label class="option"><input type="radio" name="q3" value="A"> A. 纖維</label>
+        <label class="option"><input type="radio" name="q3" value="B"> B. 蛋白質</label>
+        <label class="option"><input type="radio" name="q3" value="C"> C. 脂肪</label>
+        <label class="option"><input type="radio" name="q3" value="D"> D. 肝醣</label>
+      </div>
+      <div class="feedback" id="q3fb"></div>
+      <div class="explain" id="q3exp" style="display:none;">解析：肝醣儲存量消耗時會帶走水分，因此生酮初期容易脫水，需要多喝水並補充電解質。</div>
+    </section>
+
+    <div class="controls" style="justify-content:flex-start; margin-top:24px;">
+      <button type="button" onclick="submitQuiz()">提交答案</button>
+    </div>
+
+    <div id="reward" class="reward" aria-live="polite">
+      <p>🎉 恭喜你全部答對！這是你的折扣碼 <b class="code">993021</b></p>
+      <p>無使用期限，滿 999 折 30</p>
+      <p><a class="link" href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank" rel="noopener">點我使用</a></p>
+    </div>
+  </div>
+
+  <script>
+    const state = { q1:false, q2:false, q3:false };
+
+    function revealRewardIfAllCorrect(){
+      const all = state.q1 && state.q2 && state.q3;
+      const reward = document.getElementById('reward');
+      reward.style.display = all ? 'block' : 'none';
+      if(all){
+        window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});
+      }
+    }
+
+    function setFeedback(elId, ok){
+      const el = document.getElementById(elId);
+      el.className = 'feedback ' + (ok ? 'ok' : 'err');
+      el.textContent = ok ? '答對了！' : '答錯了，再試試看。';
+    }
+
+    function submitQuiz(){
+      // 問題 1
+      const val1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const ok1 = (val1 === 'C');
+      setFeedback('q1fb', ok1);
+      document.getElementById('q1exp').style.display = ok1 ? 'block' : 'none';
+      state.q1 = !!ok1;
+
+      // 問題 2
+      const ans = { p1:'C', p2:'A', p3:'E', p4:'B', p5:'D' };
+      const u = {
+        p1: document.getElementById('p1').value,
+        p2: document.getElementById('p2').value,
+        p3: document.getElementById('p3').value,
+        p4: document.getElementById('p4').value,
+        p5: document.getElementById('p5').value,
+      };
+      let ok2 = true;
+      for(const k in ans){ if(u[k] !== ans[k]) { ok2 = false; break; } }
+      setFeedback('q2fb', ok2);
+      document.getElementById('q2exp').style.display = ok2 ? 'block' : 'none';
+      state.q2 = !!ok2;
+
+      // 問題 3
+      const val3 = document.querySelector('input[name="q3"]:checked')?.value;
+      const ok3 = (val3 === 'D');
+      setFeedback('q3fb', ok3);
+      document.getElementById('q3exp').style.display = ok3 ? 'block' : 'none';
+      state.q3 = !!ok3;
+
+      // 最後檢查
+      revealRewardIfAllCorrect();
+    }
+
+    function resetPairs(){
+      ['p1','p2','p3','p4','p5'].forEach(id=>{ document.getElementById(id).value = ''; });
+      const fb = document.getElementById('q2fb');
+      fb.textContent = '';
+      fb.className = 'feedback';
+      document.getElementById('q2exp').style.display = 'none';
+      state.q2 = false;
+      revealRewardIfAllCorrect();
+    }
+  </script>
+</body>
+</html>
