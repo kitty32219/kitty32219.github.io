@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>小測驗｜生酮 vs 低碳 vs 均衡</title>
+  <style>
+    :root{
+      --bg:#faf9f7;
+      --ink:#2d2d2d;
+      --muted:#7a7a7a;
+      --line:#e6e2da;
+      --ok:#2f855a;
+      --err:#b00020;
+      --accent:#111;
+      --btn:#ffffff;
+      --btnLine:#d8d2c4;
+      --red:#d9534f;
+      --gray:#6c757d;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height:1.7;
+    }
+    .wrap{max-width: 760px; margin: 40px auto; padding: 0 16px;}
+    h1{font-size:1.6rem; font-weight:600; letter-spacing:.02em; margin:0 0 8px}
+    .sub{color:var(--muted); font-size:.95rem; margin:0 0 24px}
+
+    .card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 18px 14px; margin:14px 0 18px; box-shadow: 0 1px 0 rgba(0,0,0,.02)}
+    .q-title{font-weight:600; margin:0 0 10px}
+    .q-note{color:var(--muted); font-size:.92rem; margin:6px 0 12px}
+
+    label{display:block; margin:10px 0 6px}
+    .row{display:flex; gap:12px; align-items:center; margin:10px 0}
+    .row .diet{width:124px; flex:0 0 124px}
+    select, input[type="radio"]{accent-color:#444}
+    select, .btn, .btn-ghost{
+      appearance:none; -webkit-appearance:none;
+      background:#fff; color:var(--ink); border:1px solid var(--btnLine);
+      padding:10px 12px; border-radius:12px; font-size:1rem;
+    }
+    select:focus, .btn:focus, .btn-ghost:focus{outline:2px solid #c9c3b6; outline-offset:2px}
+
+    .btn{cursor:pointer; font-weight:600; box-shadow:0 1px 0 rgba(0,0,0,.03)}
+    .btn:hover{background:#f6f4ef}
+    .btn-ghost{background:transparent}
+
+    .mapping-key{background:#fcfbf8; border:1px dashed var(--line); border-radius:12px; padding:10px 12px; font-size:.95rem; color:#444; white-space:pre-line}
+
+    .feedback{min-height:1.4em; margin-top:8px; font-size:.97rem}
+    .ok{color:var(--ok)}
+    .err{color:var(--err)}
+
+    .actions{display:flex; gap:10px; align-items:center; justify-content:flex-start; margin-top:12px}
+
+    .final{display:none; background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; margin-top:18px}
+    .final .big{font-size:1.15rem; font-weight:700; margin-bottom:4px}
+    .coupon{font-size:1.1rem; font-weight:700}
+    .coupon .num{color:var(--red)}
+    .coupon-sub{color:var(--gray); margin-top:2px}
+    .cta{display:inline-block; margin-top:10px; padding:10px 14px; border:1px solid var(--ink); border-radius:12px; text-decoration:none; color:var(--accent)}
+    .cta:hover{background:#f6f4ef}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>生酮vs低碳vs均衡飲食小測驗</h1>
+    <p class="sub"><b>全對可獲得專屬折扣碼</b></p>
+
+    <!-- Q1 配對題 -->
+    <section class="card" id="q1">
+      <div class="q-title">Q1. 配對題：請將飲食方式與三大營養素比例配對</div>
+      <div class="mapping-key" aria-hidden="true">
+A：脂肪 60%／蛋白質 20%／碳水 20%
+B：脂肪 75%／蛋白質 20%／碳水 5%
+C：脂肪 30%／蛋白質 15%／碳水 55%
+      </div>
+      <div class="row">
+        <div class="diet">生酮飲食</div>
+        <select id="match-keto"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>
+      </div>
+      <div class="row">
+        <div class="diet">低碳飲食</div>
+        <select id="match-lowcarb"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>
+      </div>
+      <div class="row">
+        <div class="diet">均衡飲食</div>
+        <select id="match-balanced"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" id="reset-q1" type="button">重設配對</button>
+      </div>
+      <div id="fb-q1" class="feedback"></div>
+    </section>
+
+    <!-- Q2 判斷題 -->
+    <section class="card" id="q2">
+      <div class="q-title">Q2. 判斷題</div>
+      <p class="q-note">與生酮飲食不同，低碳飲食的重點在於限制碳水，而不強求進入酮症狀態。</p>
+      <label><input type="radio" name="tf" value="對"> 對</label>
+      <label><input type="radio" name="tf" value="錯"> 錯</label>
+      <div id="fb-q2" class="feedback"></div>
+    </section>
+
+    <!-- Q3 單選題 -->
+    <section class="card" id="q3">
+      <div class="q-title">Q3. 單選題</div>
+      <p class="q-note">在均衡飲食中，菜、水果、全穀雜糧類的比重，哪一個說法是正確的？</p>
+      <label><input type="radio" name="mc" value="A"> A. 水果比蔬菜多，飯比水果少</label>
+      <label><input type="radio" name="mc" value="B"> B. 蔬菜比水果多，飯跟蔬菜差不多</label>
+      <label><input type="radio" name="mc" value="C"> C. 飯要比蔬菜多，水果可以不用每天吃</label>
+      <div id="fb-q3" class="feedback"></div>
+    </section>
+
+    <div class="actions">
+      <button id="submit" class="btn" type="button">交出答案</button>
+    </div>
+
+    <!-- 全對折扣碼 -->
+    <section id="final" class="final">
+      <div class="big">🎉 恭喜全對！這是你的折扣碼：</div>
+      <div class="coupon"><span class="num">831883</span></div>
+      <div class="coupon-sub">無使用期限，滿999折30</div>
+      <a class="cta" href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank">點此使用</a>
+    </section>
+  </main>
+
+  <script>
+    const picks = {
+      keto: document.getElementById('match-keto'),
+      lowcarb: document.getElementById('match-lowcarb'),
+      balanced: document.getElementById('match-balanced')
+    };
+    const fb1 = document.getElementById('fb-q1');
+    const fb2 = document.getElementById('fb-q2');
+    const fb3 = document.getElementById('fb-q3');
+    const finalBox = document.getElementById('final');
+
+    document.getElementById('reset-q1').addEventListener('click', () => {
+      picks.keto.value = '';
+      picks.lowcarb.value = '';
+      picks.balanced.value = '';
+      fb1.textContent = '';
+    });
+
+    function answeredAll(){
+      return picks.keto.value && picks.lowcarb.value && picks.balanced.value &&
+             document.querySelector('input[name="tf"]:checked') &&
+             document.querySelector('input[name="mc"]:checked');
+    }
+
+    function check(){
+      finalBox.style.display = 'none';
+
+      const right = {
+        q1: {keto:'B', lowcarb:'A', balanced:'C'},
+        q2: '對',
+        q3: 'B'
+      };
+
+      let q1Correct = (picks.keto.value===right.q1.keto && picks.lowcarb.value===right.q1.lowcarb && picks.balanced.value===right.q1.balanced);
+      fb1.innerHTML = q1Correct ? `<span class="ok">✔ 答對！解析：生酮＝脂肪75%／蛋白質20%／碳水5%；低碳＝脂肪60%／蛋白質20%／碳水20%；均衡＝脂肪30%／蛋白質15%／碳水55%。</span>` :
+                                   `<span class="err">❌ 答錯了，再試試。</span>`;
+
+      const q2Picked = document.querySelector('input[name="tf"]:checked')?.value;
+      let q2Correct = (q2Picked===right.q2);
+      fb2.innerHTML = q2Correct ? `<span class="ok">✔ 答對！解析：低碳飲食僅強調減少碳水，不必進入酮症，因此較易長期執行。</span>` :
+                                   `<span class="err">❌ 答錯了，再試試。</span>`;
+
+      const q3Picked = document.querySelector('input[name="mc"]:checked')?.value;
+      let q3Correct = (q3Picked===right.q3);
+      fb3.innerHTML = q3Correct ? `<span class="ok">✔ 答對！解析：均衡飲食建議「菜比水果多一點，飯跟蔬菜差不多」，水果每日至少 2 份。</span>` :
+                                   `<span class="err">❌ 答錯了，再試試。</span>`;
+
+      if(q1Correct && q2Correct && q3Correct){
+        finalBox.style.display = 'block';
+        finalBox.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    }
+
+    document.getElementById('submit').addEventListener('click', () => {
+      if(!answeredAll()){
+        alert('請先完成三題再交卷喔！');
+        return;
+      }
+      check();
+    });
+  </script>
+</body>
+</html>
