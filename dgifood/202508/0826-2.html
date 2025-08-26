@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生酮飲食互動題</title>
+<style>
+  body {
+    font-family: "Noto Sans TC", sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+  .question {
+    font-size: 1.2rem; 
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .options label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+  }
+  .feedback {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  .feedback.correct {
+    color: green;
+  }
+  .feedback.wrong {
+    color: red;
+  }
+  button {
+    display: block;
+    margin: 30px auto 0 auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .result {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .discount-code {
+    color: #d9534f;
+    font-weight: bold;
+  }
+  .discount-info {
+    color: #6c757d;
+  }
+  a {
+    color: #333;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>以膳食纖維為參數的生酮飲食小測驗</h1>
+  <p style="text-align:center; color:#555; font-weight:400; margin-top:5px;">全對可以獲得專屬折扣碼</p>
+
+<div class="question" data-answer="B">
+  <p>1. 生酮飲食是透過降低哪種營養素的攝取，使身體轉換為以脂肪為主要能量來源？</p>
+  <div class="options">
+    <label><input type="radio" name="q1" value="A"> A. 蛋白質</label>
+    <label><input type="radio" name="q1" value="B"> B. 淨碳水</label>
+    <label><input type="radio" name="q1" value="C"> C. 膳食纖維</label>
+  </div>
+  <div class="feedback" id="feedback1"></div>
+</div>
+
+<div class="question" data-answer="C">
+  <p>2. 以下哪項不是膳食纖維的潛在優點？</p>
+  <div class="options">
+    <label><input type="radio" name="q2" value="A"> A. 促進腸道蠕動</label>
+    <label><input type="radio" name="q2" value="B"> B. 延長飽足感</label>
+    <label><input type="radio" name="q2" value="C"> C. 提高血糖，避免低血糖</label>
+    <label><input type="radio" name="q2" value="D"> D. 延緩糖分吸收</label>
+  </div>
+  <div class="feedback" id="feedback2"></div>
+</div>
+
+<div class="question" data-answer="C">
+  <p>3. 在以膳食纖維為參數的生酮飲食中，增加膳食纖維時，熱量主要從哪裡扣除？</p>
+  <div class="options">
+    <label><input type="radio" name="q3" value="A"> A. 蛋白質</label>
+    <label><input type="radio" name="q3" value="B"> B. 淨碳水</label>
+    <label><input type="radio" name="q3" value="C"> C. 油脂</label>
+  </div>
+  <div class="feedback" id="feedback3"></div>
+</div>
+
+<button id="submitBtn">交出答案</button>
+
+<div class="result" id="result" style="display:none;"></div>
+
+<script>
+const questions = document.querySelectorAll('.question');
+const submitBtn = document.getElementById('submitBtn');
+const resultDiv = document.getElementById('result');
+
+submitBtn.addEventListener('click', () => {
+  let allCorrect = true;
+
+  questions.forEach((q, index) => {
+    const selected = q.querySelector('input[type="radio"]:checked');
+    const feedback = document.getElementById(`feedback${index+1}`);
+    if (!selected) {
+      feedback.textContent = "請選擇一個答案";
+      feedback.className = "feedback wrong";
+      allCorrect = false;
+      return;
+    }
+    if (selected.value === q.dataset.answer) {
+      feedback.className = "feedback correct";
+      if(index === 0){
+        feedback.textContent = "解析: 生酮飲食的核心在於限制淨碳水攝取，使身體產生酮體，轉而以脂肪為主要能量來源。";
+      } else if(index === 1){
+        feedback.textContent = "解析: 膳食纖維不會被人體消化道直接消化吸收，不會像淨碳水那樣明顯提高血糖，相反，它被認為可以延緩糖分吸收。";
+      } else if(index === 2){
+        feedback.textContent = "解析: 膳食纖維增加的熱量從油脂扣除，以保持飲食可行性與酮症狀態。";
+      }
+    } else {
+      feedback.className = "feedback wrong";
+      feedback.textContent = "答案錯誤";
+      allCorrect = false;
+    }
+  });
+
+  if(allCorrect){
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = `🎉 恭喜全對！這是你的折扣碼：<span class="discount-code">547189</span><br>
+    <span class="discount-info">無使用期限，滿999折30</span><br>
+    <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank">點此使用</a>`;
+  } else {
+    resultDiv.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
