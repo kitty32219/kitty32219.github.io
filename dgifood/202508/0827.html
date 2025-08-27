@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>小測驗：食物消化旅程</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #f3f3f3;
+      color: #333;
+      max-width: 700px;
+      margin: 40px auto;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+      margin-bottom: 0.2em;
+    }
+    h2 {
+      font-size: 1.2em;
+      margin-top: 1.5em;
+    }
+    .note {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 1.5em;
+    }
+    .question {
+      margin-bottom: 1.5em;
+      padding: 1em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .question p {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    .sortable-container {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5em;
+      margin: 1em 0;
+    }
+    .sortable-slot {
+      min-width: 80px;
+      padding: 0.6em;
+      border: 2px dashed #aaa;
+      border-radius: 6px;
+      text-align: center;
+      background: #fafafa;
+      cursor: grab;
+      user-select: none;
+    }
+    .arrow {
+      font-size: 1.2em;
+      color: #999;
+    }
+    button {
+      margin-top: 0.5em;
+      padding: 0.5em 1em;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    .result {
+      margin-top: 0.5em;
+      font-size: 0.95em;
+    }
+    .wrong {
+      color: #c00;
+      font-weight: bold;
+    }
+    .correct {
+      color: #060;
+      font-weight: bold;
+    }
+    #finalResult {
+      margin-top: 2em;
+      padding: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fafafa;
+      text-align: center;
+      display: none;
+    }
+    .code {
+      color: red;
+      font-weight: bold;
+    }
+    .condition {
+      color: #666;
+      font-size: 0.9em;
+    }
+    a {
+      color: #333;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>小測驗：食物消化旅程</h1>
+  <p class="note">全對可以獲得專屬折扣碼</p>
+
+  <!-- 問題 1 排序題 -->
+  <div class="question" id="q1">
+    <p>問題 1：請拖曳下列項目，排列正確的消化順序：</p>
+    <div id="slots" class="sortable-container">
+      <div class="sortable-slot" data-answer="">&nbsp;</div><span class="arrow">→</span>
+      <div class="sortable-slot" data-answer="">&nbsp;</div><span class="arrow">→</span>
+      <div class="sortable-slot" data-answer="">&nbsp;</div><span class="arrow">→</span>
+      <div class="sortable-slot" data-answer="">&nbsp;</div><span class="arrow">→</span>
+      <div class="sortable-slot" data-answer="">&nbsp;</div><span class="arrow">→</span>
+      <div class="sortable-slot" data-answer="">&nbsp;</div>
+    </div>
+
+    <p>選項：</p>
+    <div id="options" class="sortable-container"></div>
+    <button onclick="resetQ1()">重設第一題</button>
+    <div class="result" id="res1"></div>
+  </div>
+
+  <!-- 問題 2 -->
+  <div class="question" id="q2">
+    <p>問題 2：食物中的蛋白質在哪個部位會開始被分解？</p>
+    <label><input type="radio" name="q2" value="a"> a. 胃部</label><br>
+    <label><input type="radio" name="q2" value="b"> b. 小腸</label><br>
+    <label><input type="radio" name="q2" value="c"> c. 大腸</label><br>
+    <div class="result" id="res2"></div>
+  </div>
+
+  <!-- 問題 3 -->
+  <div class="question" id="q3">
+    <p>問題 3：大腸的主要功能是什麼？</p>
+    <label><input type="radio" name="q3" value="a"> a. 吸收大部分營養</label><br>
+    <label><input type="radio" name="q3" value="b"> b. 吸收水分與電解質，並由腸道菌群發酵部分纖維</label><br>
+    <label><input type="radio" name="q3" value="c"> c. 開始澱粉分解</label><br>
+    <div class="result" id="res3"></div>
+  </div>
+
+  <button onclick="finalSubmit()">交出答案</button>
+  <div id="finalResult"></div>
+
+  <script>
+    let score = 0;
+    let answered = {q1:false, q2:false, q3:false};
+
+    const slotElements = document.querySelectorAll("#slots .sortable-slot");
+    const optionContainer = document.getElementById("options");
+    const correctOrder = ["口腔", "食道", "胃部", "小腸", "大腸", "肛門"];
+
+    // 初始化第一題選項（打散）
+    function initQ1Options(){
+      optionContainer.innerHTML = "";
+      const shuffled = [...correctOrder].sort(() => Math.random() - 0.5);
+      shuffled.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "sortable-slot";
+        div.textContent = item;
+        div.setAttribute("draggable", "true");
+        optionContainer.appendChild(div);
+
+        div.addEventListener("dragstart", e => {
+          dragItem = e.target;
+          setTimeout(() => e.target.style.opacity = "0.5", 0);
+        });
+        div.addEventListener("dragend", e => {
+          e.target.style.opacity = "1";
+          dragItem = null;
+        });
+      });
+    }
+
+    let dragItem = null;
+
+    slotElements.forEach(slot => {
+      slot.addEventListener("dragover", e => e.preventDefault());
+      slot.addEventListener("drop", e => {
+        if(dragItem && slot.getAttribute("data-answer") === ""){
+          slot.textContent = dragItem.textContent;
+          slot.setAttribute("data-answer", dragItem.textContent);
+          dragItem.style.display = "none";
+        }
+      });
+    });
+
+    function resetQ1(){
+      slotElements.forEach(slot => {
+        slot.textContent = "\xa0";
+        slot.setAttribute("data-answer", "");
+      });
+      initQ1Options();
+      document.getElementById("res1").innerHTML = "";
+      answered.q1 = false;
+    }
+
+    function checkQ1(){
+      let items = Array.from(slotElements).map(div => div.getAttribute("data-answer"));
+      let res = document.getElementById("res1");
+      if(JSON.stringify(items) === JSON.stringify(correctOrder)){
+        res.innerHTML = "<span class='correct'>✔ 正確！</span> 食物由口腔 → 食道 → 胃部 → 小腸 → 大腸 → 肛門。";
+        score++;
+      } else {
+        res.innerHTML = "<span class='wrong'>❌ 錯誤！</span>";
+      }
+      answered.q1 = true;
+    }
+
+    function checkQ2(){
+      let choice = document.querySelector('input[name="q2"]:checked');
+      let res = document.getElementById("res2");
+      if(!choice) return;
+      if(choice.value === "a"){
+        res.innerHTML = "<span class='correct'>✔ 正確！</span> 胃部分泌胃蛋白酶與胃酸，開始分解蛋白質。";
+        score++;
+      } else {
+        res.innerHTML = "<span class='wrong'>❌ 錯誤！</span>";
+      }
+      answered.q2 = true;
+    }
+
+    function checkQ3(){
+      let choice = document.querySelector('input[name="q3"]:checked');
+      let res = document.getElementById("res3");
+      if(!choice) return;
+      if(choice.value === "b"){
+        res.innerHTML = "<span class='correct'>✔ 正確！</span> 大腸吸收水分與電解質，並由腸道菌群發酵部分纖維。";
+        score++;
+      } else {
+        res.innerHTML = "<span class='wrong'>❌ 錯誤！</span>";
+      }
+      answered.q3 = true;
+    }
+
+    function finalSubmit(){
+      checkQ1();
+      checkQ2();
+      checkQ3();
+      let final = document.getElementById("finalResult");
+      if(!(answered.q1 && answered.q2 && answered.q3)){
+        alert("請先完成所有題目！");
+        return;
+      }
+      if(score === 3){
+        final.style.display = "block";
+        final.innerHTML = `🎉 恭喜全對！這是你的折扣碼： <span class="code">547189</span><br>
+        <span class="condition">無使用期限，滿999折30</span><br>
+        <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank">點此使用</a>`;
+      } else {
+        final.style.display = "none"; // 不顯示“測驗完成”訊息
+      }
+    }
+
+    // 初始化第一題
+    initQ1Options();
+  </script>
+</body>
+</html>
