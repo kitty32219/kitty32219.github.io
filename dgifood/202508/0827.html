@@ -97,6 +97,9 @@
       color: #666;
       font-size: 0.9em;
     }
+    #options {
+  position: relative;
+}
     a {
       color: #333;
       text-decoration: underline;
@@ -168,36 +171,34 @@
       });
 
       // 手機拖拉
-let originalX = 0, originalY = 0; // 記錄初始位置
-
 element.addEventListener("touchstart", e => {
   dragItem = e.target;
   const touch = e.touches[0];
-  offsetX = touch.clientX - dragItem.getBoundingClientRect().left;
-  offsetY = touch.clientY - dragItem.getBoundingClientRect().top;
-
-  // 記錄初始位置
   const rect = dragItem.getBoundingClientRect();
-  originalX = rect.left + window.scrollX;
-  originalY = rect.top + window.scrollY;
+  offsetX = touch.clientX - rect.left;
+  offsetY = touch.clientY - rect.top;
 
   dragItem.style.position = "absolute";
   dragItem.style.zIndex = "1000";
+
+  // 放到 container 的最上層
+  optionContainer.appendChild(dragItem);
 });
 
 element.addEventListener("touchmove", e => {
   e.preventDefault();
   const touch = e.touches[0];
-  dragItem.style.left = (touch.clientX - offsetX + window.scrollX) + "px";
-  dragItem.style.top = (touch.clientY - offsetY + window.scrollY) + "px";
+  const containerRect = optionContainer.getBoundingClientRect();
+  dragItem.style.left = (touch.clientX - offsetX - containerRect.left) + "px";
+  dragItem.style.top = (touch.clientY - offsetY - containerRect.top) + "px";
 });
 
 element.addEventListener("touchend", e => {
   let placed = false;
   slotElements.forEach(slot => {
     const rect = slot.getBoundingClientRect();
-    const midX = dragItem.getBoundingClientRect().left + dragItem.offsetWidth / 2;
-    const midY = dragItem.getBoundingClientRect().top + dragItem.offsetHeight / 2;
+    const midX = dragItem.getBoundingClientRect().left + dragItem.offsetWidth/2;
+    const midY = dragItem.getBoundingClientRect().top + dragItem.offsetHeight/2;
     if(slot.getAttribute("data-answer")=="" &&
        midX > rect.left && midX < rect.right &&
        midY > rect.top && midY < rect.bottom){
@@ -209,14 +210,14 @@ element.addEventListener("touchend", e => {
 
   // 如果沒放到空白格，就回到選項欄
   if(!placed){
-    dragItem.style.left = originalX + "px";
-    dragItem.style.top = originalY + "px";
-    setTimeout(()=>{
-      dragItem.style.position = "static";
-      dragItem.style.zIndex = "";
-    }, 200);
+    dragItem.style.position = "static";
+    dragItem.style.left = "";
+    dragItem.style.top = "";
+    dragItem.style.zIndex = "";
   } else {
     dragItem.style.position = "static";
+    dragItem.style.left = "";
+    dragItem.style.top = "";
     dragItem.style.zIndex = "";
   }
   dragItem = null;
