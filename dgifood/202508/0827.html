@@ -168,38 +168,60 @@
       });
 
       // 手機拖拉
-      element.addEventListener("touchstart", e => {
-        dragItem = e.target;
-        const touch = e.touches[0];
-        offsetX = touch.clientX - dragItem.getBoundingClientRect().left;
-        offsetY = touch.clientY - dragItem.getBoundingClientRect().top;
-        dragItem.style.position = "absolute";
-        dragItem.style.zIndex = "1000";
-      });
+let originalX = 0, originalY = 0; // 記錄初始位置
 
-      element.addEventListener("touchmove", e => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        dragItem.style.left = (touch.clientX - offsetX) + "px";
-        dragItem.style.top = (touch.clientY - offsetY) + "px";
-      });
+element.addEventListener("touchstart", e => {
+  dragItem = e.target;
+  const touch = e.touches[0];
+  offsetX = touch.clientX - dragItem.getBoundingClientRect().left;
+  offsetY = touch.clientY - dragItem.getBoundingClientRect().top;
 
-      element.addEventListener("touchend", e => {
-        // 判斷落在哪個空白格
-        slotElements.forEach(slot => {
-          const rect = slot.getBoundingClientRect();
-          if(dragItem && slot.getAttribute("data-answer")=="" &&
-            dragItem.getBoundingClientRect().left + dragItem.offsetWidth/2 > rect.left &&
-            dragItem.getBoundingClientRect().left + dragItem.offsetWidth/2 < rect.right &&
-            dragItem.getBoundingClientRect().top + dragItem.offsetHeight/2 > rect.top &&
-            dragItem.getBoundingClientRect().top + dragItem.offsetHeight/2 < rect.bottom){
-            slot.textContent = dragItem.textContent;
-            slot.setAttribute("data-answer", dragItem.textContent);
-            dragItem.style.display = "none";
-          }
-        });
-        if(dragItem) { dragItem.style.position="static"; dragItem.style.zIndex=""; dragItem=null; }
-      });
+  // 記錄初始位置
+  const rect = dragItem.getBoundingClientRect();
+  originalX = rect.left + window.scrollX;
+  originalY = rect.top + window.scrollY;
+
+  dragItem.style.position = "absolute";
+  dragItem.style.zIndex = "1000";
+});
+
+element.addEventListener("touchmove", e => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  dragItem.style.left = (touch.clientX - offsetX + window.scrollX) + "px";
+  dragItem.style.top = (touch.clientY - offsetY + window.scrollY) + "px";
+});
+
+element.addEventListener("touchend", e => {
+  let placed = false;
+  slotElements.forEach(slot => {
+    const rect = slot.getBoundingClientRect();
+    const midX = dragItem.getBoundingClientRect().left + dragItem.offsetWidth / 2;
+    const midY = dragItem.getBoundingClientRect().top + dragItem.offsetHeight / 2;
+    if(slot.getAttribute("data-answer")=="" &&
+       midX > rect.left && midX < rect.right &&
+       midY > rect.top && midY < rect.bottom){
+      slot.textContent = dragItem.textContent;
+      slot.setAttribute("data-answer", dragItem.textContent);
+      placed = true;
+    }
+  });
+
+  // 如果沒放到空白格，就回到選項欄
+  if(!placed){
+    dragItem.style.left = originalX + "px";
+    dragItem.style.top = originalY + "px";
+    setTimeout(()=>{
+      dragItem.style.position = "static";
+      dragItem.style.zIndex = "";
+    }, 200);
+  } else {
+    dragItem.style.position = "static";
+    dragItem.style.zIndex = "";
+  }
+  dragItem = null;
+});
+
     }
 
     // 初始化選項
