@@ -17,10 +17,6 @@
       font-size: 1.8em;
       margin-bottom: 0.2em;
     }
-    h2 {
-      font-size: 1.2em;
-      margin-top: 1.5em;
-    }
     .note {
       text-align: center;
       font-size: 0.9em;
@@ -44,6 +40,7 @@
       flex-wrap: wrap;
       gap: 0.5em;
       margin: 1em 0;
+      position: relative;
     }
     .sortable-slot {
       min-width: 80px;
@@ -52,8 +49,8 @@
       border-radius: 6px;
       text-align: center;
       background: #fafafa;
-      cursor: grab;
       user-select: none;
+      cursor: grab;
     }
     .arrow {
       font-size: 1.2em;
@@ -156,8 +153,56 @@
     const slotElements = document.querySelectorAll("#slots .sortable-slot");
     const optionContainer = document.getElementById("options");
     const correctOrder = ["口腔", "食道", "胃部", "小腸", "大腸", "肛門"];
+    let dragItem = null;
+    let offsetX = 0, offsetY = 0;
 
-    // 初始化第一題選項（打散）
+    function enableDrag(element){
+      // 桌機拖拉
+      element.addEventListener("dragstart", e => {
+        dragItem = e.target;
+        setTimeout(() => e.target.style.opacity = "0.5", 0);
+      });
+      element.addEventListener("dragend", e => {
+        e.target.style.opacity = "1";
+        dragItem = null;
+      });
+
+      // 手機拖拉
+      element.addEventListener("touchstart", e => {
+        dragItem = e.target;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - dragItem.getBoundingClientRect().left;
+        offsetY = touch.clientY - dragItem.getBoundingClientRect().top;
+        dragItem.style.position = "absolute";
+        dragItem.style.zIndex = "1000";
+      });
+
+      element.addEventListener("touchmove", e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        dragItem.style.left = (touch.clientX - offsetX) + "px";
+        dragItem.style.top = (touch.clientY - offsetY) + "px";
+      });
+
+      element.addEventListener("touchend", e => {
+        // 判斷落在哪個空白格
+        slotElements.forEach(slot => {
+          const rect = slot.getBoundingClientRect();
+          if(dragItem && slot.getAttribute("data-answer")=="" &&
+            dragItem.getBoundingClientRect().left + dragItem.offsetWidth/2 > rect.left &&
+            dragItem.getBoundingClientRect().left + dragItem.offsetWidth/2 < rect.right &&
+            dragItem.getBoundingClientRect().top + dragItem.offsetHeight/2 > rect.top &&
+            dragItem.getBoundingClientRect().top + dragItem.offsetHeight/2 < rect.bottom){
+            slot.textContent = dragItem.textContent;
+            slot.setAttribute("data-answer", dragItem.textContent);
+            dragItem.style.display = "none";
+          }
+        });
+        if(dragItem) { dragItem.style.position="static"; dragItem.style.zIndex=""; dragItem=null; }
+      });
+    }
+
+    // 初始化選項
     function initQ1Options(){
       optionContainer.innerHTML = "";
       const shuffled = [...correctOrder].sort(() => Math.random() - 0.5);
@@ -167,43 +212,34 @@
         div.textContent = item;
         div.setAttribute("draggable", "true");
         optionContainer.appendChild(div);
-
-        div.addEventListener("dragstart", e => {
-          dragItem = e.target;
-          setTimeout(() => e.target.style.opacity = "0.5", 0);
-        });
-        div.addEventListener("dragend", e => {
-          e.target.style.opacity = "1";
-          dragItem = null;
-        });
+        enableDrag(div);
       });
     }
 
-    let dragItem = null;
-
-    slotElements.forEach(slot => {
-      slot.addEventListener("dragover", e => e.preventDefault());
-      slot.addEventListener("drop", e => {
-        if(dragItem && slot.getAttribute("data-answer") === ""){
+    // slotElements touch 支援
+    slotElements.forEach(slot=>{
+      slot.addEventListener("dragover", e=>e.preventDefault());
+      slot.addEventListener("drop", e=>{
+        if(dragItem && slot.getAttribute("data-answer")==""){
           slot.textContent = dragItem.textContent;
           slot.setAttribute("data-answer", dragItem.textContent);
-          dragItem.style.display = "none";
+          dragItem.style.display="none";
         }
       });
     });
 
     function resetQ1(){
-      slotElements.forEach(slot => {
-        slot.textContent = "\xa0";
-        slot.setAttribute("data-answer", "");
+      slotElements.forEach(slot=>{
+        slot.textContent="\xa0";
+        slot.setAttribute("data-answer","");
       });
       initQ1Options();
-      document.getElementById("res1").innerHTML = "";
-      answered.q1 = false;
+      document.getElementById("res1").innerHTML="";
+      answered.q1=false;
     }
 
     function checkQ1(){
-      let items = Array.from(slotElements).map(div => div.getAttribute("data-answer"));
+      let items = Array.from(slotElements).map(div=>div.getAttribute("data-answer"));
       let res = document.getElementById("res1");
       if(JSON.stringify(items) === JSON.stringify(correctOrder)){
         res.innerHTML = "<span class='correct'>✔ 正確！</span> 食物由口腔 → 食道 → 胃部 → 小腸 → 大腸 → 肛門。";
@@ -218,12 +254,10 @@
       let choice = document.querySelector('input[name="q2"]:checked');
       let res = document.getElementById("res2");
       if(!choice) return;
-      if(choice.value === "a"){
+      if(choice.value==="a"){
         res.innerHTML = "<span class='correct'>✔ 正確！</span> 胃部分泌胃蛋白酶與胃酸，開始分解蛋白質。";
         score++;
-      } else {
-        res.innerHTML = "<span class='wrong'>❌ 錯誤！</span>";
-      }
+      } else { res.innerHTML="<span class='wrong'>❌ 錯誤！</span>"; }
       answered.q2 = true;
     }
 
@@ -231,13 +265,11 @@
       let choice = document.querySelector('input[name="q3"]:checked');
       let res = document.getElementById("res3");
       if(!choice) return;
-      if(choice.value === "b"){
-        res.innerHTML = "<span class='correct'>✔ 正確！</span> 大腸吸收水分與電解質，並由腸道菌群發酵部分纖維。";
+      if(choice.value==="b"){
+        res.innerHTML="<span class='correct'>✔ 正確！</span> 大腸吸收水分與電解質，並由腸道菌群發酵部分纖維。";
         score++;
-      } else {
-        res.innerHTML = "<span class='wrong'>❌ 錯誤！</span>";
-      }
-      answered.q3 = true;
+      } else { res.innerHTML="<span class='wrong'>❌ 錯誤！</span>"; }
+      answered.q3=true;
     }
 
     function finalSubmit(){
@@ -249,17 +281,16 @@
         alert("請先完成所有題目！");
         return;
       }
-      if(score === 3){
-        final.style.display = "block";
-        final.innerHTML = `🎉 恭喜全對！這是你的折扣碼： <span class="code">547189</span><br>
+      if(score===3){
+        final.style.display="block";
+        final.innerHTML=`🎉 恭喜全對！這是你的折扣碼： <span class="code">547189</span><br>
         <span class="condition">無使用期限，滿999折30</span><br>
         <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank">點此使用</a>`;
       } else {
-        final.style.display = "none"; // 不顯示“測驗完成”訊息
+        final.style.display="none"; // 錯誤不顯示訊息
       }
     }
 
-    // 初始化第一題
     initQ1Options();
   </script>
 </body>
