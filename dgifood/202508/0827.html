@@ -145,7 +145,7 @@
     <label><input type="radio" name="q3" value="c"> c. 開始澱粉分解</label><br>
     <div class="result" id="res3"></div>
   </div>
-  score = 0;
+
   <button onclick="finalSubmit()">交出答案</button>
   <div id="finalResult"></div>
 
@@ -295,6 +295,7 @@ function enableDrag(element){
     }
 
     function finalSubmit(){
+      score = 0; 
       checkQ1();
       checkQ2();
       checkQ3();
