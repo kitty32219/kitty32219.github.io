@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>飽和脂肪酸小測驗</title>
+<style>
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    max-width: 600px;
+    width: 90%;
+    margin: 40px 0;
+  }
+  h1 {
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  p.description {
+    font-size: 0.95rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .question {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .question p {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  .feedback {
+    margin-top: 5px;
+    font-size: 0.9rem;
+  }
+  .feedback.correct {
+    color: green;
+  }
+  .feedback.wrong {
+    color: red;
+  }
+  #submitBtn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  #discount {
+    display: none;
+    text-align: center;
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  #discount p {
+    margin: 5px 0;
+  }
+  #discount .code {
+    color: #d9534f;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  #discount .info {
+    color: #6c757d;
+    font-size: 0.95rem;
+  }
+  #discount a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #1a73e8;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>飽和脂肪酸小測驗</h1>
+  <p class="description">答對三題即可獲得專屬折扣碼！</p>
+
+  <div class="question" id="q1">
+    <p>1. 短鏈脂肪酸（SCFA）主要由哪一種來源產生？</p>
+    <label><input type="radio" name="q1" value="A">動物性脂肪</label><br>
+    <label><input type="radio" name="q1" value="B">椰子油與棕櫚仁油</label><br>
+    <label><input type="radio" name="q1" value="C">腸道益生菌發酵膳食纖維</label><br>
+    <label><input type="radio" name="q1" value="D">奶油與豬肉</label>
+    <div class="feedback" id="feedback1"></div>
+  </div>
+
+  <div class="question" id="q2">
+    <p>2. 若想提升身體進入生酮狀態的效率，應選擇哪一種脂肪酸？</p>
+    <label><input type="radio" name="q2" value="A">長鏈脂肪酸</label><br>
+    <label><input type="radio" name="q2" value="B">中鏈脂肪酸</label>
+    <div class="feedback" id="feedback2"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <p>3. 長鏈飽和脂肪酸進入小腸上皮細胞後會重新組合成什麼？（填空，提示 4 個字）</p>
+    <input type="text" id="q3input" placeholder="填入答案">
+    <div class="feedback" id="feedback3"></div>
+  </div>
+
+  <button id="submitBtn">提交</button>
+
+  <div id="discount">
+    <p>🎉 恭喜全對！這是你的折扣碼：</p>
+    <p class="code">005886</p>
+    <p class="info">無使用期限，滿999折30</p>
+    <a href="https://www.dgifood.com.tw/member_login.php?lang=tw" target="_blank">點此使用</a>
+  </div>
+</div>
+
+<script>
+const answers = {
+  q1: "C",
+  q2: "B",
+  q3: "乳糜微粒"
+};
+
+function checkAnswers() {
+  let score = 0;
+
+  // 題目1
+  const q1 = document.querySelector('input[name="q1"]:checked');
+  const fb1 = document.getElementById('feedback1');
+  if(q1) {
+    if(q1.value === answers.q1) {
+      fb1.textContent = "答對！SCFA 由腸道益生菌發酵膳食纖維產生。";
+      fb1.className = "feedback correct";
+      score++;
+    } else {
+      fb1.textContent = "答錯！";
+      fb1.className = "feedback wrong";
+    }
+  } else {
+    fb1.textContent = "請作答。";
+    fb1.className = "feedback wrong";
+  }
+
+  // 題目2
+  const q2 = document.querySelector('input[name="q2"]:checked');
+  const fb2 = document.getElementById('feedback2');
+  if(q2) {
+    if(q2.value === answers.q2) {
+      fb2.textContent = "答對！MCFA 可快速生成酮體。";
+      fb2.className = "feedback correct";
+      score++;
+    } else {
+      fb2.textContent = "答錯！";
+      fb2.className = "feedback wrong";
+    }
+  } else {
+    fb2.textContent = "請作答。";
+    fb2.className = "feedback wrong";
+  }
+
+  // 題目3
+  const q3 = document.getElementById('q3input').value.trim();
+  const fb3 = document.getElementById('feedback3');
+  if(q3) {
+    if(q3 === answers.q3) {
+      fb3.textContent = "答對！長鏈脂肪酸會形成乳糜微粒。";
+      fb3.className = "feedback correct";
+      score++;
+    } else {
+      fb3.textContent = "答錯！";
+      fb3.className = "feedback wrong";
+    }
+  } else {
+    fb3.textContent = "請作答。";
+    fb3.className = "feedback wrong";
+  }
+
+  // 全對顯示折扣碼
+  if(score === 3) {
+    document.getElementById('discount').style.display = "block";
+  } else {
+    document.getElementById('discount').style.display = "none";
+  }
+}
+
+document.getElementById('submitBtn').addEventListener('click', checkAnswers);
+</script>
+
+</body>
+</html>
