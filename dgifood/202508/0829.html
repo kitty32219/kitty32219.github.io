@@ -125,7 +125,7 @@
   </div>
 
   <div class="question" id="q3">
-    <p>3. 長鏈飽和脂肪酸進入小腸上皮細胞後會重新組合成什麼？（填空，提示 4 個字）</p>
+    <p>3. 長鏈飽和脂肪酸進入小腸上皮細胞後會形成什麼？接著進入到淋巴管（填空，提示 4 個字）</p>
     <input type="text" id="q3input" placeholder="填入答案">
     <div class="feedback" id="feedback3"></div>
   </div>
@@ -189,7 +189,7 @@ function checkAnswers() {
   const fb3 = document.getElementById('feedback3');
   if(q3) {
     if(q3 === answers.q3) {
-      fb3.textContent = "答對！長鏈脂肪酸會形成乳糜微粒。";
+      fb3.textContent = "答對！長鏈脂肪酸消化過程形成乳糜微粒，後續進入到淋巴循環與血液循環中。";
       fb3.className = "feedback correct";
       score++;
     } else {
