@@ -20,16 +20,10 @@
     .choices{display:grid;gap:10px;margin-top:8px}
     label.choice{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
     label.choice:hover{background:#fcfcfc}
-    .drag-area{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .targets{display:grid;gap:10px}
+    .targets{display:grid;gap:10px;margin-top:8px}
     .target{display:flex;justify-content:space-between;align-items:center;border:1px dashed var(--line);border-radius:12px;padding:10px 12px;min-height:44px}
     .nutri{font-weight:600}
-    .bins{display:flex;flex-wrap:wrap;gap:8px}
-    .bin{user-select:none;border:1px solid var(--chip-border);background:var(--chip);border-radius:999px;padding:8px 12px;cursor:grab}
-    .bin[draggable="true"]:active{cursor:grabbing}
-    .bin.dragging{opacity:.6}
-    .slot{min-width:72px;text-align:center;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);background:#fff}
-    .slot.filled{color:var(--ink);background:#f8fafc}
+    select.slot{padding:6px 10px;border:1px solid var(--line);border-radius:8px}
     .result{margin-top:8px;font-weight:700;}
     .correct{color:var(--ok)}
     .incorrect{color:var(--err)}
@@ -63,40 +57,49 @@
       <div class="explain" id="e1"></div>
     </section>
 
-    <!-- Q2 拉移配對題 -->
+    <!-- Q2 選單配對題 -->
     <section class="card" id="q2" aria-labelledby="q2label">
-      <div class="q-title" id="q2label">問題 2（拉移配對題）：傳統生酮飲食「蛋白質、脂肪、碳水化合物」比例</div>
+      <div class="q-title" id="q2label">問題 2（選單配對題）：傳統生酮飲食「蛋白質、脂肪、碳水化合物」比例</div>
 
-      <div class="drag-area">
-        <div class="targets">
-          <div class="target" data-accept="P">
-            <span class="nutri">蛋白質</span>
-            <span class="slot" data-slot="P">拖曳比例至此</span>
-          </div>
-          <div class="target" data-accept="F">
-            <span class="nutri">脂肪</span>
-            <span class="slot" data-slot="F">拖曳比例至此</span>
-          </div>
-          <div class="target" data-accept="C">
-            <span class="nutri">碳水化合物</span>
-            <span class="slot" data-slot="C">拖曳比例至此</span>
-          </div>
+      <div class="targets">
+        <div class="target">
+          <span class="nutri">蛋白質</span>
+          <select class="slot" data-slot="P">
+            <option value="">請選擇</option>
+            <option value="75%">75%</option>
+            <option value="20%">20%</option>
+            <option value="5%">5%</option>
+          </select>
         </div>
-        <div class="bins" id="bins">
-          <div class="bin" draggable="true" data-type="P">20%</div>
-          <div class="bin" draggable="true" data-type="C">5%</div>
-          <div class="bin" draggable="true" data-type="F">75%</div>
+        <div class="target">
+          <span class="nutri">脂肪</span>
+          <select class="slot" data-slot="F">
+            <option value="">請選擇</option>
+            <option value="75%">75%</option>
+            <option value="20%">20%</option>
+            <option value="5%">5%</option>
+          </select>
         </div>
-        <div class="actions">
+        <div class="target">
+          <span class="nutri">碳水化合物</span>
+          <select class="slot" data-slot="C">
+            <option value="">請選擇</option>
+            <option value="75%">75%</option>
+            <option value="20%">20%</option>
+            <option value="5%">5%</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
         <button id="reset-q2">重設第二題</button>
-        </div>
       </div>
 
       <div class="result" id="r2" aria-live="polite"></div>
       <div class="explain" id="e2"></div>
     </section>
 
-    <!-- Q3 是非題（單選） -->
+    <!-- Q3 是非題 -->
     <section class="card" id="q3" aria-labelledby="q3label">
       <div class="q-title" id="q3label">問題 3：在分解脂肪時，還會產生任何的葡萄糖嗎？</div>
       <div class="choices" role="radiogroup" aria-labelledby="q3label">
@@ -107,11 +110,11 @@
       <div class="explain" id="e3"></div>
     </section>
 
-<div class="actions">
-  <button class="primary" id="submit">提交作答</button>
-</div>
+    <div class="actions">
+      <button class="primary" id="submit">提交作答</button>
+    </div>
 
-    <!-- 全對獎勵區塊 -->
+    <!-- 全對獎勵 -->
     <section class="gift" id="gift">
       <div class="big">🎉 恭喜全對！這是你的折扣碼： <span class="code">831883</span></div>
       <div class="note">無使用期限，滿999折30</div>
@@ -132,201 +135,45 @@
       q3: '會的。脂肪分解產生的甘油可經由糖質新生轉化為少量葡萄糖。'
     };
 
-    // Q2 拖曳邏輯（含行動裝置長按支援）
-const bins = document.querySelectorAll('.bin');
-const slots = document.querySelectorAll('.slot');
-let dragging = null;
-let ghost = null; // 影子元素
-let offset = { x: 0, y: 0 };
-
-// 綁定 bin 的拖拉
-function addBinHandlers(el) {
-  // 電腦拖拉保持原本
-  el.addEventListener('dragstart', e => {
-    dragging = el;
-    el.classList.add('dragging');
-  });
-  el.addEventListener('dragend', e => {
-    dragging = null;
-    el.classList.remove('dragging');
-  });
-
-  // 手機拖拉
-  el.addEventListener('touchstart', e => {
-    dragging = el;
-    const touch = e.touches[0];
-    const rect = el.getBoundingClientRect();
-
-    offset.x = touch.clientX - rect.left;
-    offset.y = touch.clientY - rect.top;
-
-    // 創建影子元素
-    ghost = el.cloneNode(true);
-    ghost.style.position = 'absolute';
-    ghost.style.pointerEvents = 'none'; // 不阻擋手指
-    ghost.style.opacity = 0.5;
-    ghost.style.zIndex = 1000;
-    ghost.style.left = `${touch.clientX - offset.x}px`;
-    ghost.style.top = `${touch.clientY - offset.y}px`;
-    document.body.appendChild(ghost);
-  });
-
-  el.addEventListener('touchmove', e => {
-    e.preventDefault();
-    if (!ghost) return;
-    const touch = e.touches[0];
-    ghost.style.left = `${touch.clientX - offset.x}px`;
-    ghost.style.top = `${touch.clientY - offset.y}px`;
-  }, { passive: false });
-
-  el.addEventListener('touchend', e => {
-    if (!dragging) return;
-    const touch = e.changedTouches[0];
-    let placed = false;
-
-    slots.forEach(slot => {
-      const rect = slot.parentElement.getBoundingClientRect();
-      if (
-        touch.clientX > rect.left && touch.clientX < rect.right &&
-        touch.clientY > rect.top && touch.clientY < rect.bottom
-      ) {
-        // slot 內已有值先回 bins
-        if (slot.classList.contains('filled')) {
-          const old = document.createElement('div');
-          old.className = 'bin';
-          old.textContent = slot.textContent;
-          old.dataset.type = slot.dataset.type || '';
-          old.setAttribute('draggable', 'true');
-          addBinHandlers(old);
-          document.getElementById('bins').appendChild(old);
-        }
-        slot.textContent = dragging.textContent;
-        slot.dataset.type = dragging.dataset.type;
-        slot.classList.add('filled');
-        placed = true;
-      }
-    });
-
-    // 放到 slot 後 bin 消失
-    if (placed) {
-      dragging.remove();
-    }
-
-    // 移除影子
-    if (ghost) {
-      ghost.remove();
-      ghost = null;
-    }
-
-    dragging = null;
-  });
-}
-
-// 綁定初始 bins
-document.querySelectorAll('.bin').forEach(bin => addBinHandlers(bin));
-
-// slot 點擊填入 bin（手機方便操作）
-slots.forEach(slot => {
-  slot.addEventListener('click', () => {
-    const pick = document.querySelector('.bin');
-    if (!pick) return;
-    slot.textContent = pick.textContent;
-    slot.dataset.type = pick.dataset.type;
-    slot.classList.add('filled');
-    pick.remove();
-  });
-});
-
-// 電腦拖拉 slot 判斷
-slots.forEach(slot => {
-  slot.addEventListener('dragover', e => e.preventDefault());
-  slot.addEventListener('drop', e => {
-    e.preventDefault();
-    if (!dragging) return;
-    if (slot.classList.contains('filled')) {
-      const old = document.createElement('div');
-      old.className = 'bin';
-      old.textContent = slot.textContent;
-      old.dataset.type = slot.dataset.type || '';
-      old.setAttribute('draggable', 'true');
-      addBinHandlers(old);
-      document.getElementById('bins').appendChild(old);
-    }
-    slot.textContent = dragging.textContent;
-    slot.dataset.type = dragging.dataset.type;
-    slot.classList.add('filled');
-    dragging.remove();
-    dragging = null;
-  });
-});
-
-
-
-
     // 提交作答
     document.getElementById('submit').addEventListener('click', () => {
       let allCorrect = true;
 
-      // Q1 評分
+      // Q1
       const c1 = (document.querySelector('input[name="q1"]:checked')||{}).value;
       const r1 = document.getElementById('r1');
       const e1 = document.getElementById('e1');
       if (c1 === answers.q1){ r1.className='result correct'; r1.textContent='✔ 答對了！'; e1.textContent = explains.q1; }
       else { r1.className='result incorrect'; r1.textContent='✖ 答錯了'; e1.textContent=''; allCorrect = false; }
 
-      // Q2 評分
-      const getText = key => (document.querySelector(`.slot[data-slot="${key}"]`)||{}).textContent || '';
-      const m = { P:getText('P').trim(), F:getText('F').trim(), C:getText('C').trim() };
+      // Q2
+      const getVal = key => (document.querySelector(`.slot[data-slot="${key}"]`)||{}).value || '';
+      const m = { P:getVal('P'), F:getVal('F'), C:getVal('C') };
       const r2 = document.getElementById('r2');
       const e2 = document.getElementById('e2');
       const ok2 = m.P === answers.q2.P && m.F === answers.q2.F && m.C === answers.q2.C;
       if (ok2){ r2.className='result correct'; r2.textContent='✔ 答對了！'; e2.textContent = explains.q2; }
       else { r2.className='result incorrect'; r2.textContent='✖ 答錯了'; e2.textContent=''; allCorrect = false; }
 
-      // Q3 評分
+      // Q3
       const c3 = (document.querySelector('input[name="q3"]:checked')||{}).value;
       const r3 = document.getElementById('r3');
       const e3 = document.getElementById('e3');
       if (c3 === answers.q3){ r3.className='result correct'; r3.textContent='✔ 答對了！'; e3.textContent = explains.q3; }
       else { r3.className='result incorrect'; r3.textContent='✖ 答錯了'; e3.textContent=''; allCorrect = false; }
 
-      // 全對顯示禮物
+      // 全對顯示
       document.getElementById('gift').style.display = allCorrect ? 'block' : 'none';
     });
+
+    // 重設第二題
     document.getElementById('reset-q2').addEventListener('click', () => {
-  const slots = document.querySelectorAll('.slot');
-  const binsContainer = document.getElementById('bins');
-  const originalBins = [
-    { type: 'P', text: '20%' },
-    { type: 'F', text: '75%' },
-    { type: 'C', text: '5%' }
-  ];
-
-  // 清空 slots
-  slots.forEach(slot => {
-    slot.textContent = '拖曳比例至此';
-    slot.dataset.type = '';
-    slot.classList.remove('filled');
-  });
-
-  // 清空 bins
-  binsContainer.innerHTML = '';
-  originalBins.forEach(b => {
-    const bin = document.createElement('div');
-    bin.className = 'bin';
-    bin.textContent = b.text;
-    bin.setAttribute('draggable','true');
-    bin.dataset.type = b.type;
-    addBinHandlers(bin);
-    binsContainer.appendChild(bin);
-  });
-
-  // 清空結果與解析
-  document.getElementById('r2').textContent = '';
-  document.getElementById('e2').textContent = '';
-});
-
-
+      document.querySelectorAll('#q2 select').forEach(sel => {
+        sel.value = '';
+      });
+      document.getElementById('r2').textContent = '';
+      document.getElementById('e2').textContent = '';
+    });
   </script>
 </body>
 </html>
