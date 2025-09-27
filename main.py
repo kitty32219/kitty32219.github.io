@@ -1,40 +1,58 @@
-# streamlit_app.py
-import os
 import streamlit as st
-from dotenv import load_dotenv
-import aisuite as ai
+import requests
+import os
+import json
 
-load_dotenv()
-os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
+# -----------------------------
+# 直接硬編碼金鑰（或改成 os.environ["GROQ_API_KEY"]）
+# -----------------------------
+API_KEY = "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"
+API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
-# 模型設定
-provider = "groq"
-model = "groq/compound"
+provider_model = "groq/compound"
 
+# -----------------------------
+# 定義對話函數
+# -----------------------------
 def reply(system, prompt):
-    client = ai.Client()
-    messages = [
-        {"role": "system", "content": system},
-        {"role": "user", "content": prompt}
-    ]
-    response = client.chat.completions.create(model=f"{provider}:{model}", messages=messages)
-    return response.choices[0].message.content
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
 
+    payload = {
+        "model": provider_model,
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": prompt}
+        ]
+    }
+
+    response = requests.post(API_URL, headers=headers, json=payload)
+    response.raise_for_status()  # 若出現錯誤會丟出例外
+    data = response.json()
+    
+    # 解析回應內容
+    return data["choices"][0]["message"]["content"]
+
+# -----------------------------
 # Streamlit 介面
+# -----------------------------
 st.title("🎯 DGIFood 商品貼文小幫手")
 
 user_input = st.text_area("請輸入你的商品需求")
 if st.button("生成貼文"):
-    system_writer = "你是一位活潑、有趣的社群媒體幫手..."
+    system_writer = "你很會查資料"
     system_reviewer = "你是一位文案潤稿專家..."
     
-    v1 = reply(system_writer, user_input)
-    v2 = reply(system_reviewer, v1)
-    v3 = reply(system_writer, f"這是原文：{v1}\n建議：{v2}\n請改寫")
+    try:
+        prompt = f"繁體中文回答，商品需求：{user_input}\n商品資訊網址https://www.dgifood.com.tw/ 從中推薦適合的"
+        v1 = reply(system_writer,  prompt)
 
-    st.subheader("🌟 初稿")
-    st.write(v1)
-    st.subheader("🧐 修改建議")
-    st.write(v2)
-    st.subheader("✨ 最終推薦")
-    st.write(v3)
+
+        st.subheader("🌟 初稿")
+        st.write(v1)
+        st.subheader("🧐 修改建議")
+
+    except Exception as e:
+        st.error(f"生成貼文時出現錯誤: {e}")
