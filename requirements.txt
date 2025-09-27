@@ -1,2 +1,5 @@
 python-dotenv
 aisuite[all]
+streamlit
+aisuite
+docstring-parser
