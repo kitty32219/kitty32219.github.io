@@ -1,5 +1,4 @@
 python-dotenv
-aisuite[all]
 streamlit
-aisuite
 docstring-parser
+git+https://github.com/kitty32219/aisuite.git
