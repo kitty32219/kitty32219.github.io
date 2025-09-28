@@ -6,7 +6,7 @@ import json
 # -----------------------------
 # 直接硬編碼金鑰（或改成 os.environ["GROQ_API_KEY"]）
 # -----------------------------
-API_KEY = "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"
+API_KEY = ""
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 provider_model = "groq/compound"
