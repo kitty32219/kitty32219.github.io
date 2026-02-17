@@ -55,6 +55,8 @@
             padding: 0 40px;
             scrollbar-width: none;
             cursor: grab;
+            scroll-behavior: smooth; /* 讓捲動變得平滑 */
+            -webkit-overflow-scrolling: touch; /* 讓行動裝置有慣性滑動 */
         }
         .scroller-container::-webkit-scrollbar { display: none; }
 
@@ -163,12 +165,46 @@
 
 <div class="scroller-container" id="slider">
 <div class="photo-strip">
-    <script>
-        const basePath = "https://kitty32219.github.io//2026winter/";
-        for (let i = 1; i <= 35; i++) {
+<script>
+        
+    const basePath = "https://kitty32219.github.io//2026winter/";
+    for (let i = 1; i <= 35; i++) {
             document.write(`<div class="photo-item"><img src="${basePath}${i}.jpg" loading="lazy"></div>`);
         }
-    </script>
+  
+    const slider = document.querySelector('#slider');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    // 【新增】這段是讓電腦滑鼠滾輪「上下捲動」變成「照片左右流動」
+    slider.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) {
+            e.preventDefault();
+            // 這裡控制滾動速度，可以改 e.deltaY * 0.8 會更慢一點
+            slider.scrollLeft += e.deltaY; 
+        }
+    });
+
+    // 【優化】滑鼠按住拖拽的功能
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.style.cursor = 'grabbing';
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
+    slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 1.8; // 【改變】將倍率從 1.5 提高到 1.8，滑起來更輕快
+        slider.scrollLeft = scrollLeft - walk;
+    });
+</script>
 </div>
 </div>
 
@@ -223,4 +259,5 @@
 </body>
 
 </html>
+
 
