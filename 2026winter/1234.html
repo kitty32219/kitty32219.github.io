@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Winter Kyoto | 記憶の断片</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;400&family=Noto+Serif+TC:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --muji-white: #f8f7f4; 
+            --muji-gray: #757575;
+            --muji-text: #373a3c;
+            --accent-warm: #c9b9a7;
+        }
+
+        body {
+            background-color: var(--muji-white);
+            color: var(--muji-text);
+            font-family: 'Noto Serif JP', 'Noto Serif TC', serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            letter-spacing: 0.05em;
+        }
+
+        /* 標題區 */
+        header {
+            height: 45vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: 200;
+            font-size: 1.6rem;
+            margin: 0;
+            letter-spacing: 0.4em;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--muji-gray);
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        /* 流動相簿 */
+        .scroller-container {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 40px;
+            scrollbar-width: none;
+            cursor: grab;
+        }
+        .scroller-container::-webkit-scrollbar { display: none; }
+
+        .photo-strip {
+            display: inline-flex;
+            gap: 25px;
+            padding-bottom: 40px;
+        }
+
+        .photo-item {
+            position: relative;
+        }
+
+        .photo-item img {
+            height: 480px;
+            width: auto;
+            border-radius: 1px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            filter: sepia(5%) contrast(92%);
+            transition: all 0.8s ease;
+        }
+.photo-item video {
+    height: 480px; /* 與圖片高度一致 */
+    width: auto;   /* 保持影片比例 */
+    object-fit: cover; /* 確保填充區域，裁剪超出部分 */
+    border-radius: 1px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+    filter: sepia(5%) contrast(92%);
+}
+
+        /* 文字區 */
+        .content-section {
+            max-width: 750px;
+            margin: 120px auto;
+            padding: 0 40px;
+        }
+
+        .text-block {
+            margin-bottom: 80px;
+        }
+
+        .lang-zh {
+            font-size: 1.05rem;
+            line-height: 2.2;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .lang-ja {
+            font-size: 0.9rem;
+            color: var(--muji-gray);
+            line-height: 2;
+            display: block;
+            font-weight: 300;
+        }
+
+        .highlight-list {
+            border-left: 1px solid var(--accent-warm);
+            padding-left: 30px;
+            margin: 80px 0;
+        }
+
+        .highlight-item {
+            margin: 12px 0;
+            font-size: 1rem;
+        }
+
+        .jp-small {
+            font-size: 0.75rem;
+            color: #999;
+            margin-left: 10px;
+        }
+
+        footer {
+            padding: 150px 0;
+            text-align: center;
+        }
+
+        .final-note {
+            writing-mode: vertical-rl;
+            display: inline-block;
+            height: 180px;
+            font-size: 1rem;
+            color: #555;
+            line-height: 2.5;
+            text-align: left;
+        }
+
+        .hint {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #bbb;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>2026 京都 冬</h1>
+    <div class="subtitle">凛冽のなかに、息づく心の色彩。。</div>
+</header>
+
+<div class="hint">Scroll to flow</div>
+
+<div class="scroller-container" id="slider">
+<div class="photo-strip">
+    <script>
+        const basePath = "https://kitty32219.github.io//2026winter/";
+        for (let i = 1; i <= 10; i++) {
+            document.write(`<div class="photo-item"><img src="${basePath}${i}.jpg" loading="lazy"></div>`);
+        }
+    </script>
+</div>
+</div>
+
+<article class="content-section">
+    
+    <div class="text-block">
+        <span class="lang-zh">京都冬日的空氣，清冽中帶著一種厚度，喚醒了感官的敏銳。</span>
+        <span class="lang-ja">冬の京都、その空気はどこまでも澄み渡り、凛とした重みを湛えている。五感が静かに研ぎ澄まされていく。</span>
+    </div>
+
+    <div class="text-block">
+        <span class="lang-zh">每日晨起，在湯豆腐的氤氳、草莓的清甜與鰤魚的肥美中，開啟日常的流轉。那是時節精準的律動，是旬味與日常的一期一會。</span>
+        <span class="lang-ja">朝の湯気に揺れる湯豆腐、苺の甘み、そして脂の乗った鰤。季節の巡りがもたらす「旬」の恵みは、日常という名のかけがえのない一期一会。</span>
+    </div>
+
+    <div class="highlight-list">
+        <div class="highlight-item">天橋立的大雪 <span class="jp-small">天橋立の銀世界</span></div>
+        <div class="highlight-item">美山的靜謐 <span class="jp-small">美山の静寂</span></div>
+        <div class="highlight-item">箱館山的 snowboard <span class="jp-small">箱館山のシュプール</span></div>
+        <div class="highlight-item">敦賀的螃蟹 <span class="jp-small">敦賀の蟹を味わう</span></div>
+        <div class="highlight-item">雪金閣與貴船的幸運雪景 <span class="jp-small">奇跡のような雪の金閣と貴船</span></div>
+    </div>
+
+    <div class="text-block">
+        <span class="lang-zh">世界的善意，如同冬日煦陽般，不著痕跡地滲進日常。</span>
+        <span class="lang-ja">世界の優しさは、冬の陽だまりのように、そっと日々の隙間に染み込んでくる。</span>
+    </div>
+
+    <div class="text-block">
+        <span class="lang-zh">漫步鴨川，在鴨子與藍天之間，踩下的步伐與遼闊的天際線共鳴，推行著時間的腳步。點滴積累的足跡，堆疊出靈魂的交錯。</span>
+        <span class="lang-ja">鴨川を歩けば、空の青さと水面の鴨たちが時間を押し進めていく。重ねた足跡はいつしか、魂が交差する記憶の層へと変わっていく。</span>
+    </div>
+
+</article>
+
+<footer>
+    <div class="final-note">
+        私も元気ですよ。<br>
+        またお会いできる日を<br>楽しみにしています。
+    </div>
+</footer>
+
+<script>
+    const slider = document.querySelector('#slider');
+    let isDown = false; let startX; let scrollLeft;
+    slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
+    slider.addEventListener('mouseleave', () => { isDown = false; });
+    slider.addEventListener('mouseup', () => { isDown = false; });
+    slider.addEventListener('mousemove', (e) => { if(!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
+</script>
+
+</body>
+</html>
