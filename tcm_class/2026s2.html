@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 中醫學期計畫系統 V4</title>
+    <style>
+        :root {
+            --muji-bg: #fdfcf8;
+            --muji-text: #4a4a4a;
+            --muji-accent: #6b8e23;
+            --muji-card: #ffffff;
+            --muji-border: #e8e6e1;
+            --light-green: #f1f8e9;
+            --merge-bg: #f9fbf2;
+        }
+
+        body {
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--muji-bg);
+            color: var(--muji-text);
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container { max-width: 1000px; width: 100%; }
+
+        /* 分頁鈕 */
+        .tab-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 10px 20px; border: 1px solid var(--muji-border);
+            background: white; border-radius: 20px; cursor: pointer;
+            font-weight: 600; color: #888; transition: 0.3s;
+        }
+        .tab-btn.active { background: var(--muji-accent); color: white; border-color: var(--muji-accent); }
+
+        .page { display: none; animation: fadeIn 0.4s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* 進度條 */
+        .progress-container {
+            background: var(--muji-card); padding: 20px; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03); margin-bottom: 30px; border: 1px solid var(--muji-border);
+        }
+        .growth-stage { text-align: center; font-size: 2.5rem; margin-bottom: 10px; }
+        .progress-bar-bg { background: #f0f0f0; border-radius: 20px; height: 12px; overflow: hidden; }
+        #progress-fill { background: linear-gradient(90deg, #a8e063, #56ab2f); height: 100%; width: 0%; transition: 0.8s; }
+
+        /* 卡片與備註欄 */
+        .week-card { background: white; border: 1px solid var(--muji-border); border-radius: 12px; margin-bottom: 20px; padding: 20px; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 15px; }
+        .note-area { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #fafafa; resize: vertical; box-sizing: border-box; }
+
+        /* 表格通用樣式 (週計畫 & 課表) */
+        .table-card { background: white; border-radius: 12px; border: 1px solid var(--muji-border); overflow-x: auto; padding: 15px; }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 700px; }
+        th, td { border: 1px solid var(--muji-border); text-align: center; position: relative; }
+        th { background: var(--light-green); color: var(--muji-accent); font-size: 0.85rem; height: 40px; }
+        .time-col { width: 100px; background: #fcfcfc; font-size: 0.75rem; color: #999; }
+
+        /* 課表專用顏色標記 */
+        .course-cell { padding: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .course-cell:hover { opacity: 0.8; transform: scale(0.98); }
+        .c-1 { background-color: #fce4ec; } /* 證治 */
+        .c-2 { background-color: #e8f5e9; } /* 方劑 */
+        .c-3 { background-color: #fff3e0; } /* 溫病 */
+        .c-4 { background-color: #e3f2fd; } /* 診斷 */
+        .c-5 { background-color: #f3e5f5; } /* 影像/實驗 */
+        .c-6 { background-color: #efebe9; } /* 內科/針灸 */
+
+        /* 時間表輸入框 */
+        .sch-input { width: 100%; height: 45px; border: none; outline: none; background: transparent; text-align: center; font-size: 0.85rem; }
+        .merged-top { border-bottom: none !important; }
+        .merged-mid { border-top: none !important; border-bottom: none !important; }
+        .merged-bottom { border-top: none !important; }
+        .has-content { background-color: var(--merge-bg); }
+
+        .btn-reset { margin: 20px auto; background: none; border: 1px solid #ddd; color: #ccc; padding: 8px 15px; border-radius: 20px; cursor: pointer; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:20px;">
+        <h1 style="color: var(--muji-accent); letter-spacing: 2px;">🌿 中醫學期計畫系統</h1>
+    </header>
+
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchPage('progress-page', this)">成長日記</button>
+        <button class="tab-btn" onclick="switchPage('schedule-page', this)">週時段表</button>
+        <button class="tab-btn" onclick="switchPage('class-table-page', this)">🏫 學期課表</button>
+    </div>
+
+    <div id="progress-page" class="page active">
+        <div class="progress-container">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold;">
+                <span id="growth-label">🌱</span><span id="progress-text">0%</span>
+            </div>
+            <div id="tree-stage" class="growth-stage">🏺</div>
+            <div class="progress-bar-bg"><div id="progress-fill"></div></div>
+        </div>
+        <div id="weeks-list"></div>
+    </div>
+
+    <div id="schedule-page" class="page">
+        <div class="table-card">
+            <h3 style="text-align:center; color: var(--muji-accent);">🗓️ 自定義週計畫</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="time-col">時段</th>
+                        <th>週一</th><th>週二</th><th>週三</th><th>週四</th><th>週五</th>
+                        <th style="color:#d32f2f">週六</th><th style="color:#d32f2f">週日</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="class-table-page" class="page">
+        <div class="table-card">
+            <h3 style="text-align:center; color: var(--muji-accent);">🏫 學期固定課表</h3>
+            <table id="course-fixed-table">
+                <thead>
+                    <tr>
+                        <th class="time-col">節次</th>
+                        <th>週一</th><th>週二</th><th>週三</th><th>週四</th><th>週五</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="time-col">1</td><td class="course-cell c-1" onclick="toProgress()">中醫證治學(二)</td><td class="course-cell c-2" onclick="toProgress()">中醫方劑學(二)</td><td class="course-cell c-3" onclick="toProgress()">溫病學</td><td></td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學</td></tr>
+                    <tr><td class="time-col">2</td><td class="course-cell c-1" onclick="toProgress()">中醫證治學(二)</td><td class="course-cell c-2" onclick="toProgress()">中醫方劑學(二)</td><td class="course-cell c-3" onclick="toProgress()">溫病學</td><td></td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學</td></tr>
+                    <tr><td class="time-col">3</td><td></td><td></td><td class="course-cell c-1" onclick="toProgress()">中醫證治學(二)</td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學<br>中醫家庭社區</td><td class="course-cell c-1" onclick="toProgress()">中醫證治學(二)</td></tr>
+                    <tr><td class="time-col">4</td><td></td><td></td><td class="course-cell c-1" onclick="toProgress()">中醫證治學(二)</td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學<br>中醫家庭社區</td><td class="course-cell c-1" onclick="toProgress()">中醫證治學(二)</td></tr>
+                    <tr style="background:#f9f9f9"><td colspan="6" style="height:30px; font-size:0.7rem; color:#ccc;">MIDDAY BREAK</td></tr>
+                    <tr><td class="time-col">5</td><td class="course-cell c-5" onclick="toProgress()">影像診斷學</td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學</td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學</td><td class="course-cell c-3" onclick="toProgress()">溫病學<br>中醫證治學(二)</td><td class="course-cell c-6" onclick="toProgress()">感染症學</td></tr>
+                    <tr><td class="time-col">6</td><td class="course-cell c-5" onclick="toProgress()">影像診斷學</td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學</td><td class="course-cell c-4" onclick="toProgress()">中醫診斷學</td><td class="course-cell c-3" onclick="toProgress()">溫病學<br>中醫證治學(二)</td><td class="course-cell c-6" onclick="toProgress()">感染症學</td></tr>
+                    <tr><td class="time-col">7</td><td></td><td class="course-cell c-6" onclick="toProgress()">內科學概論</td><td></td><td class="course-cell c-6" onclick="toProgress()">臨床診斷學</td><td class="course-cell c-6" onclick="toProgress()">臨床針灸學</td></tr>
+                    <tr><td class="time-col">8</td><td></td><td class="course-cell c-6" onclick="toProgress()">內科學概論</td><td></td><td class="course-cell c-6" onclick="toProgress()">臨床診斷學</td><td class="course-cell c-6" onclick="toProgress()">臨床針灸學</td></tr>
+                    <tr><td class="time-col">9</td><td class="course-cell c-5" onclick="toProgress()">實驗診斷學</td><td></td><td></td><td></td><td class="course-cell c-6" onclick="toProgress()">臨床針灸學</td></tr>
+                    <tr><td class="time-col">A</td><td class="course-cell c-5" onclick="toProgress()">實驗診斷學</td><td></td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button class="btn-reset" onclick="resetAll()">重置所有紀錄</button>
+</div>
+
+<script>
+    const courses = ["溫病學", "感染症學", "中醫方劑學(二)", "中醫證治學(二)", "中醫診斷學", "臨床針灸學", "中醫家庭暨社區醫學", "內科學概論", "實驗診斷學", "影像診斷學", "臨床診斷學"];
+    
+    function switchPage(pageId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function toProgress() {
+        switchPage('progress-page', document.querySelector('.tab-btn'));
+    }
+
+    // 生成週計畫時間表 (8:00 - 22:00)
+    const scheduleBody = document.getElementById('schedule-body');
+    for (let h = 8; h < 22; h++) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td class="time-col">${h}:00-${h+1}:00</td>` + 
+            [0,1,2,3,4,5,6].map(d => `<td><input type="text" id="s-${h}-${d}" class="sch-input" oninput="saveAndUpdate()"></td>`).join('');
+        scheduleBody.appendChild(row);
+    }
+
+    // 生成 18 周卡片
+    const startDate = new Date('2026-02-23');
+    for (let i = 1; i <= 18; i++) {
+        let m = new Date(startDate); m.setDate(startDate.getDate() + (i-1)*7);
+        let f = new Date(m); f.setDate(m.getDate() + 4);
+        const card = document.createElement('div');
+        card.className = 'week-card';
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+                <div><b>第 ${i} 周</b> <small style="color:#999; margin-left:10px;">${m.getMonth()+1}/${m.getDate()}-${f.getMonth()+1}/${f.getDate()}</small></div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span id="status-w${i}" style="font-size:0.7rem; padding:2px 8px; border-radius:10px; background:#f0f0f0;">未開始</span>
+                    <input type="checkbox" id="all-w${i}" onchange="toggleWeek(${i}, this.checked)">
+                </div>
+            </div>
+            <div class="course-grid">${courses.map((c, idx) => `
+                <div style="font-size:0.8rem;"><input type="checkbox" id="w${i}c${idx}" class="course-checkbox w${i}-check" onchange="saveAndUpdate()"> ${c}</div>
+            `).join('')}</div>
+            <textarea id="note-w${i}" class="note-area" placeholder="本週學習重點筆記..." oninput="saveAndUpdate()"></textarea>
+        `;
+        document.getElementById('weeks-list').appendChild(card);
+    }
+
+    function toggleWeek(w, checked) {
+        document.querySelectorAll(`.w${w}-check`).forEach(cb => cb.checked = checked);
+        saveAndUpdate();
+    }
+
+    function saveAndUpdate() {
+        const data = { checkboxes: {}, schedule: {}, notes: {} };
+        document.querySelectorAll('.course-checkbox').forEach(cb => data.checkboxes[cb.id] = cb.checked);
+        document.querySelectorAll('.sch-input').forEach(input => data.schedule[input.id] = input.value);
+        document.querySelectorAll('.note-area').forEach(note => data.notes[note.id] = note.value);
+        localStorage.setItem('tcm_v4_data', JSON.stringify(data));
+        renderUI();
+    }
+
+    function loadData() {
+        const saved = localStorage.getItem('tcm_v4_data');
+        if (saved) {
+            const data = JSON.parse(saved);
+            for (let id in data.checkboxes) if(document.getElementById(id)) document.getElementById(id).checked = data.checkboxes[id];
+            for (let id in data.schedule) if(document.getElementById(id)) document.getElementById(id).value = data.schedule[id];
+            for (let id in data.notes) if(document.getElementById(id)) document.getElementById(id).value = data.notes[id];
+        }
+        renderUI();
+    }
+
+    function renderUI() {
+        const all = document.querySelectorAll('.course-checkbox');
+        const checked = document.querySelectorAll('.course-checkbox:checked');
+        const percent = all.length > 0 ? Math.round((checked.length/all.length)*100) : 0;
+        document.getElementById('progress-fill').style.width = percent + '%';
+        document.getElementById('progress-text').innerText = percent + '%';
+        const tree = document.getElementById('tree-stage');
+        if(percent < 30) tree.innerText = "🌱"; else if(percent < 70) tree.innerText = "🌿"; else tree.innerText = "🌳";
+
+        for(let i=1; i<=18; i++) {
+            const wAll = document.querySelectorAll(`.w${i}-check`);
+            const wChecked = document.querySelectorAll(`.w${i}-check:checked`);
+            const tag = document.getElementById(`status-w${i}`);
+            tag.innerText = wChecked.length === wAll.length ? "完成 ✨" : (wChecked.length > 0 ? "進行中" : "未開始");
+            tag.style.background = wChecked.length === wAll.length ? "#8c927d" : "#f0f0f0";
+            tag.style.color = wChecked.length === wAll.length ? "white" : "#666";
+        }
+
+        // 時間表智慧合併
+        for (let d = 0; d <= 6; d++) {
+            for (let h = 8; h < 22; h++) {
+                const cur = document.getElementById(`s-${h}-${d}`);
+                const td = cur.parentElement;
+                const val = cur.value.trim();
+                td.className = val !== "" ? "has-content" : "";
+                if (val === "") continue;
+                const prev = document.getElementById(`s-${h-1}-${d}`);
+                const next = document.getElementById(`s-${h+1}-${d}`);
+                if (prev && prev.value.trim() === val && next && next.value.trim() === val) td.classList.add('merged-mid');
+                else if (prev && prev.value.trim() === val) td.classList.add('merged-bottom');
+                else if (next && next.value.trim() === val) td.classList.add('merged-top');
+            }
+        }
+    }
+
+    function resetAll() {
+        if(confirm('確定重置嗎？所有進度與自定義計畫都會消失。')) { localStorage.removeItem('tcm_v4_data'); location.reload(); }
+    }
+
+    window.onload = loadData;
+</script>
+
+</body>
+</html>
