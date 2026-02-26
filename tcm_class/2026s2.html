@@ -227,15 +227,15 @@
         document.getElementById('progress-fill').style.width = percent + '%';
         document.getElementById('progress-text').innerText = percent + '%';
         const tree = document.getElementById('tree-stage');
-        if (percent === 0) {
+        if (percent === 0) 
             tree.innerText = "🏺"; // 沒讀書時是個空盆
-        } else if (percent < 20) {
+         else if (percent < 20) 
             tree.innerText = "🌱"; // 剛開始萌芽
-        } else if (percent < 50) {
+         else if (percent < 50) 
             tree.innerText = "🌿"; // 讀了一半變成灌木
-        } else if (percent < 100) {
+         else if (percent < 100) 
             tree.innerText = "🌳"; // 讀到後期變大樹
-        } else {
+         else 
             tree.innerText = "🍎🍎🍎"; 
 
         for(let i=1; i<=18; i++) {
