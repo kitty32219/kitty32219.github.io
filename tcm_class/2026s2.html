@@ -181,7 +181,7 @@
         card.className = 'week-card';
         card.innerHTML = `
             <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
-                <div><b>第 ${i} 周</b> <small style="color:#999; margin-left:10px;">${m.getMonth()+1}/${m.getDate()}-${f.getMonth()+1}/${f.getDate()}</small></div>
+                <div><b>第 ${i} 週</b> <small style="color:#999; margin-left:10px;">${m.getMonth()+1}/${m.getDate()}-${f.getMonth()+1}/${f.getDate()}</small></div>
                 <div style="display:flex; align-items:center; gap:10px;">
                     <span id="status-w${i}" style="font-size:0.7rem; padding:2px 8px; border-radius:10px; background:#f0f0f0;">未開始</span>
                     <input type="checkbox" id="all-w${i}" onchange="toggleWeek(${i}, this.checked)">
