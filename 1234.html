@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 翻書筆記閱讀器</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://raw.githack.com/blasten/turn.js/master/lib/turn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 翻書容器樣式 */
+        #flipbook-container {
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        #flipbook {
+            width: 800px;
+            height: 500px;
+        }
+
+        .page {
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 筆記區樣式 */
+        #note-section {
+            width: 800px;
+            margin-top: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        .status {
+            margin-bottom: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>PDF 翻書閱讀器</h1>
+    <div class="status" id="loading-status">正在載入 PDF 並生成翻書頁面...</div>
+
+    <div id="flipbook-container">
+        <div id="flipbook">
+            </div>
+    </div>
+
+    <div id="note-section">
+        <h3>📝 讀書筆記</h3>
+        <p style="font-size: 0.9em; color: #888;">筆記會自動儲存於您的瀏覽器中</p>
+        <textarea id="user-note" placeholder="在此輸入您的筆記..."></textarea>
+    </div>
+
+    <script>
+        const url = '20260226_臨床診斷學_w1_理學檢查.pdf';
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+        async function renderPDF() {
+            try {
+                // 載入 PDF
+                const loadingTask = pdfjsLib.getDocument(url);
+                const pdf = await loadingTask.promise;
+                const flipbook = $('#flipbook');
+
+                // 遍歷每一頁
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    
+                    // 創建 Canvas 容器
+                    const pageDiv = $('<div class="page"></div>');
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    
+                    pageDiv.append(canvas);
+                    flipbook.append(pageDiv);
+                }
+
+                // 初始化 Turn.js
+                flipbook.turn({
+                    width: 800,
+                    height: 500,
+                    autoCenter: true,
+                    acceleration: true,
+                    gradients: true
+                });
+
+                $('#loading-status').text('載入完成！點擊邊緣即可翻頁');
+
+            } catch (error) {
+                console.error('PDF 載入失敗:', error);
+                $('#loading-status').text('載入失敗，請確認 CORS 權限或網址是否正確。');
+            }
+        }
+
+        // 筆記儲存功能 (LocalStorage)
+        const noteArea = document.getElementById('user-note');
+        
+        // 載入已存筆記
+        noteArea.value = localStorage.getItem('pdf_note_123') || '';
+
+        // 監聽輸入並儲存
+        noteArea.addEventListener('input', () => {
+            localStorage.setItem('pdf_note_123', noteArea.value);
+        });
+
+        renderPDF();
+    </script>
+</body>
+</html>
