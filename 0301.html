@@ -3,55 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自動填入今日日期範例</title>
+    <title>臨床診斷學 - 調課提醒系統</title>
     <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f2f5;
-        }
-        .container {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f4f7f6; padding: 20px; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .date-info { font-size: 1.1rem; margin-bottom: 20px; color: #666; }
+        .alert-box { padding: 15px; border-radius: 8px; margin-top: 10px; display: none; }
+        .warning { background-color: #fff3cd; border-left: 5px solid #ffca28; color: #856404; display: block; }
+        .no-alert { background-color: #d4edda; border-left: 5px solid #28a745; color: #155724; display: block; }
+        .course-detail { font-weight: bold; color: #d32f2f; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <label for="datePicker">今天的日期是：</label>
-        <input type="date" id="datePicker">
-    </div>
+<div class="container">
+    <h2>課程調課提醒</h2>
+    <div class="date-info" id="currentDateDisplay">今天是：載入中...</div>
+    
+    <div id="alertContainer">
+        </div>
+</div>
 
-    <script>
-        // 使用 JavaScript 取得在地時間
-        // 考慮到時區問題，手動組出 YYYY-MM-DD 格式最保險
+<script>
+    // 1. 定義調課資料表 (根據你的圖片內容)
+    // 注意：這裡使用「調課後的時間」作為提醒基準
+    const scheduleChanges = [
+        { original: "2026/03/05", newDate: "2026/03/05", subject: "心血管系統", teacher: "徐中和", note: "9A節(互助4A02)" },
+        { original: "2026/03/12", newDate: "2026/03/19", subject: "皮膚病兆", teacher: "張廖年峰", note: "78節(原林慎智老師時段)" },
+        { original: "2026/03/19", newDate: "2026/03/19", subject: "心血管系統-心臟", teacher: "林慎智", note: "9A節(互助4A02)" },
+        { original: "2026/03/26", newDate: "2026/03/05", subject: "呼吸系統", teacher: "夏德椿", note: "78節(原徐中和老師時段)" },
+        { original: "2026/04/09", newDate: "2026/04/08", subject: "臨床風濕免疫疾病", teacher: "黃春明", note: "9A節(互助4A02)" },
+        { original: "2026/04/30", newDate: "2026/04/29", subject: "耳鼻喉科疾病", teacher: "黃得韻", note: "9A節(互助4A02)" },
+        { original: "2026/05/14", newDate: "2026/05/12", subject: "內分泌及代謝系統", teacher: "邱依婷", note: "9A節(互助4A02)" },
+        { original: "2026/06/11", newDate: "2026/06/03", subject: "血液腫瘤科", teacher: "林振源", note: "9A節(互助4A02)" }
+    ];
+
+    function checkReminders() {
         const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
+        now.setHours(0, 0, 0, 0); // 清除時間，只留日期比較
         
-        const today = `${year}-${month}-${day}`;
-        
-        // 選取欄位並填入
-        const dateInput = document.getElementById('datePicker');
-        dateInput.value = today;
-    </script>
+        const displayDate = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
+        document.getElementById('currentDateDisplay').innerText = `今天是：${displayDate}`;
+
+        const alertContainer = document.getElementById('alertContainer');
+        let hasAlert = false;
+
+        scheduleChanges.forEach(item => {
+            const courseDate = new Date(item.newDate);
+            const timeDiff = courseDate - now;
+            const daysDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+            // 判斷是否在 7 天內 (0 ~ 7 天)
+            if (daysDiff >= 0 && daysDiff <= 7) {
+                hasAlert = true;
+                const div = document.createElement('div');
+                div.className = 'alert-box warning';
+                div.innerHTML = `
+                    ⚠️ <b>調課提醒：${daysDiff === 0 ? '就在今天！' : daysDiff + '天後'}</b><br>
+                    科目：<span class="course-detail">${item.subject}</span> (${item.teacher} 老師)<br>
+                    時間：${item.newDate} ${item.note}
+                `;
+                alertContainer.appendChild(div);
+            }
+        });
+
+        if (!hasAlert) {
+            alertContainer.innerHTML = '<div class="alert-box no-alert">✅ 目前 7 日內沒有調課行程。</div>';
+        }
+    }
+
+    checkReminders();
+</script>
+
 </body>
 </html>
