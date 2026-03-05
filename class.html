@@ -165,21 +165,20 @@
     }
 
     // --- 動態產生影片列表 (第 2~18 週) ---
-    function generateVideoList() {
-        const totalWeeks = 18;
-        const videoList = document.getElementById('videoList');
-        
-        for (let i = 2; i <= totalWeeks; i++) {
-            const div = document.createElement('div');
-            div.className = 'course-item';
-            div.innerHTML = `
-                <div class="week-title">第 ${i} 週：待更新內容</div>
-                <span class="status-tag"></span>
-                <p style="color: #bbb; font-size: 0.9rem; margin-top: 10px;">影片製作中，敬請期待。</p>
-            `;
-            videoList.appendChild(div);
-        }
-    }
+        function generateVideoList() {
+                const videoList = document.getElementById('videoList');
+                
+                // 不再用迴圈跑 18 次，直接新增一個簡單的狀態提示
+                const div = document.createElement('div');
+                div.style.textAlign = "center";
+                div.style.padding = "40px 0";
+                div.style.color = "#bbb";
+                div.style.letterSpacing = "2px";
+                div.innerHTML = `
+                    <div style="font-size: 0.9rem;">— 更新中 —</div>
+                `;
+                videoList.appendChild(div);
+            }
 
     // 初始化執行
     checkReminders();
@@ -188,6 +187,7 @@
 
 </body>
 </html>
+
 
 
 
