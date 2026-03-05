@@ -80,7 +80,7 @@
 <body>
 
 <div class="container">
-    <h2>臨床診斷學系統</h2>
+    <h2>臨床診斷學</h2>
     
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab(event, 'videos')">課程影片</button>
@@ -158,7 +158,7 @@
                 div.className = 'alert-box warning';
                 div.style.marginBottom = "15px";
                 div.innerHTML = `
-                    ⚠️ <b>調課提醒：${daysDiff === 0 ? '就在今天！' : daysDiff + '天後'}</b><br>
+                    ⚠️ <b>調課提醒：${daysDiff === 0 ? '今天！' : daysDiff + '天後'}</b><br>
                     科目：<span class="course-detail">${item.subject}</span> (${item.teacher} 老師)<br>
                     時間：${item.newDate} ${item.note}
                 `;
@@ -194,6 +194,7 @@
 
 </body>
 </html>
+
 
 
 
