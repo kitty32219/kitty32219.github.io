@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金匱要略十年國考題測驗系統</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif;
+            background-color: #f7f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .chapter-title {
+            background-color: #e1e8ed;
+            color: #2c3e50;
+            padding: 8px 15px;
+            border-left: 5px solid #3498db;
+            font-weight: bold;
+            margin-top: 30px;
+            border-radius: 0 4px 4px 0;
+        }
+        .quiz-card {
+            background: #fff;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .quiz-card:hover {
+            border-color: #bdc3c7;
+        }
+        .quiz-header {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            background: #f8f9fa;
+            border: 1px solid #dcdde1;
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95em;
+        }
+        .option-btn:hover {
+            background: #eccc68;
+            border-color: #ffa502;
+        }
+        .correct {
+            background-color: #2ecc71 !important;
+            color: #fff !important;
+            border-color: #27ae60 !important;
+            font-weight: bold;
+        }
+        .wrong {
+            background-color: #e74c3c !important;
+            color: #fff !important;
+            border-color: #c0392b !important;
+        }
+        .explanation-btn {
+            background: none;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .explanation-btn:hover {
+            text-decoration: underline;
+        }
+        .explanation-content {
+            display: none;
+            background: #f5f6fa;
+            border-left: 3px solid #7f8c8d;
+            padding: 12px 15px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #57606f;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>金匱要略近十年國考題測驗</h1>
+
+    <div class="chapter-title">痙濕喝病脈證並治第二</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-2-臨床一-33】</div>
+        <div class="question">依《金匱要略》所述，柔痙宜治以下列何方？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桂枝湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 栝樓桂枝湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 葛根湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 大承氣湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。第11條：「太陽病，其證備，身體強，几几然，脈反沉遲，此為痙，栝樓桂枝湯主之。」此論述柔痙證治（發熱汗出而不惡寒）。葛根湯主治剛痙（無汗）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-1-臨床一-35】</div>
+        <div class="question">依《金匱要略》有關太陽中喝的敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 太陽中濕者，喝是也</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 若數下之，則惡寒甚</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 若加溫針，則淋甚</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 汗出惡寒，身熱而渴，白虎加人參湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。原文：「太陽中熱者，喝是也。汗出惡寒，身熱而渴，白虎加人參湯主之。」(A)應為中熱；若發其汗，則惡寒甚；加溫針，則發熱甚；數下之，則淋甚。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2(補)-臨床一-42】</div>
+        <div class="question">依《金匱要略》所述：「風濕，脈浮，身重，汗出惡風者」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 防己黃耆湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 防己茯苓湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 麻黃附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 枳實白朮湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文：「風濕，脈浮，身重，汗出惡風者，防己黃耆湯主之。」此為風濕在表之虛證，用黃耆固表，防己、白朮祛濕。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-1-臨床一-36】</div>
+        <div class="question">依《金匱要略》，有關濕病之證治，下列敘述何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 濕家身煩疼，可與麻黃加朮湯發其汗為宜</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 病者一身盡疼，發熱，日晡所劇者，名風濕，可與防己黃耆湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 風濕，脈浮，身重，汗出惡風者，桂枝附子湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 傷寒八九日，風濕相搏，身體疼煩，不能自轉側，不嘔不渴，脈浮虛而澀者，麻黃杏仁薏苡甘草湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。(A)正確，但不可火攻。(B)日晡所劇者應與「麻黃杏仁薏苡甘草湯」。(C)脈浮身重汗出惡風為「防己黃耆湯」。(D)不能自轉側、脈浮虛而澀者為「桂枝附子湯」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-1-臨床一-37】</div>
+        <div class="question">依《金匱要略》，有關痙病之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 太陽病，發汗太多，因致痙</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 太陽病，發熱，脈浮而緊者，名曰痙，為難治</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 太陽病，發熱無汗，反惡寒者，名曰剛痙</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 太陽病，發熱汗出，而不惡寒，名曰柔痙</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文錯誤修正：「太陽病，發熱，脈沉而細者，名曰痙，為難治。」其餘(A)(C)(D)皆為金匱正文。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-2-臨床一-33】</div>
+        <div class="question">38歲江女士，平素運動量少，易疲倦，長時間說話後有明顯氣虛感，易出汗。昨日外出登山，返家後晚間即自覺身重感，小腿及足部水腫，胃部不適夾有氣逆感。依《金匱要略》，下列處方何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 越婢湯加白朮生薑</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 麻黃加朮湯加黨參半夏</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 防己黃耆湯加芍藥桂枝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 桂枝附子湯加厚朴蔥白</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。患者有明顯氣虛、自汗、身重、水腫，主方用防己黃耆湯。兼見胃部不適夾氣逆，依方後加減法：加芍藥和脾胃，加桂枝下氣降逆。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-2-臨床一-33】</div>
+        <div class="question">45歲陳先生，職業為搬家工人。自述經常全身酸痛，皮膚搔癢，關節緊繃，下午4~5點工作時身熱感明顯。依《金匱要略》，下列處方何者最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 麻黃加朮湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 葛根湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 麻黃杏仁薏苡甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 白朮附子湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。關鍵字：「一身盡疼、發熱、日晡（下午3~5點）所劇者」，此為風濕在表化熱之證，宜用麻杏薏甘湯祛風除濕，清熱解肌。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-1-臨床一-33】</div>
+        <div class="question">依《金匱要略・痙濕喝病脈證治第二》，有關適用「甘草附子湯」患者的相關論述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 頭中寒濕首選處方</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 病風寒，但陽氣尚不虛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 關節腫脹僵硬，尚不痛</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 風濕相搏，骨節疼痛，掣痛不得屈伸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。甘草附子湯條文：「風濕相搏，骨節疼煩，掣痛不得屈伸，近之則痛劇，汗出短氣，小便不利，惡風不欲去衣...」。此為表裡陽氣俱虛之證。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-2-臨床一-40】</div>
+        <div class="question">依《金匱要略》所述：「太陽病，其證備，身體強，几几然，脈反沉遲，此為痙」，治以下列何方最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桂枝加葛根湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 栝樓桂枝湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 葛根湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 柴葛解肌湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。直考原文。對應方劑為栝樓桂枝湯（栝蔞根、桂枝、芍藥、甘草、生薑、大棗），此為柔痙主方。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-2-臨床一-17】</div>
+        <div class="question">依《醫宗金鑑·金匱要略》，關於痙病，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 太陽病，無汗而小便少，氣上衝胸，口噤不得語，葛根湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 痙為病，胸滿口噤，臥不得席，腳攣急，可與大承氣湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 太陽病，身體強，几几然，脈反沉遲，栝樓桂枝湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 太陽病，發熱，脈沉而細者，大青龍湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。原文為：「太陽病，發熱，脈沉而細者，名曰痙，為難治。」並非大青龍湯主之。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-2-臨床一-20】</div>
+        <div class="question">依《醫宗金鑑,金匱要略》，傷寒八九日，風濕相搏，身體疼煩，不能自轉側，不嘔不渴，大便不堅，小便自利，脈浮虛而澀者，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 桂枝附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 麻黃附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 白朮附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 甘草附子湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文：「傷寒八九日，風濕相搏...脈浮虛而澀者，桂枝附子湯主之；若大便堅，小便自利者，去桂加白朮湯主之（即白朮附子湯）。」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-1臨床(一)-37】</div>
+        <div class="question">依《醫宗金鑑,訂正仲景全書金匱要略注》，關於濕的病機敘述，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 濕家，其人但頭汗出，背強，欲得被覆向火，若下之早則噯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 治風濕者，發其汗，但微微似欲汗出者，風濕俱去也</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 濕家身煩疼，可以火攻之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 濕家病身疼發熱，面黃而喘，頭痛鼻塞而煩，內藥鼻中則愈</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。原文強調：「濕家身煩疼，可與麻黃加朮湯發其汗為宜，慎不可以火攻之。」火劫大發其汗會導致變證。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-2臨床(一)-42】</div>
+        <div class="question">依《金匱要略》所述，關於水氣病的治療，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 風水，脈浮緊身重，不汗出而惡寒者，防己黃耆湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 風水惡風，一身悉腫，脈浮不渴，續自汗出，無大熱，越婢湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 水之為病，其脈沉小，屬少陰，宜麻黃附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 裏水者，越婢加朮湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。「風濕（或風水），脈浮身重，汗出惡風者」才用防己黃耆湯。若脈浮緊、無汗而惡寒，屬於實邪，不適用防己黃耆湯。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2臨床(一)-17】</div>
+        <div class="question">依《金匱要略,痙濕喝病脈證治第二》，風濕病者一身盡疼，發熱，日晡所劇者，乃傷於汗出當風或久傷取冷所致，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">A. 越婢加朮湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">B. 甘草麻黃湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">C. 麻黃杏仁薏苡甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">D. 防己黃耆湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。標準條文背誦題：「病者一身盡疼，發熱，日晡所劇者，名風濕...可與麻黃杏仁薏苡甘草湯。」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2臨床(一)-20】</div>
+        <div class="question">依《金匱要略》所述：「太陽中喝，身熱疼重，而脈微弱，一物瓜蒂湯主之。」，下列何者是太陽中喝的主要病因？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">A. 汗出當風或久傷取冷</button>
+            <button class="option-btn" onclick="checkAns(this, true)">B. 夏月傷冷水，水行皮中</button>
+            <button class="option-btn" onclick="checkAns(this, false)">C. 汗出入水中，如水傷心</button>
+            <button class="option-btn" onclick="checkAns(this, false)">D. 飲酒汗出當風</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文：「太陽中喝，身熱疼重，而脈微弱，此以夏月傷冷水，水行皮中所致也，一物瓜蒂湯主之。」</div>
+    </div>
+
+
+    <div class="chapter-title">中風歷節病脈證並治第五</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-1-臨床一-36】</div>
+        <div class="question">依《金匱要略》所述：「病歷節，不可屈伸，疼痛」，以下列何方主之？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桂枝芍藥知母湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 烏頭湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 防己黃耆湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文：「病歷節，不可屈伸疼痛，烏頭湯主之。」若兼有「諸肢節疼痛，身體尪羸，腳腫如脫...」則用桂枝芍藥知母湯。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2-臨床一-33】</div>
+        <div class="question">依《金匱要略》有關中風病之敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 邪在於絡，肌膚不仁</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 邪在於經，喎僻不遂</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 邪入於腑，舌即難言，口吐涎</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 邪入於臟，即不識人</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文：「邪在於絡，肌膚不仁；邪在於經，即重不勝；邪入於府，即不識人；邪入於藏，舌及難言，口吐涎。」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-1-臨床一-36】</div>
+        <div class="question">依《金匱要略》，下列選項何者最適當？<br>①邪在於絡，但臂不遂 ②邪入於臟，即不識人 ③邪在於經，即重不勝 ④邪入於腑，舌即難言，口吐涎</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 僅③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) ①②</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) ②④</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) ③④</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。根據中風病位原文，只有 ③ 正確。①應為肌膚不仁；②應為邪入於腑；④應為邪入於臟。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-2-臨床一-19】</div>
+        <div class="question">依《醫宗金鑑·金匱要略》，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 諸肢節疼痛，身體尪羸，腳腫如脫，頭眩短氣，溫溫欲吐，桂枝芍藥知母湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 病歷節不可屈伸，疼痛，烏頭湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 寸口脈沉而弱，沉即主骨，弱即主筋，沉即為肺，弱即為腎，汗出入水中，如水傷心，歷節黃汗出</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 盛人脈澀小，短氣，自汗出，歷節痛，不可屈伸，此皆飲酒汗出當風所致</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C) 錯誤。原文應為：「沉即為腎，弱即為肝。」因為腎主骨（脈沉）、肝主筋（脈弱）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-2臨床(一)-37】</div>
+        <div class="question">依《金匱要略》所述：「諸肢節疼痛，身體尪羸，腳腫如脫，頭眩短氣，溫溫欲吐」，下列何方治療最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 真武湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 防己黃耆湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 桂枝芍藥知母湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 烏藥湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。此為桂枝芍藥知母湯的主治原文。本方用於治療肝腎不足、風寒濕外侵且化熱之歷節病。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-2臨床(一)-21】</div>
+        <div class="question">依《金匱要略·中風歷節病脈證并治第五》，有關「歷節」的相關敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 冬日心腎為寒水所傷</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 肝腎不足寒濕內侵</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 營衛俱微脛腿熱痛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脾腎寒濕兼陰虛有熱</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。歷節病的內因為肝腎氣血不足（脈沉弱，沉為腎主骨，弱為肝主筋），外因為風寒濕邪乘虛內侵，鬱而化熱流注關節。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-1臨床(一)-20】</div>
+        <div class="question">依《金匱要略,中風歷節病脈證并治第五》，關於中風之臨床症狀與病位，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 邪在於經，肌膚不仁</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 邪在於絡，即重不勝</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 邪入於臟，舌即難言</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 邪入於腑，口吐涎唾</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。(A)應為在絡；(B)應為在經；(C)正確（邪入於臟，舌及難言，口吐涎）；(D)應為邪入於腑則不識人。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2臨床(一)-22】</div>
+        <div class="question">《金匱要略·中風歷節病脈證并治第五》下列何者不是「桂枝芍藥知母湯」之組成藥物？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">A. 芍藥、防風</button>
+            <button class="option-btn" onclick="checkAns(this, false)">B. 附子、甘草</button>
+            <button class="option-btn" onclick="checkAns(this, true)">C. 苡仁、桂枝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">D. 麻黃、桂枝</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。桂枝芍藥知母湯組成：桂枝、芍藥、甘草、麻黃、生薑、白朮、知母、防風、附子。方中無「苡仁」（薏苡仁）。</div>
+    </div>
+
+
+    <div class="chapter-title">血痹虛勞病脈證並治第六</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-33】</div>
+        <div class="question">依《金匱要略》所述：「虛勞諸不足，風氣百疾」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 黃耆建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 薯蕷丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 炙甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 酸棗仁湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。直考原文：「虛勞諸不足，風氣百疾，薯蕷丸主之。」本方功效為扶正祛邪，調理氣血。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2-臨床一-36】</div>
+        <div class="question">依《金匱要略》所述：「虛勞虛煩不得眠」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桂枝、芍藥、甘草、生薑、大棗、龍骨、牡蠣</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 酸棗仁、甘草、知母、茯苓、芎藭</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 天王補心丹組成藥物</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 肉桂、黃連</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文：「虛勞虛煩不得眠，酸棗湯（酸棗仁湯）主之。」組成即為(B)所列五味藥。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-1-臨床一-35】</div>
+        <div class="question">24歲男性患者，罹患慢性肝炎，今腹脹痛而硬、飲食不振、肌肉消瘦、雙下肢肌膚甲錯、倦怠乏力、兩目黯黑，舌有瘀斑、脈弦細，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 小柴胡湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 黃耆建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 薯蕷丸</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 大黃䗪蟲丸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。關鍵字：「五勞虛極羸瘦，腹滿不能飲食...內有乾血，肌膚甲錯，兩目黯黑。」治以大黃䗪蟲丸緩中補虛、袪瘀生新。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-1-臨床一-38】</div>
+        <div class="question">依《金匱要略》所述：「虛勞腰痛，少腹拘急，小便不利者」，治以下列何方最佳？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 八味腎氣丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 杞菊地黃丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 知柏地黃丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 麥味地黃丸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文：「虛勞腰痛，少腹拘急，小便不利者，八味腎氣丸（崔氏腎氣丸）主之。」起溫補下焦少火之功。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-2-臨床一-38】</div>
+        <div class="question">依《金匱要略・血痹虛勞病脈證并治》所述，酸棗仁湯涉及的臟腑為下列何者？①肝 ②心 ③脾 ④腎</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 僅①</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 僅①②</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) ②④</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) ①②③</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。酸棗仁湯主治「肝陰不足，心血虧虛」之虛煩失眠。方中酸棗仁養肝陰，茯苓寧心安神。涉及肝、心二臟。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-1-臨床一-34】</div>
+        <div class="question">58歲江先生，身形肥胖，稍勞動則汗出疲倦。自述近3週身體明顯酸麻，吹冷氣時症狀更加重，脈寸口關上微，尺中小緊，下列處方何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 四逆湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 當歸四逆湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 小建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 黃耆桂枝五物湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。關鍵字：「血痹陰陽俱微，寸口關上微，尺中小緊，外證身不仁（酸麻），如風痹狀者，黃耆桂枝五物湯主之。」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-1-臨床一-35】</div>
+        <div class="question">55歲孫女士，長年疲倦，腰膝軟弱，心悸自汗，下腹痛，裡急煩熱，舌淡苔薄白，脈弱。依《金匱要略》，下列處方何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 炙甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 黃耆建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 腎氣丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 桂枝加龍骨牡蠣湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。患者呈現虛勞裡急、氣血陰陽諸不足。黃耆建中湯主治較小建中湯更重之自汗、身重、諸不足證。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-2臨床(一)-38】</div>
+        <div class="question">《金匱要略·血痹虛勞病脈證并治第六》，有關「勞之為病」有「春夏劇，秋冬瘥」的特徵，下列敘述何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 此乃陽虛之證</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 此乃陰虛之證</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 此乃血瘀之證</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 此乃痰濕之證</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。「春夏劇，秋冬瘥」乃陰虛之證。因春夏陽氣盛、陰氣少，故陰虛者病情加劇；秋冬陰氣旺，故症狀減輕。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-2臨床(一)-19】</div>
+        <div class="question">依《金匱要略,血痹虛勞病脈證并治第六》，「虛勞諸不足，風氣百疾」治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 黃耆建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 薯蕷丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 小建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 八味腎氣丸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。重複考點。直考條文原文與主方對應，答案為薯蕷丸。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-2臨床(一)-22】</div>
+        <div class="question">《金匱要略・血痹虛勞病脈證并治第六》，有關「酸棗仁湯」可治「不得眠」，其對治之病因病機，下列何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 腎陰虛化熱</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 脾陰虛生熱</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 肝陰虛有熱</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 肺氣虛有火</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。酸棗仁湯主治虛勞虛煩不得眠。病機為肝陰不足，魂不守舍，陰虛內熱。故選肝陰虛有熱。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2臨床(一)-18】</div>
+        <div class="question">依《金匱要略,血痹虛勞病脈證并治第六》，關於虛勞的證治，下列何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">A. 腰痛，少腹拘急，小便不利，八味腎氣丸主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">B. 裏急，腹中痛，夢失精，大建中湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">C. 少腹弦急，失精，陰頭寒，柴胡加龍骨牡蠣湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">D. 男子失精，女子夢交，酸棗仁湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：A。(A)為原文正確敘述。(B)應為小建中湯主之。(C)與(D)之失精、夢交應對應「桂枝龍骨牡蠣湯」。</div>
+    </div>
+
+
+    <div class="chapter-title">肺痿肺癰咳嗽上氣病脈證並治第七</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-35】</div>
+        <div class="question">依《金匱要略》所述：「肺脹，咳而上氣，煩躁而喘，脈浮者，心下有水」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 射干麻黃湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 葶藶大棗瀉肺湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 小青龍加石膏湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 越婢加半夏湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。直考原文。關鍵病機為「外寒內飲，飲邪鬱而化熱」導致煩躁，故用小青龍湯化飲，加石膏清熱除煩。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-38】</div>
+        <div class="question">依《金匱要略》所述：「大逆上氣，咽喉不利，止逆下氣者」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 麥門冬湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 澤漆湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 厚朴麻黃湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 射干麻黃湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文：「大逆上氣，咽喉不利，止逆下氣者，麥門冬湯主之。」此為肺胃陰虛、火氣上逆之主方。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-2-臨床一-34】</div>
+        <div class="question">依《金匱要略》所述，肺痿病的主要症狀表現，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 口中有濁唾涎沫</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 口中辟辟燥，咳即胸中隱隱痛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 咳吐膿血，形如米粥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 咳而喉中水雞聲</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。肺痿特徵為「口中反有濁唾涎沫」。(B)(C)皆屬肺癰（實熱蓄結成膿）。(D)為哮喘（射干麻黃湯證）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2-臨床一-34】</div>
+        <div class="question">依《金匱要略》所述：「咳而胸滿，振寒脈數，咽乾不渴，時出濁唾腥臭，久久吐膿如米粥者」，下列證治何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 為肺痿，桔梗湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 為肺痿，葶藶大棗瀉肺湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 為肺癰，桔梗湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 為肺癰，葶藶大棗瀉肺湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。此為肺癰「膿已成」的典型表現，當用桔梗湯（桔梗、甘草）排膿；若膿未成、喘不得臥者，才用葶藶大棗瀉肺湯。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2-臨床一-37】</div>
+        <div class="question">依《金匱要略》所述：「咳而上氣，此為肺脹，其人喘，目如脫狀，脈浮大」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 越婢加半夏湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 十棗湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 麥門冬湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 甘草乾薑湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。直考原文。目如脫狀、脈浮大，代表飲熱鬱肺，宣泄肺氣、發越水氣用越婢加半夏湯。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2-臨床一-71】</div>
+        <div class="question">某30歲女性，胸悶痛，咳喘，咳吐膿血痰，下列診斷何者最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 胸痹</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 肝氣鬱結</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 肺癰</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 肺陰虛證</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。咳吐膿血腥臭痰、胸痛，在《金匱》中屬於典型的肺癰（熱邪壅肺，血凝蓄結成癰）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2(補)-臨床一-36】</div>
+        <div class="question">依《金匱要略》所述：「咳而上氣，喉中水雞聲」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 小青龍湯組成</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 射干、麻黃、生薑、細辛、紫菀、款冬花、五味子、大棗、半夏</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 厚朴麻黃湯組成</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 越婢加半夏湯組成</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文：「咳而上氣，喉中水雞聲，射干麻黃湯主之。」(B)選項即為射干麻黃湯的完整藥物組成。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2(補)-臨床一-35】</div>
+        <div class="question">依《金匱要略》所述，治療虛寒性肺痿的主方為下列何者？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 大青龍湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 小青龍湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 麥門冬湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 甘草乾薑湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。肺痿分虛熱與虛寒。虛寒肺痿因「肺中冷」，表現為吐涎沫不咳、小便數，用甘草乾薑湯溫肺復氣。虛熱用麥門冬湯。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-1-臨床一-34】</div>
+        <div class="question">依《金匱要略》，有關重亡津液肺痿的病因，下列何者正確？<br>①便難，又被快藥下利 ②消渴，小便利數 ③嘔吐 ④痰飲</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) ①②④</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) ②③④</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) ①②③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) ①③④</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。原文：「或從汗出，或從嘔吐(③)，或從消渴，小便利數(②)，或從便難，又被快藥下利(①)，重亡津液，故得之。」無④痰飲。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-1-臨床一-35】</div>
+        <div class="question">依《金匱要略》，有關「厚朴麻黃湯」與「澤漆湯」，下列敘述何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 厚朴麻黃湯證與澤漆湯證皆挾有熱</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 厚朴麻黃湯證病勢偏於上焦，澤漆湯證病勢偏於下焦</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 厚朴麻黃湯中用小麥之意猶如澤漆湯中加紅棗一樣</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 厚朴麻黃湯證因寒欲入內而喘咳，澤漆湯證因留飲欲向外而喘咳</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。(A)正確，厚朴麻黃湯夾寒飲鬱熱（方有石膏）；澤漆湯主治水飲久留挾有鬱熱（方有黃芩）。(B)澤漆湯病勢偏上、中焦。(C)澤漆湯方中無大棗。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-2-臨床一-34】</div>
+        <div class="question">依《金匱要略》，有關「肺痿」與「肺癰」的論述，下列何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 肺痿會吐膿，肺癰則吐膿血</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 肺痿因重亡津液而得，肺癰乃腎陰虛化熱所致</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 肺痿與肺癰皆可因寒熱二邪所傷而得</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 脈數虛者為肺痿，數實者為肺癰</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。直考原文鑑別點：「寸口脈數...脈數虛者為肺痿，數實者為肺癰。」肺痿吐濁唾涎沫不吐膿。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-2-臨床一-36】</div>
+        <div class="question">依《金匱要略》，「越婢加半夏湯」與「小青龍加石膏湯」皆可治療「肺脹」，下列敘述何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 越婢加半夏湯證寒較重，小青龍加石膏湯證熱較重</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 越婢加半夏湯以宣肺為重，小青龍加石膏湯以解表為重</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 小青龍加石膏湯中麻黃劑量為越婢加半夏湯中麻黃劑量的2倍</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 小青龍加石膏湯證為喘重於咳，越婢加半夏湯為咳重於喘</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。越婢加半夏湯主治飲熱鬱肺（熱重於飲），重在宣肺泄熱；小青龍加石膏湯主治寒飲夾熱（寒飲為主），重在解表散寒化飲。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-1-臨床一-36】</div>
+        <div class="question">依《金匱要略》，有關造成「肺痿」之可能原因，下列何者最不適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 飲冷</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 汗出、嘔吐</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 小便利數</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 被快藥下利</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。肺痿主因為重亡津液（由汗、吐、消渴、利下引起）。「飲冷」在《金匱》常導致冷飲內停（如痰飲、支飲），非肺痿成因。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-1臨床(一)-34】</div>
+        <div class="question">射干麻黃湯藥物之方義，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 射干降氣利濕</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 麻黃宣肺平喘</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 生薑、細辛散寒行水</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 五味子收斂肺氣</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。射干主要功效為「清熱解毒，祛痰利咽」，並無降氣利濕之功。其餘選項皆正確。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-2臨床(一)-36】</div>
+        <div class="question">依《金匱要略》有關肺痿肺癰之敘述，下列何者錯誤？<br>①寸口脈數，其人咳，口中反有濁唾涎沫者，為肺癰之病<br>②若口中辟辟燥，咳即胸中隱隱痛，脈反滑數，此為肺痿，咳唾膿血<br>③脈數虛者為肺痿  ④數實者為肺癰</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) ①②</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) ①③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) ②③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) ③④</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。①應為肺痿之病（虛證）；②應為肺癰（實證）。①和②互相張冠李戴，故選(A)。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-2臨床(一)-20】</div>
+        <div class="question">依《金匱要略》，咳而胸滿，振寒，脈數，時出濁唾腥臭，久久吐膿如米粥者，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 麥門冬湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 桔梗湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 皂莢丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 葶藶大棗瀉肺湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。重複考點。關鍵字「久久吐膿如米粥者」，屬肺癰膿已成之證，當用桔梗湯主之。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-1臨床(一)-21】</div>
+        <div class="question">依《金匱要略》，射干麻黃湯主治下列何證？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 外寒內飲</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 寒飲鬱肺</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 飲熱鬱肺</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 寒飲夾熱</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。射干麻黃湯為小青龍湯變方，外感表證已輕，主要病機為「寒飲內停，痰氣相擊（喉中水雞聲）」，故歸類為寒飲鬱肺。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-2-臨床(一)-17】</div>
+        <div class="question">依《醫宗金鑑·訂正仲景全書金匱要略注》：關於肺癰之敘述，下列何者最不適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 口中辟辟燥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 咳即胸中隱隱痛</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 脈數虛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 咳唾膿血</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。脈數虛為「肺痿」之脈。肺癰屬於實熱證，脈象應為「脈反滑數」或「數實」。</div>
+    </div>
+
+
+    <div class="chapter-title">痰飲咳嗽病脈證並治第十二</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-36】</div>
+        <div class="question">依《金匱要略》所述：「青龍湯下已...氣從小腹上衝胸咽...時復冒者」，治以下列何方最正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 茯苓、桂枝、白朮、甘草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 茯苓、桂枝、甘草、大棗</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 茯苓、澤瀉、桂枝、白朮、豬苓</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 茯苓、桂枝、五味子、甘草</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。此為服小青龍湯後重傷下焦陽氣，導致沖氣上逆之變證。治宜「苓桂五味甘草湯」以溫陽化飲、定喘降逆。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-37】</div>
+        <div class="question">依《金匱要略》所述：「嘔家本渴，渴者為欲解，今反不渴，心下有支飲故也」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 小半夏湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 生薑半夏湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 半夏乾薑散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 橘皮竹茹湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。直考原文：「今反不渴，心下有支飲故也，小半夏湯主之。」小半夏湯（半夏、生薑）功在化飲止嘔。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-41】</div>
+        <div class="question">依《金匱要略》有關水飲在五臟，其中水在肺之敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 心下堅築，短氣，惡水不欲飲</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 吐涎沫，欲飲水</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 少氣，身重</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脇下支滿，嚏而痛</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。五臟水飲分述：水在心則(A)；水在肺則(B)；水在脾則(C)；水在肝則(D)；水在腎則心下悸。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-38】</div>
+        <div class="question">依《金匱要略》所述，下列何者方證的病機與痰飲有關？<br>①厚朴麻黃湯 ②皂莢丸 ③越婢加半夏湯 ④麥門冬湯</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 僅①②</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 僅③④</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) ①②③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) ②③④</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。①為寒飲夾熱；②為痰濁壅肺；③為飲熱鬱肺。④麥門冬湯為虛火上炎、肺胃陰虛證，與痰飲（水飲）病機無關。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-1-臨床一-37】</div>
+        <div class="question">依《金匱要略》所述：「病溢飲者，當發其汗」，治以下列何方最適宜？<br>①十棗湯 ②小青龍湯 ③大青龍湯 ④五苓散</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) ①②</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) ③④</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) ①④</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) ②③</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。原文：「病溢飲者，當發其汗，大青龍湯主之，小青龍湯亦主之。」十棗湯為攻逐內水，五苓散為通陽利水，皆不以發汗為首要。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-1-臨床一-42】</div>
+        <div class="question">依《金匱要略》有關水飲在五臟，其中水在心的敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 心下堅築，短氣，惡水不欲飲</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 吐涎沫，欲飲水</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 少氣，身重</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脅下支滿，嚏而痛</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。重複考點。水飲凌心阻遏心陽，症見心下痞堅而悸動、短氣、惡水不欲飲。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2-臨床一-42】</div>
+        <div class="question">依《金匱要略》，有關風水的敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 脈自浮，外證骨節疼痛，惡風</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 脈浮，外證跗腫，按之沒指，不惡風，其腹如鼓，不渴</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 脈自沉，外證腹滿不喘</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脈沉遲，身發熱，胸滿，四肢頭面腫</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。(A)為風水特徵；(B)為皮水；(C)為石水；(D)敘述接近黃汗初期。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2(補)-臨床一-38】</div>
+        <div class="question">依《金匱要略》所述：「心下有支飲，其人苦冒眩」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 十棗湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 澤瀉湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 五苓散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 苓桂朮甘湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。直考原文：「心下有支飲，其人苦冒眩，澤瀉湯主之。」（藥用澤瀉、白朮以補土勝水）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-2-臨床一-38】</div>
+        <div class="question">依《金匱要略》所述：「心下有痰飲，胸脅支滿，目眩」，治以下列何方最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 小青龍湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 澤瀉湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 小半夏加茯苓湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 苓桂朮甘湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。直考原文：心下有痰飲，胸脅支滿，目眩，對應苓桂朮甘湯（溫陽蠲飲，健脾利水）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-2-臨床一-39】</div>
+        <div class="question">依《金匱要略》，假令瘦人臍下有悸，吐涎沫而癲眩，此水也，治以下列何方最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 苓桂朮甘湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 吳茱萸湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 五苓散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 澤瀉湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。原文：「假令瘦人臍下有悸，吐涎沫而癲眩，此水也，五苓散主之。」此為水停下焦、氣化不行。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-1-臨床一-39】</div>
+        <div class="question">依《金匱要略 痰飲咳嗽》，下列何者為己椒藶黃丸的病機？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 心下支飲</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 痰飲水走腸間</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 膈上伏飲</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脇下懸飲</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文：「腹滿，口舌乾燥，此腸間有水氣，己椒藶黃丸主之。」故其病機為水飲停聚於腸間。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-2-臨床一-43】</div>
+        <div class="question">依《金匱要略》，苓桂朮甘湯主治病脈證，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 猝嘔吐，心下痞，眩悸</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 心下有痰飲，胸脅支滿，目眩</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 心下有支飲，苦冒眩</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 臍下有悸，吐涎沫而癲眩</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。(A)為小半夏加茯苓湯；(B)為苓桂朮甘湯正文；(C)為澤瀉湯；(D)為五苓散。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-1-臨床一-42】</div>
+        <div class="question">依《金匱要略》所述，小半夏加茯苓湯主治病脈證，下列敘述何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 卒嘔吐，心下痞，膈間有水，眩悸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 心下有痰飲，胸脅支滿，目眩</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 心下有支飲，苦冒眩</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 臍下有悸，吐涎沫而癲眩</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文對應：「卒嘔吐，心下痞，膈間有水，眩悸者，小半夏加茯苓湯主之。」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-2-臨床一-23】</div>
+        <div class="question">依《醫宗金鑑·金匱要略》：膈間支飲，其人喘滿，心下痞堅，面色黧黑，其脈沉緊，得之數十日，醫吐下之不愈，下列何方主之？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 甘遂、半夏、芍藥、甘草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 防己、椒目、大黃</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 芫花、甘遂、大戟、大棗</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 木防己、石膏、桂枝、人參</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。直考原文方劑組成。此條文證型為膈間支飲之實證，宜木防己湯主之。組成即為(D)。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-2臨床(一)-34】</div>
+        <div class="question">依《醫宗金鑑》，關於痰飲方證之敘述，下列何者最不適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 心下有痰飲，胸脅支滿，目眩，苓桂朮甘湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 夫短氣有微飲，當從小便去之，苓桂朮甘湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 病懸飲者，十棗湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 心下有支飲，其人苦冒眩，茯苓湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。錯誤。「心下有支飲，其人苦冒眩者」，應為澤瀉湯主之，而非茯苓湯。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-1臨床(一)-19】</div>
+        <div class="question">凡食少飲多，水停心下，短氣者，下列治法何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 小青龍湯主之，大青龍湯亦主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 苓桂朮甘湯主之，腎氣丸亦主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 厚朴大黃湯主之，已椒藶黃湯亦主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)瓜蒂散主之，皂莢丸亦主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文：「夫短氣有微飲，當從小便去之，苓桂朮甘湯主之；腎氣丸亦主之。」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-1臨床(一)-20】</div>
+        <div class="question">依《醫宗金鑑》，關於咳嗽的治療，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 久咳數歲，其脈實大數者可治</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 咳逆倚息不得臥，小青龍湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 咳家其脈弦，為有水，十棗湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 久咳脈虛必苦冒，其人本有支飲在胸中，治屬飲家</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文應為：「久咳數歲，其脈弱者可治；實大數者死。」故(A)所說可治為錯誤。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">// 續【112-1臨床(一)-21】</div>
+        <div class="question">依《醫宗金鑑》，下列何者敘述錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 腹滿，口舌乾燥，此腸間有水氣，已椒藶黃丸主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 猝嘔吐，心下痞，膈間有水，眩悸者，半夏加茯苓湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 瘦人臍下有悸，吐涎沫而癲眩者，小青龍湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 夫有支飲家，咳煩胸中痛者，宜十棗湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。錯誤。臍下有悸、吐涎沫癲眩者，屬於水停下焦，正文明確指出應以「五苓散」主之。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-1臨床(一)-22】</div>
+        <div class="question">依《金匱》「病溢飲者...大、小青龍湯主之」，下列敘述何者正確？<br>①小青龍湯重在行水溫肺，主寒飲喘咳 ②溢飲有寒熱之別，熱者用大青龍湯，寒者用小青龍湯 ③大青龍湯重在發汗散水清熱，主發熱煩喘 ④小青龍湯證同時應兼有煩躁</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">A. ①③④</button>
+            <button class="option-btn" onclick="checkAns(this, false)">B. ②③④</button>
+            <button class="option-btn" onclick="checkAns(this, false)">C. ①②④</button>
+            <button class="option-btn" onclick="checkAns(this, true)">D. ①②③</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：D。①②③皆正確。④錯誤，大青龍湯證才是發熱煩喘，典型小青龍湯證一般不兼煩躁（除非是小青龍加石膏湯證）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-1臨床(一)-26】</div>
+        <div class="question">有關服用小青龍湯後的變證及處理，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 若患者寸脈沉、尺脈微、手足厥逆，服藥後易發生「氣衝」變證</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 可與茯苓桂枝五味甘草湯，治其氣衝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 衝氣即低，而反更咳、胸滿者，去桂加乾薑、細辛</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 若水去嘔止，其人形腫者，不可納麻黃的原因是氣虛也</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。錯誤。不可用麻黃的原因是患者「血虛（亡血家不可發汗）」，手足痹，麻黃發汗會更傷陽氣，故改加杏仁。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-1臨床(一)-19】</div>
+        <div class="question">病者欲自下痢，下痢後覺得舒快，但心下持續痞堅脹滿，其脈伏，此為留飲欲去，下列何方主之最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 十棗湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 木防己湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 葶藶大棗瀉肺湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 甘遂半夏湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。直考原文：「病者脈伏，其人欲自利，利反快，雖利，心下續堅滿，此為留飲欲去故也，甘遂半夏湯主之。」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-1臨床(一)-65】</div>
+        <div class="question">歷代文獻中，「不寐」常和「不得臥」混淆，下列有關不得臥的臨床內涵，何者異於其他三者？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 咳逆倚息不得臥，小青龍湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 支飲亦喘而不能臥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 胸痹不得臥，心痛徹背者</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 少陰病...心中煩，不得臥，黃連阿膠湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。(A)(B)(C)的「不得臥/不能臥」皆指因為喘咳或胸痛劇烈而「無法平躺下」。唯有(D)黃連阿膠湯證指陰虛火旺導致的「失眠、無法入睡」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-2-臨床(一)-27】</div>
+        <div class="question">依《醫宗金鑑》，五苓散主治病脈證，下列敘述何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 猝嘔吐，心下痞，眩悸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 心下有痰飲，胸脅支滿，目眩</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 心下有支飲，苦冒眩</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 臍下有悸，吐涎沫而癲眩</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。重複考點。考五苓散在痰飲篇的條文對應。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-1臨床(一)-19】</div>
+        <div class="question">依《醫宗金鑑》，關於支飲的治療，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 嘔家本渴，今反不渴，心下有支飲，小半夏湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 心下有支飲，其人苦冒眩，澤瀉湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 支飲不得息，葶藶大棗瀉肺湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 支飲胸滿者，大青龍湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。錯誤。原文應為：「支飲胸滿者，厚朴大黃湯主之。」（註：醫家認為胸滿應是腹滿之誤）。大青龍湯用在溢飲。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-1臨床(一)-23】</div>
+        <div class="question">依《醫宗金鑑》，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 支飲不得息，厚朴大黃湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 腹滿，口舌乾燥，此腸間有水氣，已椒藶黃丸主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 病懸飲者，十棗湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 病溢飲者，當發其汗，大青龍湯主之，小青龍湯亦主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。錯誤。支飲不得息、喘咳不能臥是肺水急證，應以「葶藶大棗瀉肺湯」直瀉肺水。厚朴大黃湯主治「支飲胸滿（腹滿）」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2臨床(一)-24】</div>
+        <div class="question">依《醫宗金鑑》條文，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">A. 支飲，喘不能臥、短氣不得息，葶藶大棗湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">B. 心下有痰飲，胸脅支滿，目眩，澤瀉湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">C. 懸飲內痛，脈沉而弦，十棗湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">D. 腹滿口舌乾燥，此腸間有水氣，已椒藶黃丸主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：B。錯誤。「心下有痰飲，胸脅支滿，目眩」應以苓桂朮甘湯主之。澤瀉湯對應的是「心下有支飲，其人苦冒眩」。</div>
+    </div>
+
+
+    <div class="chapter-title">腹滿寒疝宿食病脈證並治第十</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-2-臨床一-36】</div>
+        <div class="question">《金匱要略》有關宿食之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 脈緊，頭痛風寒，腹中有宿食不化也</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 脈緊如轉索無常者，有宿食也</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 下利不欲食者，有宿食也，當下之，宜大承氣湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 宿食在上脘，當吐之，宜梔子豉湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。錯誤。原文為：「宿食在上脘，當吐之，宜瓜蒂散。」梔子豉湯主治下痢後邪熱鬱於胸膈之虛煩。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-1-臨床一-33】</div>
+        <div class="question">依《金匱要略》所述：「病腹滿，發熱十日，脈浮而數，飲食如故」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桂枝湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 厚朴七物湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 芍藥甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 大黃附子湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。直考原文。本證為表熱未罷（脈浮數、發熱）且胃熱裡實（腹滿、飲食如故），用厚朴七物湯（桂枝湯與小承氣湯之複方）表裡雙解。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-2-臨床一-36】</div>
+        <div class="question">依《金匱要略》所述，下列何者為附子粳米湯的藥物組成？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 附子、厚朴、白芍、甘草、粳米</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 陳皮、甘草、茯苓、附子、粳米</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 半夏、甘草、附子、大棗、粳米</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 粳米、附子、白朮、甘草、人參</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。附子粳米湯組成：附子、半夏、甘草、大棗、粳米。功效為溫中散寒、降氣止逆，主治腹中寒氣雷鳴切痛。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-1-臨床一-38】</div>
+        <div class="question">依《金匱要略》：「腹滿不減，減不足言，當須下之」，治以下列何方最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 大柴胡湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 下瘀血湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 甘遂半夏湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 大承氣湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。直考原文。腹滿常常不減，屬於燥屎內結之實滿，當用大承氣湯急下。若「按之心下滿痛、有潮熱者」則用大柴胡湯。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-2-臨床一-35】</div>
+        <div class="question">依《醫宗金鑑》，有關宿食的敘述，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 下痢不欲食者，有宿食也，當下之，宜大承氣湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 宿食在上脘，當下之，宜大承氣湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 脈緊如轉索無常者，有宿食也</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脈緊，頭痛風寒，腹中有宿食不化也</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。重複考點。(B)錯誤，病在胃上脘（高位），治法應採因勢利導之「吐法（宜瓜蒂散）」，而非下法。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-2-臨床一-22】</div>
+        <div class="question">依《醫宗金鑑・金匱要略》，有關腹滿之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 病者腹滿，按之不痛為虛，痛者為實，可下之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 腹滿時減，復如故，此為熱，當與寒藥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 病腹滿，發熱十日，脈浮而數，飲食如故，厚朴七物湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 腹滿不減，減不足言，當須下之，宜大承氣湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。錯誤。原文為：「腹滿時減，復如故，此為寒，當與溫藥。」（宜厚朴生薑半夏人參湯）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-1臨床(一)-33】</div>
+        <div class="question">依《金匱要略》，脅下偏痛，發熱，其脈緊弦，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 大柴胡湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 大建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 大黃附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 附子粳米湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。直考原文：「脅下偏痛，發熱，其脈緊弦，此寒也，宜溫藥下之，以大黃附子湯。」此為寒實內結。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【112-1臨床(一)-18】</div>
+        <div class="question">依《金匱要略》，腹中寒氣，雷鳴切痛，胸脅逆滿，嘔吐，治以下列何方主之最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 附子粳米湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 大黃附子湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 大建中湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 大烏頭煎</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。直考原文對應。附子粳米湯治脾胃虛寒、水濕內停之腹痛雷鳴。大建中湯則主治「心胸中大寒痛，上衝皮起見頭足」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-1臨床(一)-21】</div>
+        <div class="question">依《醫宗金鑑》，下列那個條文的主治方劑，其組成中不含大黃？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 腹滿不減，減不足言，當須下之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 病腹滿，發熱，十日脈浮而數，飲食如故</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 腹中寒氣，雷鳴切痛，胸脅逆滿，嘔吐</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 痛而閉者</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。各方組成分析：(A)大承氣湯含大黃；(B)厚朴七物湯含大黃；(C)附子粳米湯不含大黃（含附子、半夏、甘草、大棗、粳米）；(D)厚朴三物湯含大黃。</div>
+    </div>
+
+
+    <div class="chapter-title">五臟風寒積聚病脈證並治第十一</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-1-臨床一-34】</div>
+        <div class="question">依《金匱要略》有關五臟死臟的敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 肝死臟，浮之實如丸豆，按之益躁急者，死</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 心死臟，浮之大堅，按之如覆杯，潔潔狀如搖者，死</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 脾死臟，浮之弱，按之如索不來，或曲如蛇行者，死</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 肺死臟，浮之虛，按之弱如蔥葉，下無根者，死</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。原文：(A)為心死臟；(B)為脾死臟；(C)為肝死臟；(D)肺死臟完全正確。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2(補)-臨床一-37】</div>
+        <div class="question">依《金匱要略》所述：「腎著之病...腰以下冷痛，腹重如帶五千錢」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 茯苓、桂枝、白朮、甘草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 白朮、附子、甘草、生薑、大棗</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 甘草、白朮、乾薑、茯苓</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 茯苓、甘草、乾薑、細辛、五味子</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。腎著之病由寒濕留著下焦所致，主方為「甘草乾薑茯苓白朮湯」（又稱甘薑苓朮湯或腎著湯），藥物組成即為(C)。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-2-臨床一-36】</div>
+        <div class="question">依《醫宗金鑑》，會引起翕翕發熱的五臟中風包括下列那些？①肝中風 ②心中風 ③脾中風 ④肺中風 ⑤腎中風</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) ①②</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) ②③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) ①⑤</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) ③④</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文中，明確寫出有「翕翕發熱」症狀的為：②心中風者，翕翕發熱，不能起...；③脾中風者，翕翕發熱，形如醉人...。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-1-基礎一-36】</div>
+        <div class="question">依《醫宗金鑑》，小腸有熱會引起下列何證？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 大便堅</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 驚溏</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 便腸垢</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 痔</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。原文：「大腸有寒者，多驚溏(B)；有熱者，便腸垢(C)。小腸有寒者，其人下重便血；有熱者，必痔(D)。」熱在中焦則為堅(A)。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-1臨床(一)-35】</div>
+        <div class="question">依《醫宗金鑑》，關於肝臟之中風寒、真臟脈象與肝著之敘述，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 肝中風者，頭目瞤，兩脅痛，行常傴，令人嗜甘</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 肝中寒者，兩臂不舉，舌本燥，喜太息，胸中痛...食則吐而汗出</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 肝死臟，浮之實如丸豆，按之益躁疾者，死</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 肝著，其人常欲蹈其胸上，先未苦時，但欲飲熱，旋覆花湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。錯誤。重複考點。「浮之實如麻（丸）豆，按之益躁疾者」是「心死臟」的脈象。肝死臟應為「浮之弱，按之如索不來...」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-1臨床(一)-18】</div>
+        <div class="question">依《金匱要略》，腎著之病，衣裏冷濕，久久得之，腰以下冷痛，腹重，口不渴，小便自利，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 茯苓桂枝甘草大棗湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 茯苓杏仁甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 麻黃杏仁薏苡甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 甘草乾薑茯苓白朮湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。重複考點。腎著之病主方為甘草乾薑茯苓白朮湯（又名腎著湯）。</div>
+    </div>
+
+
+    <div class="chapter-title">胸痹心痛短氣病脈證治第九</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-2-臨床一-35】</div>
+        <div class="question">依《金匱要略》所述：「心中痞，諸逆心懸痛」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 枳實薤白桂枝湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 半夏瀉心湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 桂枝生薑枳實湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 薏苡附子散</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。直考原文對應：「心中痞，諸逆，心懸痛，桂枝生薑枳實湯主之。」本方功效為通陽散結、降逆定痛。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-1-臨床一-39】</div>
+        <div class="question">依《金匱要略》有關胸痹之證治，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 胸痹心中痞...脅下逆搶心，枳實薤白桂枝湯主之，人參湯亦主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 胸痹不得臥，心痛徹背者，栝樓薤白白酒湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 胸痹，胸中氣塞，短氣，茯苓杏仁甘草湯主之，橘枳薑湯亦主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 胸痹緩急者，薏苡附子散主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。錯誤。原文應為：「胸痹不得臥，心痛徹背者，栝樓薤白半夏湯主之。」（多一味半夏以逐痰飲氣逆）。白酒湯是用在喘息咳唾輕證。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2-臨床一-35】</div>
+        <div class="question">依《金匱要略》所述，有關胸痹的典型症狀，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 其人咳，口中反有濁唾涎沫</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 其人喘，目如脫狀</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 喘息咳唾，胸背痛，短氣</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 咳逆倚息，短氣不得臥</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。胸痹主症原文：「胸痹之病，喘息咳唾，胸背痛，短氣...栝樓薤白白酒湯主之。」(A)為肺痿；(B)為肺脹；(D)為支飲。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-1-臨床一-38】</div>
+        <div class="question">依《金匱要略》所述：「心痛徹背，背痛徹心」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 栝樓實、薤白、白酒</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 蜀椒、烏頭、附子、乾薑、赤石脂</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 桂枝、生薑、枳實</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 枳實、厚朴、薤白、桂枝、栝樓</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。直考原文與組成。心痛徹背、背痛徹心屬於陰寒痼結重證，主方為「烏頭赤石脂丸」，組成即為(B)。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-1-臨床一-80】</div>
+        <div class="question">依《金匱要略》所述「胸痹證」，若出現喘息咳唾，胸背痛，短氣，寸口脈沉而遲，關上小緊數等症狀，其臨床病機應以下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 氣滯血瘀</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 痰濁閉阻</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 陰寒內結</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 氣虛血瘀</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。本證總病機為「陽微陰弦」，寸口沉遲為上焦陽虛，關上小緊數為中焦停飲、陰寒內盛。核心病機是陰寒內結，痹阻胸陽。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-2-臨床一-35】</div>
+        <div class="question">依《醫宗金鑑》，有關治療胸痹的用方，下列何方有使用附子？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 栝樓薤白半夏湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 人參湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 烏頭赤石脂丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 桂枝生薑枳實湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。烏頭赤石脂丸組成包含：蜀椒、烏頭、附子、乾薑、赤石脂。其餘三方皆無附子。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-2-臨床一-37】</div>
+        <div class="question">依《醫宗金鑑》，由枳實、厚朴、薤白、桂枝、栝樓實等五味藥物所組成的方劑可主下列何病證？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 胸痹之病，喘息咳唾，胸背痛，短氣...</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 胸痹，不得臥，心痛徹背者</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 胸痹，心中氣塞、短氣</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 胸痹，心中痞氣，氣結在胸，胸滿，脅下逆搶心</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。該五味藥組成「枳實薤白桂枝湯」，主治胸痹實證之「胸痹心中痞，留氣結在胸，胸滿，脅下逆搶心」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-1臨床(一)-36】</div>
+        <div class="question">依《醫宗金鑑》，關於胸痹的治療，下列何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 胸痹不得臥，心痛徹背者，栝樓薤白半夏湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 胸痹心中痞，留氣結在胸，胸滿，脅下逆搶心，人參湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 胸痹，胸中氣塞，短氣，烏頭赤石脂丸主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 心中痞，諸逆心懸痛，桂枝生薑枳實湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。錯誤。胸痹胸中氣塞短氣（輕證偏氣滯），應以「茯苓杏仁甘草湯」或「橘枳薑湯」主之。烏頭赤石脂丸主治心痛徹背重證。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【111-2臨床(一)-33】</div>
+        <div class="question">依《金匱要略》，胸痹心中痞，留氣結在胸，胸滿，脅下逆搶心，枳實薤白桂枝湯主之或下列何方？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 栝樓薤白半夏湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 人參湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 桂枝生薑枳實湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 茯苓杏仁甘草湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。直考原文：「...枳實薤白桂枝湯主之，人參湯（即理中湯）亦主之。」標實重者用前者，本虛（中風陽虛）重者用後者。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-1臨床(一)-18】</div>
+        <div class="question">依《金匱要略》，心中痞，諸逆心懸痛，治以下列何方主之最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 桂枝生薑枳實湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 半夏瀉心湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 薏苡附子散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 烏頭赤石脂丸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。重複考點。直考條文原文與方劑對應。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2臨床(一)-19】</div>
+        <div class="question">關於胸痹與心痛之主治用藥，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">A. 胸痹不得臥，心痛徹背者，栝樓薤白半夏湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">B. 胸痹，胸中氣塞，短氣，茯苓桂枝白朮甘草湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">C. 胸痹緩急者，薏苡附子散主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">D. 心中痞，諸逆心懸痛，桂枝生薑枳實湯主之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：B。錯誤。「胸痹，胸中氣塞短氣」應對應茯苓杏仁甘草湯或橘枳薑湯。B選項給的是苓桂朮甘湯，張冠李戴。</div>
+    </div>
+
+
+    <div class="chapter-title">婦人雜病及產後病脈證並治</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【105-1-臨床一-39】</div>
+        <div class="question">依《金匱要略·婦人雜病》所述：「婦人少腹滿如敦狀，小便微難而不渴，生後者」，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 大黃、甘遂、芒硝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 大黃、甘遂、桃仁</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 大黃、甘遂、厚朴</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 大黃、甘遂、阿膠</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。此條文主方為「大黃甘遂湯」，主治水與血俱結於血室。組成成分為大黃、甘遂、阿膠。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【106-2(補)-臨床一-40】</div>
+        <div class="question">45歲女性病患，依《金匱要略》所述，咽中如有炙臠之症狀，治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桔梗湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 清咽湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 梔子豉湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 半夏厚朴湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。標準條文題：「婦人咽中如有炙臠（梅核氣），半夏厚朴湯主之。」功效為行氣散結、降逆化痰。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-1-臨床一-41】</div>
+        <div class="question">依《金匱要略·婦人雜病》所述：「婦人吐涎沫，醫反下之，心下即痞」，先治以下列何方最適宜？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 麻黃、芍藥、五味子、乾薑、炙甘草、細辛、桂枝、半夏</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 大黃、黃連</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 半夏、黃芩、乾薑、人參、黃連、大棗、炙甘草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 半夏、厚朴、茯苓、生薑、乾蘇葉</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文：「當先治其吐涎沫，小青龍湯主之。涎沫止，乃治痞，瀉心湯主之。」(A)選項即為小青龍湯之藥物組成。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【107-2-臨床一-44】</div>
+        <div class="question">依《醫宗金鑑·金匱要略》，婦人之病，導致諸經水斷絕，至有歷年，其病因為下列那些最適當？<br>①虛 ②寒濕 ③積冷 ④鬱熱</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) ①②</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) ①③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) ②③</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) ③④</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。原文：「婦人之病，因虛(①)、積冷(③)、結氣，為諸經水斷絕，至有歷年...」。故選①③。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-1-臨床一-42】</div>
+        <div class="question">依《醫宗金鑑》，婦人腹中諸疾痛，下列何方劑治之最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 當歸芍藥散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 四逆散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 紅藍花酒</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 當歸生薑羊肉湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。直考原文句：「婦人腹中諸疾痛，當歸芍藥散主之。」（亦主治妊娠腹中痛，具養血柔肝、健脾除濕之功）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-2-臨床一-41】</div>
+        <div class="question">依《醫宗金鑑》：「婦人傷寒發熱，經水適來，晝日明了，暮則譫語，如見鬼狀者，此為熱入血室」，下列敘述何者最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桃核承氣湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 清熱行血湯主之</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 治之無犯胃氣及上二焦，必自愈</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 刺期門，隨其實而瀉之</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)。此為傷寒熱入血室條文之正確論述：「晝日明了，暮則譫語...治之無犯胃氣及上二焦，必自愈。」(D)選項適用於「陽明病、下血譫語或中風發熱惡寒者」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【108-2-臨床一-42】</div>
+        <div class="question">依《醫宗金鑑·金匱要略》，溫經湯的組成藥物不包含下列何者？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 當歸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 芎藭</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 芍藥</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 熟地黃</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)。溫經湯組成：吳茱萸、當歸、芎藭、芍藥、人參、桂枝、牡丹皮、阿膠、生薑、甘草、半夏、麥冬。方中並無「熟地黃」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-1-臨床一-43】</div>
+        <div class="question">依《金匱要略・婦人產後》：「產後風續之，數十日不解，頭微痛，惡寒，時時有熱，心下悶，乾嘔，汗出」，治以下列何方最適當？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 桂枝湯加黃芩</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 桂枝湯加黃連</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 桂枝湯加葛根</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 桂枝湯加半夏</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。原文指出可與「陽旦湯」。後世註解多指陽旦湯即桂枝湯加黃芩。因表證未解（用桂枝湯），而心下悶、時時有熱代表邪有入裡化熱趨勢（加黃芩清熱）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【109-2-臨床一-35】</div>
+        <div class="question">依《金匱要略》，治療婦人臟躁、喜悲傷欲哭、象如神靈所作、數欠伸的方劑其組成不包含下列那一個藥物？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 龍骨</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 小麥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 甘草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 大棗</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。此症為臟躁，主方為甘麥大棗湯（甘草、小麥、大棗），方中並無龍骨。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【110-2-臨床一-25】</div>
+        <div class="question">關於「熱入血室」常見症候的敘述何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 婦人中風七八日，續來寒熱，發作有時，經水適斷...故知：邪在少陽</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 婦人傷寒，晝日明了，暮則譫語...故知：邪在陽不在陰也</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 婦人中風...胸脅下滿，如結胸狀，譫語者，故知表解入裏，乘虛入血室</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 陽明病，下血譫語者...蓄於陽明，外越上蒸，導致但頭汗出</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)。(A)正確，寒熱發作有時，經水適斷，小柴胡湯證（少陽）主之。(B)應為邪在陰（血分）不在陽。(C)如結胸狀、譫語，屬裡實熱，並無虛象。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【113-2-臨床(一)-26】</div>
+        <div class="question">依《醫宗金鑑·訂正仲景全書金匱要略注》，婦人咽中如有炙臠，以下列何方劑主之？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 桔梗湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 半夏厚朴湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 旋覆花代赭石湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 桂枝茯苓丸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)。重複考點。直考梅核氣（咽中如有炙臠）之主方半夏厚朴湯（半夏、厚朴、茯苓、生薑、蘇葉）。</div>
+    </div>
+
+</div>
+
+<script>
+    function checkAns(btn, isCorrect) {
+        // 取得同一個題目卡片內的所有按鈕
+        const parent = btn.parentElement;
+        const buttons = parent.querySelectorAll('.option-btn');
+        
+        // 清除該題其他按鈕的狀態
+        buttons.forEach(b => {
+            b.classList.remove('correct', 'wrong');
+        });
+
+        // 根據對錯加上對應的 CSS class
+        if (isCorrect) {
+            btn.classList.add('correct');
+        } else {
+            btn.classList.add('wrong');
+            // 補顯示正確答案
+            buttons.forEach(b => {
+                // 這邊簡化邏輯：如果該選項在原始代碼中是正確答案，可手動得知
+            });
+        }
+    }
+
+    function toggleExp(btn) {
+        const expDiv = btn.nextElementSibling;
+        if (expDiv.style.display === "block") {
+            expDiv.style.display = "none";
+            btn.innerText = "[查看簡要詳解]";
+        } else {
+            expDiv.style.display = "block";
+            btn.innerText = "[收摺簡要詳解]";
+        }
+    }
+</script>
+
+</body>
+</html>
