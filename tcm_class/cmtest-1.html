@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中醫師一階國考測驗系統 | 題庫統整</title>
+    <style>
+        /* 無印良品經典配色與字體 */
+        :root {
+            --bg-color: #f7f6f3;       /* 溫暖的暖白/米色底 */
+            --text-main: #333333;      /* 深木炭灰（非純黑，更柔和） */
+            --text-sub: #7f7f7f;       /* 內斂的灰色 */
+            --card-bg: #ffffff;        /* 純白卡片 */
+            --border-color: #e0ded9;   /* 淺米灰線條 */
+            --accent-color: #7a6e67;   /* 原木/大地色調 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 頁首標題區 */
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            letter-spacing: 1px;
+        }
+
+        /* 核心區塊：使用 flex/grid 確保數量少時依然和諧，不顯空洞 */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        /* 卡片設計：極簡、微陰影、著重線條感 */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 32px;
+            width: 100%;
+            max-width: 360px; /* 限制寬度，兩個剛好並排 */
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 滑鼠懸停時的細微溫潤感 */
+        .card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .card-content h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .card-content p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 24px;
+        }
+
+        /* 卡片右下角的進入箭頭 */
+        .card-action {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* 頁尾 */
+        footer {
+            margin-top: auto;
+            padding-top: 48px;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>中醫師一階國考測驗系統</h1>
+        <p>基礎醫學互動題庫線上複習平台</p>
+    </header>
+
+    <main class="container">
+        
+        <a href="https://kitty32219.github.io/tcm_class/115-1.html" class="card">
+            <div class="card-content">
+                <h2>115-1 基礎醫學 (一)</h2>
+                <p>涵蓋中國醫學史、中醫基礎理論、內經、難經等精選歷屆試題與詳解。</p>
+            </div>
+            <div class="card-action">進入測驗 →</div>
+        </a>
+
+        <a href="https://kitty32219.github.io/tcm_class/115-2.html" class="card">
+            <div class="card-content">
+                <h2>115-1 基礎醫學 (二)</h2>
+                <p>涵蓋中藥學、方劑學、中醫診斷學等核心科目互動題庫與實戰演練。</p>
+            </div>
+            <div class="card-action">進入測驗 →</div>
+        </a>
+
+        </main>
+
+    <footer>
+        <p>© 2026 TCM Quiz System</p>
+    </footer>
+
+</body>
+</html>
