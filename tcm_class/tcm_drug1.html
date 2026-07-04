@@ -641,8 +641,9 @@
         });
     }
 
+
     function onPlayerReady(event) {
-        // 播放器載入完成
+        event.target.setVolume(100); // 💡 新增這一行：強制將 YouTube 隱藏播放器的音量開到最大
     }
 
     // 控制音樂開關
