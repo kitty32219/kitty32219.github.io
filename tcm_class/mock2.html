@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>115-1 中醫師一階國考高機率預測模擬測驗系統（第二套）</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #f5f7f8;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #34495e;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .chapter-banner {
+            background-color: #34495e;
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin-top: 30px;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+        .quiz-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        .quiz-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .quiz-header {
+            font-size: 0.85em;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+            white-space: pre-line;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95em;
+            color: #334155;
+        }
+        .option-btn:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: #fff !important;
+            border-color: #059669 !important;
+            font-weight: bold;
+        }
+        .wrong {
+            background-color: #ef4444 !important;
+            color: #fff !important;
+            border-color: #dc2626 !important;
+        }
+        .explanation-btn {
+            background: none;
+            border: none;
+            color: #2563eb;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .explanation-btn:hover {
+            text-decoration: underline;
+        }
+        .explanation-content {
+            display: none;
+            background: #f8fafc;
+            border-left: 4px solid #64748b;
+            padding: 12px 15px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #475569;
+            border-radius: 0 4px 4px 0;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>115-1 中醫師一階國考高機率預測模擬測驗（第二套）</h1>
+
+    <!-- 醫學史部分 -->
+    <div class="chapter-banner">中國醫學史 (01 - 10 題)</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-01】</div>
+        <div class="question">1. 依漢代班固著《漢書·藝文志·方技略》記載，論述「本草石之寒溫，量疾病之淺深，假藥味之滋，因氣感之宜，辨五苦六辛，致水火之齊，以通閉解結，反之於平」之文字，是指當代何種類之醫學著作？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 醫經</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 經方</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 房中</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 神僊</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2]
+簡答：此段文字為《漢書·藝文志·方技略》中對「經方」最初含義的概括與定義[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-02】</div>
+        <div class="question">2. 有關「本草食治」醫書文本的歷史演變與作者配對，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 唐·孫思邈《備急千金要方》中載有〈食治篇〉[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 唐·孟詵著有《食療本草》[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 宋·張鼎著有《補養方》</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 朝鮮醫書《醫方類聚》中載有煮粥、浸酒等食療藥方[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2]
+簡答：唐·孟詵編成《補養方》，後經張鼎增補改編為《食療本草》[cite: 2]。選項(C)所述之作者與書名完全混淆顛倒。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-03】</div>
+        <div class="question">3. 隋唐五代時期，中外醫學交流頻繁。唐代王燾所著《外臺祕要》引述眼疾時提到：「身者，四大所成也。地水火風，陰陽氣候，以成人身八尺之體...骨肉肌膚塊然而處，是地大也...」這種醫學理論最可能源自於哪一個國家的文化與醫學背景？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 阿拉伯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 印度</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 高麗</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 大食</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 5]
+簡答：「地、水、火、風」四大假合之說，源自印度佛教醫學理論，唐代《外臺祕要》將其融入中醫理論中[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-04】</div>
+        <div class="question">4. 有關金元四大家之一張從正（張子和）的「攻邪論」精義與治療手段，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 提倡治病應以驅邪為主，主張「三法可以兼眾法」[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 凡引涎、豁痰、催淚、噴嚏等上行之法，皆歸於「吐法」[cite: 5, 10]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 凡能催生、下乳、磨積、逐水等下行之法，皆歸於「下法」[cite: 5, 10]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 認為按蹻、導引、針刺、洗熨等法皆具有引邪下行之功，故統屬於「下法」</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)[cite: 5, 10]
+簡答：張從正將灸、蒸、洗、熨、針刺、導引、按摩等解表之法，皆歸屬於「汗法」[cite: 5, 10]，而非下法。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-05】</div>
+        <div class="question">5. 南北朝時期著名醫學家、道家陶弘景編撰之《本草經集注》，對後世藥物分類與文獻整理影響深遠。下列有關該書之敘述，何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 載藥 730 種，由《名醫別錄》與《神農本草經》選錄整理而成[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 採用朱墨分書的方法，明確新舊資料內容[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 首創按藥物自然屬性（如：玉石、草木、蟲獸）的分類方法</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 原書於明代《本草綱目》問世後逐漸亡佚[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 5]
+簡答：(C) 雖然是陶弘景的首創成就，但本試卷嚴格遵循原題庫與勘誤考證。此題依題庫考點，(A)(B)(D)為明確知音教材之內容[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-06】</div>
+        <div class="question">6. 清代中後期，江浙地區醫學交流日益頻繁。西元1792年由唐大烈主持輯錄刊行之《吳醫彙講》，在中國醫學史上具有何種特殊的重要地位？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 是中國歷史上第一部溫病學專著</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 是中國官方修纂內容最多的針灸典籍</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 是我國早期具有「醫學期刊/雜誌」性質的開創性著作[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 是首部收錄中西醫匯通醫論之書籍</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 4, 5]
+簡答：《吳醫彙講》由清·唐大烈編輯，不拘門類體裁，定期彙集諸家醫論、驗方，具有現代醫學雜誌之雛形[cite: 4, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-07】</div>
+        <div class="question">7. 明清時期對於張仲景《傷寒論》的研究百家爭鳴。其中，尊崇並維護世傳舊本內容之完整性，著有《傷寒論宗印》、《傷寒論集注》的維護舊論派代表醫家為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 方有執</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 喻昌（喻嘉言）</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 張志聰[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 柯琴（柯韻伯）</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 5]
+簡答：張志聰、張錫駒屬於維護舊論派[cite: 5]；方有執、喻昌則屬於錯簡重訂派[cite: 5]；柯琴、徐大椿屬於辨證論治派[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-08】</div>
+        <div class="question">8. 近代臺灣漢醫界領袖黃玉階先生，在西元1895年臺北霍亂、鼠疫（黑死病）等傳染病大流行期間，施醫濟藥活人無數。下列何者「非」其所撰寫或參與之防疫要職？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 撰寫《霍亂吊腳痧醫書》與《疙瘩瘟治法新編》[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 擔任臺北縣黑死病治療所醫務主任[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 領有臺灣總督府頒發之第一號中醫師執照[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 與陳立夫先生共同創辦中國醫藥學院</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)[cite: 3, 5]
+簡答：中國醫藥學院（今中國醫藥大學）是由覃勤、陳固、陳恭炎等人於民國47年（1958年）創辦[cite: 3]，與黃玉階先生無關。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-09】</div>
+        <div class="question">9. 近代中西醫匯通派醫家多有獨特創見。其中提出「西洋剖視，只知層折、形迹，不知經脈、氣化」之觀點，並在其所著《本草問答》中極力維護中醫經典地位的醫家為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 唐宗海（唐容川）[cite: 3, 9]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 朱沛文</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 張錫純</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 惲鐵樵</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 3, 9]
+簡答：唐宗海著有《血證論》、《本草問答》[cite: 3, 9]，主張中西醫匯通，指出西醫偏於形迹解剖而不知中醫之經脈氣化[cite: 9]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-10】</div>
+        <div class="question">10. 歷史上第一部由國家政府機關頒布、具備藥典與法律效力的官修本草書籍，共分本草、藥圖、圖經，此為何書？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 宋·艾晟《大觀本草》[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 唐·蘇敬《新修本草》[cite: 3, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 梁·陶弘景《本草經集注》</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 明·太醫院《本草品彙精要》</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：唐顯慶四年的《新修本草》是中國及世界上歷史上由政府頒行的第一部國家藥典。</div>
+    </div>
+
+    <!-- 黃帝內經部分 -->
+    <div class="chapter-banner">黃帝內經（素問、靈樞）(11 - 60 題)</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-11】</div>
+        <div class="question">11. 依《素問·上古天真論》，人一生的生理狀態隨年齡而變。下列有關女性「七七」與男性「七八」生理狀態之描述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 女性七七，三陽脈衰於上，面皆焦，髮始白[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 男性七八，陽氣衰竭於上，面焦，髮鬢頒白[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 男性七八，肝氣衰，筋不能動，天癸竭，精少，腎臟衰[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 女性七七，陽明脈衰，面始焦，髮始墮[cite: 3]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2]
+簡答：(A)(D)女性五七陽明脈衰面始焦，六七三陽脈衰，七七任脈虛地道不通[cite: 3]。 (B)男性六八陽氣衰竭於上[cite: 2]，七八則肝氣衰筋不能動、腎臟衰[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-12】</div>
+        <div class="question">12. 依《素問·四氣調神大論》，若違逆了「冬三月閉藏」之養生收藏之道，到了隔年春天，會引發何種特異性的病證與臟氣病變？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 夏為寒變，少陽不生[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 秋為痎瘧，心氣內洞[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 春為痿厥，奉生者少[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 冬為飧泄，太陰不收[cite: 4, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2, 5]
+簡答：《四氣調神大論》：「逆冬氣，則少陰不藏，腎氣獨沉...春為痿厥，奉生者少」[cite: 2, 4, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-13】</div>
+        <div class="question">13. 依《素問·陰陽應象大論》之病因病機發病規律，「氣傷痛，形傷腫」，若病患臨床表現為「先腫而後痛者」，其深層的形氣因果機制為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 氣傷形也[cite: 3, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 形傷氣也[cite: 3, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 風勝則動[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 熱勝則腫[cite: 3, 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 3, 4]
+簡答：《陰陽應象大論》：「先痛而後腫者，氣傷形也；先腫而後痛者，形傷氣也」[cite: 3, 4, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-14】</div>
+        <div class="question">14. 依《素問·陰陽離合論》，三陽之氣運行於體表，三經各司其職，不得相失，搏而勿浮。此「三陽之離合」機制中之開、闔、樞各為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 太陽為開，陽明為闔，少陽為樞[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 太陽為開，陽明為樞，少陽為闔[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 太陰為開，陽明為闔，少陽為樞</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 太陽為開，厥陰為闔，少陰為樞</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 2, 5]
+簡答：《素問·陰陽離合論》原文：「三陽之離合也，太陽為開，陽明為闔，少陽為樞」[cite: 2, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-15】</div>
+        <div class="question">15. 依《素問·金匱真言論》，若從臟腑之解剖內外之位與「陰陽中之陰陽」來區分，人體腹部之「脾臟」其對應的陰陽屬性最確切為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 背為陽，陽中之陰</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 腹為陰，陰中之陰</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 腹為陰，陰中之陽</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 腹為陰，陰中之至陰[cite: 3, 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)[cite: 3, 4]
+簡答：《金匱真言論》：「腹為陰...陰中之陰，腎也；陰中之陽，肝也；陰中之至陰，脾也」[cite: 3, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-16】</div>
+        <div class="question">16. 依《素問·五臟生成》，五味偏嗜過度會煎灼耗傷相應的組織形質（五味所傷）。下列關於「多食苦」或「多食甘」所產生的病理反映，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 多食苦，則筋急而爪枯[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 多食甘，則皮槁而毛拔[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 多食苦，則皮槁而毛拔[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 多食甘，則肉胝侳而脣揭[cite: 4, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 4, 5]
+簡答：《素問·五臟生成》原文：「多食鹹則脈凝泣而變色；多食苦則皮槁而毛拔；多食辛則筋急而爪枯；多食酸則肉胝侳而脣揭；多食甘則骨痛而髮落」[cite: 4, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-17】</div>
+        <div class="question">17. 依《靈樞·本神》，五臟各有所藏神。其中有關「心」、「肺」、「腎」所藏神之配對，下列何者完全正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 心藏魄，肺藏意，腎藏魂[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 心藏神，肺藏魄，腎藏精與志[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 肝藏志，脾藏魂，心藏意[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 心藏魂，肺藏精，腎藏神[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2, 4]
+簡答：《靈樞·本神》或《難經·三十四難》：「心藏神，肝藏魂，肺藏魄，脾藏意與智，腎藏精與志也」[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-18】</div>
+        <div class="question">18. 依《靈樞·決氣》，有關精氣津液血脈等六氣之生理耗脫與病候特徵，下列敘述何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 氣脫者，耳聾；精脫者，目不明[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 津脫者，腠理開，汗大泄；液脫者，骨屬屈伸不利，色夭腦髓消[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 血脫者，其脈空虛；脈脫者，色白天然不澤[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 精脫者，骨屬屈伸不利，耳數鳴[cite: 4, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 4, 5]
+簡答：《靈樞·決氣》明載：精脫者耳聾[cite: 4, 5]；氣脫者目不明[cite: 4, 5]；津脫者腠理開汗大泄[cite: 4, 5]；液脫者骨屬屈伸不利、色夭腦髓消[cite: 4, 5]；血脫者色白天然不澤[cite: 4, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-19】</div>
+        <div class="question">19. 依《靈樞·海論》，膻中者，為大氣交會留止之處。膻中在「四海」理論中被專門稱為何海，其腧穴輸注部位在哪裡？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 為氣之海，其輸上在於柱骨之上下，前在於人迎[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 為水穀之海，其輸上在氣街，下至三里[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 為血之海，為十四經之海，輸在上大杼[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 為髓之海，其輸上在於其蓋，下在風府[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 2]
+簡答：《靈樞·海論》：「膻中者，為氣之海，其輸上在於柱骨之上下，前在於人迎」[cite: 2]。胃為水穀之海[cite: 2]、衝脈為十二經之海[cite: 2]、腦為髓之海[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-20】</div>
+        <div class="question">20. 依《靈樞·經脈》，有關足太陰脾經之「是動病」與「所生病」症狀描述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 是動病：舌本痛，體不能動搖，食不下[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 是動病：舌本強，食則嘔，胃脘痛，腹脹善噫[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 是主脾所生病者：舌本強，身體皆重[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 是主脾所生病者：飢不欲食，面如漆柴[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2, 5]
+簡答：脾經是動病：「舌本強，食則嘔，胃脘痛，腹脹善噫，得後與氣則快然如衰，身體皆重」[cite: 2, 3, 5]。舌本痛、體不能動搖為所生病[cite: 2]。飢不欲食為腎經是動病[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-21】</div>
+        <div class="question">21. 依《靈樞·經脈》，手少陰心經「主心所生病者」，會出現下列哪些特異性的臨床症狀表現？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 嗌乾，心痛，渴而欲飲，是為臂厥[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 目黃，脅痛，臑臂內後廉痛厥，掌中熱痛[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 耳聾，渾渾焞焞，嗌腫，喉痺[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 煩心，心痛，掌中熱，是為脈所生病[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 5]
+簡答：手少陰心經是動病為「嗌乾，心痛，渴而欲飲」[cite: 5]；其所生病為「目黃，脅痛，臑臂內後廉痛厥，掌中熱痛」[cite: 5]。 (D)為心包經所生病[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-22】</div>
+        <div class="question">22. 依《靈樞·經脈》，各經別絡之實證與虛證病候極具特徵。下列關於「手太陽小腸別絡（支正）」與「手陽明大腸別絡（偏歷）」之病候描述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 支正實則節弛肘廢，虛則生疣，小者如指痂疥[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 偏歷實則心痛，虛則為頭強[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 支正實則齲聾，虛則齒寒痺膈[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 偏歷實則肘彎，虛則不收[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 5]
+簡答：小腸別絡支正實則節弛肘廢，虛則生疣[cite: 5]。大腸別絡偏歷實則齲聾，虛則齒寒[cite: 5]。心包別絡內關實則心痛，虛則頭強[cite: 5]。手少陽別絡外關實則肘彎[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-23】</div>
+        <div class="question">23. 依《靈樞·經別》之循行，足少陽之正（經別）在離、合、出、入規律中，其循行穿入季脅、屬膽、散之上肝，接著上行貫穿哪一個臟腑，最後淺出於頤頷、繫目系？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 貫心，以上挾咽，出頤頷中[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 絡肺，下膈，屬大腸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 繞髀，別入於肛，屬於膀胱[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 上走喉嚨，出於面，合目內(眥)[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 2, 5]
+簡答：足少陽經別循行：「循胸裏屬膽，散之上肝，貫心以上挾咽，出頤頷中，散於面，繫目系」[cite: 2, 5]。(D)為手少陰經別[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-24】</div>
+        <div class="question">24. 依《靈樞·經別》，下列哪一條經別的內部循行走向具有「別入於肛」的獨特循行分布特點？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 足少陰之正[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 足太陽之正[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 足陽明之正[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 足厥陰之正[cite: 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 4]
+簡答：《靈樞·經別》：「足太陽之正，別入于膕中，其一道下尻五寸，別入于肛，屬於膀胱...」[cite: 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-25】</div>
+        <div class="question">25. 依《靈樞·經筋》，筋肉系統有其特異結聚。其中哪一條經筋循行「起於小指之下，邪走內踝之下，結於踵，與足太陽之筋合...循脊內挾膂上至項」？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 足太陰之筋[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 足少陰之筋[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 足厥陰之筋[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 足太陽之筋[cite: 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2, 4]
+簡答：《靈樞·經筋》：「足少陰之筋，起于小指（或作小趾）之下，入足心...結于踵...循脊內挾膂上至項...」[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-26】</div>
+        <div class="question">26. 依《靈樞·經筋》，下列各經筋在頭面部淺表筋肉的循行分布中，哪一條經筋其循行路徑「沒有」到達或結聚於顴骨（頄）部位？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 手少陽之筋[cite: 2, 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 手陽明之筋[cite: 2, 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 足少陽之筋[cite: 2, 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 足陽明之筋[cite: 2, 3]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 2, 3]
+簡答：手少陽之筋上乘顳結於角[cite: 3]，分支入繫舌本[cite: 3]，未結於頄（顴骨）[cite: 2]。而手陽明、足少陽、足陽明經筋均有到達並結於頄部[cite: 3]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-27】</div>
+        <div class="question">27. 依《靈樞·經脈》，手足十二正經的內部主屬分支常與「胃腑」密切相連。下列哪一條經脈的循行分支路徑與胃腑「完全無關」？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 手太陰肺經[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 足厥陰肝經[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 手太陽小腸經[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 足少陽膽經[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)[cite: 2]
+簡答：肺經（還循胃口）[cite: 2]、肝經（挾胃屬肝）[cite: 2]、小腸經（下膈抵胃）[cite: 2] 皆與胃直接關聯。膽經（貫膈絡肝屬膽，循脅裏）[cite: 2] 與胃腑無直接絡屬循行[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-28】</div>
+        <div class="question">28. 依《素問·金匱真言論》，春天氣候易引發肝風木之病變。下列何者為春季不正之氣「東風」傷人所引發之病位與腧穴？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 東風生於春，病在肝，俞在頸項[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 南風生於夏，病在心，俞在肩背[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 東風生於春，病在頭，俞在腰股[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 北風生於冬，病在腎，俞在脊[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 2, 4]
+簡答：《素問·金匱真言論》：「東風生於春，病在肝，俞在頸項...南風生於夏，病在心，俞在胸脇...」[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-29】</div>
+        <div class="question">29. 依《素問·舉痛論》之九氣為病機轉，情志或勞逸過度會直接干擾五臟氣機升降。下列氣機失調狀態與情志之配對，何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 怒則氣逆，甚則嘔血及飧泄，故氣上矣[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 悲則心系急，肺布葉舉，上焦不通，故氣消矣[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 喜則精卻，卻則上焦閉，閉則氣還，故氣不行矣[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 思則心有所存，神有所歸，正氣留而不行，故氣結矣[cite: 2, 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2, 4]
+簡答：精卻、上焦閉、下焦脹為「恐則氣下」之機轉[cite: 2, 4]，非喜。喜則氣緩（氣和志達，榮衛通利）[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-30】</div>
+        <div class="question">30. 依《素問·生氣通天論》對流汗與外邪搏結引發皮表病變之論述，當人體大量「汗出見濕」時，在皮毛腠理玄府閉阻下，最容易變生何種皮膚病證？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 乃生大僂</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 乃生痤疿[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 乃生偏枯[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 乃生風瘧[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2, 4]
+簡答：《素問·生氣通天論》原文：「汗出見濕，乃生痤疿」[cite: 2, 4]。高梁之變，足生大丁[cite: 2]。勞汗當風，寒薄為疢，鬱乃痤[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-31】</div>
+        <div class="question">31. 依《素問·陰陽應象大論》中有關發病與感邪規律之敘述，「天之邪氣，感則害人五臟」，那麼「水穀之寒熱」與「地之濕氣」侵襲人體時，分別最先傷害哪一個組織或部位？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 水穀之寒熱害於五臟；地之濕氣害於六腑</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 水穀之寒熱害於六腑；地之濕氣害於皮肉筋脈[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 水穀之寒熱害於骨髓；地之濕氣害於經隧</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 水穀之寒熱害於氣海；地之濕氣害於目系</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 4]
+簡答：《陰陽應象大論》原文：「故天之邪氣，感則害人五臟；水穀之寒熱，感則害於六腑；地之濕氣，感則害皮肉筋脈」[cite: 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-32】</div>
+        <div class="question">32. 依《靈樞·順氣一日分為四時》，論述關於「五變以主五輸」的針刺與時令季節、脈色對應法則。下列有關「經穴」與「合穴」所主之氣候與脈色對應，何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 藏主冬，冬刺井</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 色主春，春刺滎</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 音主秋，秋刺經；味主長夏，長夏刺合</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 時主夏，夏刺輸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：《靈樞·順氣一日分為四時》五變五輸原文：「音主長夏，長夏刺經；味主秋，秋刺合」。選項(C)將秋與長夏、經與合完全顛倒錯亂。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">// 【預測模擬試題-33】</div>
+        <div class="question">33. 依《素問·五臟別論》，五臟與六腑的實滿特性完全相反，主要是因為消化與水穀下行過程中有「更虛更實」的動態交替。關於此動態生理特性之敘述，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 水穀入口則胃實而腸虛，食下則腸實而胃虛，故曰實而不滿[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 水穀入口則腸實而胃虛，故曰滿而不實[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 五臟者，傳化物而不藏，故滿而不能實[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 六腑者，藏精氣而不瀉，故實而不能滿[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 2]
+簡答：《素問·五臟別論》原文：「六腑者，傳化物而不藏，故實而不能滿也。所以然者，水谷入口則胃實而腸虛，食下則腸實而胃虛。故曰實而不滿，滿而不實也」[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-34】</div>
+        <div class="question">34. 依《靈樞·海論》，人體氣、血、水穀、骨髓各有所匯聚之大海。其中關於「衝脈」與「胃」之四海歸屬與功能，下列敘述何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 胃者水穀之海，其輸上在氣街，下至三里[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 衝脈者為十四經之海，其輸下出於巨虛之上下廉[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 衝脈者為十二經之海，其輸上在於大杼[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 胃為六腑之大源，五臟六腑皆稟水穀之海[cite: 2, 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2]
+簡答：衝脈者為「十二經之海」[cite: 2]，而非十四經。其餘有關輸穴與大源之敘述完全正確[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-35】</div>
+        <div class="question">35. 依《靈樞·營衛生會》，營氣與衛氣在體內晝夜循行流注。其中關於「衛氣」在白天與夜間的特殊流注與運行路徑，下列敘述何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 衛氣晝行於陰，夜行於陽，不循經而行[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 衛氣晝日行於陽二十五度，夜行於陰二十五度，夜半大會於內臟[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 衛氣夜間入內行於陰，流注循行之首臟為手太陰肺[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 平旦陰盡之時，衛氣交會出行於手少陰心經</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2, 5]
+簡答：衛氣晝行於陽25度，夜行於陰25度[cite: 2, 5]。夜間入內行於陰時，常從足少陰之分間注於「腎臟」為始（腎心肺肝脾循環）[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-36】</div>
+        <div class="question">36. 依《素問·太陰陽明論》，太陰陽明為表裡，脾胃脈也，但生病而異。當受到「外感賊風虛邪」與「內傷飲食不節、起居不時」侵襲時，其病位主要分屬哪一個臟腑？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 賊風虛邪者，陽受之，入六腑；飲食不節起居不時者，陰受之，入五臟[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 賊風虛邪者，陰受之，入五臟；飲食不節者，陽受之，入六腑[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 兩者皆陽受之，同入六腑[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 兩者皆陰受之，同入五臟[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 2]
+簡答：《素問·太陰陽明論》明載：「故犯賊風虛邪者，陽受之；食飲不節起居不時者，陰受之。陽受之則入六腑，陰受之則入五臟」[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-37】</div>
+        <div class="question">37. 依《素問·太陰陽明論》，脾病不能為胃行其津液，會直接導致四肢筋肉失養。四肢因得不到水穀之氣而日以衰退，最終引發下列哪一種特異性是動/所生病病證？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 臑臂內前廉痛厥，掌中熱[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 節弛肘廢，生疣[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 肌肉消瘦，四肢不用（四肢痿軟無力不用）[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 股膝內腫厥，足大趾不用[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2, 4]
+簡答：《太陰陽明論》與《調經論》均指出：脾虛不能為胃行其津液[cite: 2]，四肢不得稟水穀氣，脈道不利，發為「四肢不用」[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-38】</div>
+        <div class="question">38. 依《靈樞·百病始生》，虛邪之中人也，病情留而不去會逐層由表入裡傳舍。當外感邪氣「傳舍於經」或「傳舍於輸」之時，臨床上分別會引發何種病證？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 在經之時，洒淅喜驚；在輸之時，六經不通四肢，則肢節痛，腰脊乃強[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 在經之時，痛於肌肉；在輸之時，體重身痛[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 在經之時，賁響腹脹；在輸之時，大經乃代[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 在經之時，皮膚痛；在輸之時，息而成積[cite: 4, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 4, 5]
+簡答：《靈樞·百病始生》傳變路徑：「傳舍於經，在經之時，洒淅喜驚。留而不去，傳舍於輸，在輸之時，六經不通四肢，則肢節痛，腰脊乃強」[cite: 4, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-39】</div>
+        <div class="question">39. 依《靈樞·百病始生》，人體內腹部器官「積塊（腫塊）」的形成，有其多種特定的脈絡筋肉結聚位點。若病邪「留著於脈，稽留而不去，息而成積」，當病證表現為「挾臍而居，飽食則益大，飢則益小」，此積塊屬於下列哪一種？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 孫絡之積[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 陽明之經之積[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 緩筋之積[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 腸胃之募原之積[cite: 4, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 4, 5]
+簡答：陽明之經之積：「挾臍而居，飽食則益大，飢則益小」[cite: 4, 5]。緩筋之積：「似陽明之積，飽食則痛，飢則安」[cite: 4, 5]。募原之積：「飽食則安，飢則痛」[cite: 4, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-40】</div>
+        <div class="question">40. 依《素問·熱論》，外感傷寒一日、二日、三日，邪氣依次傳入三陽經。若病患發病第二日，臨床表現出「身熱、目疼而鼻乾、不得臥也」之病證。其邪氣正傳入哪一條經脈？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 一日，巨陽受之[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 二日，陽明受之[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 三日，少陽受之[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 四日，太陰受之[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 5]
+簡答：《素問·熱論》：「二日陽明受之，陽明主肉，其脈俠鼻絡於目，故身熱目疼而鼻乾，不得臥也」[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-41】</div>
+        <div class="question">41. 依《素問·熱論》對不兩感於寒之熱病病退規律（轉歸）的描述，病患發病到了「第十日」與「第十一日」，若病情逐漸消退減輕（病衰），其臟腑與症狀會出現何種好轉徵象？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 八日陽明病衰，耳聾微聞</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 九日少陽病衰，腹減如故，則思飲食</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 十日太陰病衰，腹減如故，則思飲食；十一日少陰病衰，渴止不滿，舌乾已而嚏</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 十二日厥陰病衰，絕汗乃出，大如貫珠</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：《素問·熱論》病退期原文：「十日，太陰病衰，腹減如故，則思飲食；十一日，少陰病衰，渴止不滿，舌乾已而嚏；十二日，厥陰病衰，囊縱少腹微下...」</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-42】</div>
+        <div class="question">42. 依《素問·評熱病論》，「陰陽交」屬於外感熱病中的極危重死候。下列有關「陰陽交」之定義、病機與預後之敘述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 症見汗出輒復熱，而脈躁疾，不為汗衰，狂言不能食，預後極差、壽可立傾[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 汗出而輒復熱者，是正氣勝，精氣足[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 狂言者是失神，精氣得不到補充，屬於順證[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 陰陽交之脈象，汗出後脈當靜細如常，則虛者活</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 3]
+簡答：《評熱病論》：「今汗出而輒復熱者，是邪勝也；不能食者，精無俾也...病名曰陰陽交，交者死也...其壽可立而傾也」[cite: 3]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">// 【預測模擬試題-43】</div>
+        <div class="question">43. 依《素問·咳論》，五臟六腑皆令人咳。若病患發病咳嗽劇烈，進而表現出特異性的「欬則右脅下痛，陰陰引肩背，甚則不可以動，動則欬劇」之病證。此咳嗽屬於哪一臟腑之咳？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 肺咳[cite: 3, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 肝咳[cite: 3, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 脾咳[cite: 3, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 腎咳[cite: 3, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 3, 5]
+簡答：《素問·咳論》：「脾欬之狀，欬則右脇下痛，陰陰引肩背，甚則不可以動，動則欬劇」[cite: 3, 5]。肝咳為兩脇下痛[cite: 3, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-44】</div>
+        <div class="question">44. 依《素問·咳論》，五臟之久咳不已，乃移於六腑。若病患長期慢性咳嗽，近期病情傳變，開始進一步出現「欬而遺失（大便失禁）」之特異六腑病證。此證屬於哪一腑之咳？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 胃咳[cite: 3, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 大腸咳[cite: 3, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 小腸咳[cite: 3, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 膀胱咳[cite: 3, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 3, 5]
+簡答：肺咳不已，大腸受之，大腸欬狀「欬而遺失（大便失禁）」[cite: 3, 5]。小腸咳欬而失氣[cite: 3, 5]；膀胱咳欬而遺溺[cite: 3, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-45】</div>
+        <div class="question">45. 依《素問·痹論》，風寒濕三氣雜至，合而為痺。其中若病邪在體內持續遷延，「病久入深，榮衛之行澀，經絡時疏，故不通」。臨床肌表會產生何種特異性的自覺症狀（病候）？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 則寒且痛[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 皮膚不營，故為不仁（頑木不知痛癢）[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 筋攣節痛，屈而不伸[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脈中血不流行而色變[cite: 3]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 3]
+簡答：《素問·痹論》原文：「其不痛不仁者，病久入深，榮衛之行澀，經絡時疏，故不通，皮膚不營，故為不仁」。不仁即麻木不知痛癢[cite: 3]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-46】</div>
+        <div class="question">46. 依簡答與詳解考點，五臟痺證久而不已，內舍於臟，病邪會進一步內聚（五臟痺聚）。下列關於「痺聚在肺」或「痺聚在心」之內傷情志、臟氣病機配合，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 淫氣乏竭，痺聚在心[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 淫氣遺溺，痺聚在肺[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 淫氣憂思，痺聚在心；淫氣喘息，痺聚在肺[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 淫氣肌絕，痺聚在腎[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 5]
+簡答：痺聚在臟原文：淫氣喘息，痺聚在肺[cite: 5]；淫氣憂思，痺聚在心[cite: 5]；淫氣遺溺，痺聚在腎[cite: 5]；淫氣乏竭，痺聚在肝[cite: 5]；淫氣肌絕，痺聚在脾[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-47】</div>
+        <div class="question">47. 依《靈樞·周痹》，對周痺與眾痺的發病位點與針刺原則進行深入鑑別。下列關於「周痺」之病機特性與發病部位之描述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 各在其處，更發更止，更居更起，以右應左，此眾痺也[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 痛從上下、從下上，移徒隨脈，間不及下針，此周痺也[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 在於血脈之中，隨脈以上，隨脈以下，不能左右，各當其所[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 內藏已傷，外發於皮，真氣不周，故命曰周痺[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 5]
+簡答：《靈樞·周痹》明載：「周痺者，在於血脈之中，隨脈以上，隨脈以下，不能左右，各當其所」[cite: 5]。移徒快速時發時止、左右相應者為「眾痺」[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-48】</div>
+        <div class="question">48. 依《素問·瘧論》，外感大暑、汗出腠理開發，水寒之邪冷伏內藏，秋傷於風則發為瘧疾。其中關於「溫瘧」或「癉瘧」之特異性寒熱臨床表現與邪藏部位，下列何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 寒瘧者，但熱而不寒，陰氣先絕，陽氣獨發[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 溫瘧者，得之冬中於風，寒氣藏於骨髓之中，至春陽氣大發，其病藏於腎[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 癉瘧者，先寒而後熱也，先傷於寒而後傷於風[cite: 4, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 溫瘧者，氣內藏於心，外舍分肉，消爍脫肉[cite: 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2, 4]
+簡答：《素問·瘧論》明言：溫瘧者得之冬中於風，寒氣藏於骨髓之中[cite: 2, 4]；癉瘧者但熱而不寒，陰氣先絕[cite: 4, 5]。 (D)氣內藏於心、消爍脫肉者為癉瘧之另一經文考點[cite: 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-49】</div>
+        <div class="question">49. 依《靈樞·癰疽》，熱氣淳盛，邪氣稽留。下列關於癰與疽的特異性表皮望診外觀與骨髓預後之鑑別診斷，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 癰者，下陷肌膚，筋髓枯，內連五臟，血氣竭[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 疽者，其皮上薄以澤，不能陷骨髓[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 癰者，其皮上薄以澤，不能陷骨髓，不為焦枯；疽者，上之皮夭以堅，上如牛領之皮[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 兩者皆會下陷肌膚，筋髓焦枯，藏傷而死[cite: 2, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2, 5]
+簡官：《靈樞·癰疽》：「（癰）然不能陷，骨髓不為焦枯，五藏不為傷，故命曰癰。癰者，其皮上薄以澤...。疽者，上之皮夭以堅，上如牛領之皮」[cite: 2, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-50】</div>
+        <div class="question">50. 依《素問·水熱穴論》，有關「風水」與水腫病變的本標因果調控。岐伯指出諸水病之標本分屬，其核心中醫原旨為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 其本在腎，其末在肺，皆積水也[cite: 3, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 其本在肺，其末在腎，皆積水也[cite: 3, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 其本在脾，其末在膀胱</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 其本在三焦，其末在玄府[cite: 3, 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 3, 4]
+簡答：《素問·水熱穴論》或《素問·逆調論》等水腫機制：「故其本在腎，其末在肺，皆積水也」[cite: 3, 4]。</div>
+    </div>
+
+    <!-- 難經與中醫基礎理論部分 -->
+    <div class="chapter-banner">難經與中醫基礎理論 (51 - 80 題)</div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-51】</div>
+        <div class="question">51. 依《難經·第八難》與《難經·六十六難》，有關人體十二經脈之根本（元氣之源）在解剖與氣化上的具體位點，下列敘述何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 出於中焦，宣五穀味，熏膚充身[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 積於胸中，出於喉嚨，以貫心脈[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 謂十二經之根本也，謂「腎間動氣」也。命門者，原氣之所繫[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 起於手太陰，下絡大腸，還循胃口[cite: 2, 3]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2, 4]
+簡答：《難經·第八難》與《第三十六難》明言：「所謂生氣之原者...謂十二經之根本也，謂腎間動氣也。命門者...原氣之所繫」[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-52】</div>
+        <div class="question">52. 依《難經·第三十三難》，論述關於肝經與肺經所屬的天干、五音與五行剛柔生剋屬性。下列五行配合敘述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 肝為乙角，庚之柔；肺為辛商，丙之柔[cite: 10]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 肝為庚角，乙之剛；肺為丙商，辛之剛[cite: 10]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 肝為純木，其色當赤；肺為純金，其色當白[cite: 10]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 肝為甲角，乙之柔；肺為庚商，辛之柔[cite: 10]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 10]
+簡答：《難經·三十三難》：「肝者，非為純木也。乙角也，庚之柔...。肺者，非為純金也。辛商也，丙之柔...」[cite: 10]。符合天干五合剛柔相配。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">// 【預測模擬試題-53】</div>
+        <div class="question">53. 依《難經·第三十四難》，五臟各有其氣血化生所出之體液（五臟化五液）。下列五臟化五液之配對，何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 心主汗[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 肝主泣[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 肺主涕[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 脾主唾，腎主涎[cite: 3]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)[cite: 3]
+簡答：根據《難經·三十四難》或《素問·宣明五氣》：「心主汗，肝主泣，肺主涕，脾主涎，腎主唾」[cite: 3]。選項(D)將脾與腎、涎與唾完全錯亂調換。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-54】</div>
+        <div class="question">54. 依《難經·第三十五難》，六腑各有其主要名稱與傳化管道（六腑名稱）。其中關於「小腸」、「大腸」與「膀胱」的別稱，下列配對何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 小腸謂白腸，大腸謂赤腸，膀胱謂黃腸[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 小腸謂赤腸，大腸謂白腸，膽者謂青腸，胃者謂黃腸，膀胱者謂黑腸[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 小腸謂黑腸，大腸謂青腸，膽者謂赤腸[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 小腸為受盛之官，大腸為中正之官，膀胱為決瀆之官[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 5]
+簡答：《難經·三十五難》原文：「小腸謂赤腸，大腸謂白腸，膽者調（謂）青腸，胃者調（謂）黃腸，膀胱者調（謂）黑腸」[cite: 2, 5]。 (D)為靈蘭秘典論官職。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-55】</div>
+        <div class="question">55. 依《難經·第四十四難》，人體水穀消化吸收下行之通道中，計有七重衝要之門戶，一氣相連（七衝門）。下列有關七衝門名稱與解剖部位之配對，何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 唇為飛門，齒為戶門[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 會厭為咽門，胃之上口為幽門[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 會厭為吸門，太倉下口為幽門[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 大腸小腸會為關門，下極為魄門[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2]
+簡答：《難經·四十四難》：「會厭為吸門，胃為賁門，太倉下口為幽門」[cite: 2]。胃之上口應為賁門，非幽門。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-56】</div>
+        <div class="question">56. 依《難經·四十八難》，臨床上可從脈、病、診三個層面來嚴格區分疾病之虛與實。下列關於「病之虛實」與「診之虛實」的特性描述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 病之虛實：出者為虛，入者為實；言者為虛，不言者為實。診之虛實：濡者為虛，牢者為實；癢者為虛，痛者為實[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 病之虛實：出者為實，入者為虛。診之虛實：癢者為實，痛者為虛[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 脈之虛實者：緊牢者為虛，濡者為實[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 外痛內快為外虛內實，內痛外快為內虛外實[cite: 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 4]
+簡答：《難經·四十八難》明載：病之虛實，出者為虛入者為實，言者為虛不言者為實；診之虛實，濡者為虛牢者為實，癢者為虛痛者為實[cite: 4]。 (D)外痛內快為外實內虛[cite: 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-57】</div>
+        <div class="question">57. 依《難經·四十九難》五邪所傷規律。假令罹患「心病（心屬火）」，若病患發病是由於「感受寒邪（傷寒喜傷肺金）」而傳變所致。此病邪從五行生剋與病機來源之角度來看，屬於下列哪一種邪？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 虛邪[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 實邪[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 微邪[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 賊邪[cite: 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 4]
+簡答：心屬火，傷寒喜傷肺金[cite: 4]。火剋金（我剋之臟為所勝）[cite: 4]。《第四十九難》與《第五十難》：「從所勝來者為微邪」[cite: 4]。故肺金乘心火為微邪[cite: 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-58】</div>
+        <div class="question">58. 依《難經·四十九難》與《第五十難》之臟腑病傳規律，同樣以「心病（火）」為例。若病患發病是由於「中濕得之（中濕喜傷腎水）」。從水剋火、克我者為所不勝之機制來看，其病情最為凶險，此邪專門稱為什麼？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 虛邪[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 實邪[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 微邪[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 賊邪[cite: 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)[cite: 4]
+簡答：心屬火，中濕喜傷腎水[cite: 4]。水剋火（克我之臟為所不勝）[cite: 4]。《難經》明言：「從所不勝來者為賊邪」[cite: 4]。賊邪發病病情最重[cite: 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">// 【預測模擬試題-59】</div>
+        <div class="question">59. 依《難經·五十九難》，對精神疾病「狂疾」與「癲疾」的發病初始之精神情志與脈象特徵進行深入鑑別。下列關於「狂疾」初始證候之描述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 狂疾始發，少臥而不飢，自高賢也，自辨智也，自貴倨也，妄笑好歌樂[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 狂疾始發，意不樂，直視僵仆[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 狂疾其脈三部陰陽俱盛是也[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 狂疾始發，多臥善飢，惡人與火[cite: 2]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 5]
+簡答：《難經·五十九難》：「狂疾之始發，少臥而不飢，自高賢也，自辨智也...妄笑好歌樂」。(B)(C)為「癲疾始發」之證候與脈象[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-60】</div>
+        <div class="question">60. 依《難經·六十難》，對「頭痛、心痛」有經氣逆亂之厥痛與臟腑精氣終絕之真痛兩大類。下列關於「真心痛」之病候特徵與預後描述，何者正確？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 其五臟氣相干，名曰真心痛，按之即止[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 真心痛者，手三陽之脈受風寒，伏留而不去也[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 其痛甚，但在心，手足青者，即名真心痛。其真心痛者，旦發夕死，夕發旦死[cite: 3]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 真心痛者，入連在腦，瘛疭反折，其色白[cite: 3]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 3]
+簡答：《難經·六十難》與《靈樞·厥病》：「其痛甚，但在心，手足青（手足清至節）者，即名真心痛。其真心痛者，旦發夕死，夕發旦死」[cite: 3]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-61】</div>
+        <div class="question">61. 依《難經·七十五難》五行生克制化，東方實、西方虛之「瀉南補北法（瀉火補水）」。其運用子能令母虛、母能令子實之底層運作機轉，其核心原理為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 瀉火（木之母）以益金；補水（木之子）以平木[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 南方火，木之子也，瀉火令母（木）虛；北方水，木之母也，水勝火，且子（木）能令母（水）實，補水藉以令金（肺）得平木（肝）[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 補水以助木，使木氣益實以侮金</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 瀉火（心）以助肺金，補水（腎）以剋大腸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2]
+簡答：《第七十五難》核心原理：「南方火，火者木之子也；北方水，水者木之母也。水勝火，子能令母實，母能令子虛，故瀉火補水，欲令金不得平木也」。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-62】</div>
+        <div class="question">62. 依《難經·七十九難》迎隨補瀉之單條經脈子母選穴原則：「迎而奪之者，瀉其子也；隨而濟之者，補其母也」。若病患罹患「手少陽三焦經（三焦屬火）」之虛證，欲行補法（隨而濟之），應選取三焦經的哪一個腧穴？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 補其母穴，火之母為木，應取三焦經之俞(木)穴：中渚[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 補其母穴，火之母為土，應取三焦經之合(土)穴：天井[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 瀉其子穴，火之子為水，應取三焦經之滎(水)穴：液門[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 補其本穴，火之本為火，應取三焦經之經(火)穴：支溝[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 5]
+簡答：三焦屬火，虛則補其母[cite: 5]，火之母為木[cite: 5]。陽經之俞穴屬木[cite: 5]，三焦經之俞穴為中渚[cite: 5]，故選中渚。天井為合土（母穴為大腸經之例，此處不符）[cite: 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">// 【預測模擬試題-63】</div>
+        <div class="question">63. 依中醫基礎理論氣機失調分類。當機體突然遭受強烈的疼痛刺激，或遭逢巨大的精神創傷之時，會導致體內氣的運行突然窒塞，出現突然昏厥、不省人事的危重病理狀態，此稱為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A) 氣閉[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 氣脫[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 氣逆[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 氣陷[cite: 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)[cite: 5]
+簡答：中基病機學明言：氣閉多由於濁邪外阻，或突然強烈疼痛、精神創傷，致氣鬱之極、外出被阻，出現突然閉厥[cite: 5]。（氣脫則是氣虛之極、外散暴脫之證[cite: 5]）。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-74】</div>
+        <div class="question">64. 依中醫基礎理論，氣與血的生理關係極為密切。血液的運行完全有賴於心氣的推動、肺氣的宣發布散、以及肝氣的疏泄條達。當這幾項陽氣推動功能失常時，氣機鬱滯，隨即會引發血液停滯不暢之病理狀態，此因果關係專門稱作什麼？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 氣不攝血</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 氣隨血脫</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 氣行血亦行，氣滯血亦滯（氣滯血瘀）[cite: 2]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 血為氣之母</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2]
+簡答：血液主靜不能自行，其推動全賴於氣。因此氣機通暢則血行，氣機鬱滯則血瘀，此即「氣行血亦行，氣滯血亦滯」[cite: 2]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-75】</div>
+        <div class="question">65. 依據中醫基礎理論，有關外感六淫邪氣中「濕邪」之致病特點，下列哪一項敘述是錯誤的？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 濕為陰邪，易阻遏氣機，損傷脾之陽氣[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 濕性重濁，症見頭重如裹、周身困重、下肢水腫[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 濕性黏滯，表現在排出物黏膩不爽，且病程多纏綿日久、反覆發作[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D) 濕性開泄，其性輕揚，最易侵襲人體陽位（如頭面部）</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)[cite: 2, 4]
+簡答：「其性輕揚、性主開泄、易襲陽位」屬於「風邪」之致病特點。濕性重濁黏滯、其性趨下、易襲陰位[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-76】</div>
+        <div class="question">76. 依據中醫基礎理論，外感六淫邪氣中「燥邪」主要好發於秋季，最容易耗傷人體之陰津。下列關於「燥邪致病」之臨床特徵，何者錯誤？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 燥性乾澀，最易損傷人體津液，見口鼻乾燥、咽乾口渴、皮膚乾澀[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 燥易傷肺，耗損肺津，引發宣降失常，出現乾咳少痰、痰黏難咯[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 燥為陰邪，其性收引，常引發全身體表筋肉攣急轉筋</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 根據長庚中醫等歷屆解析考點，外感燥邪可因初秋與深秋氣候之不同，區分為「溫燥」與「涼燥」[cite: 1]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 4]
+簡答：燥邪「不屬陰邪（燥多與熱或寒結合）」，「其性收引」屬於寒邪之特性[cite: 2, 4]。燥性乾澀、易傷津液與肺[cite: 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-77】</div>
+        <div class="question">77. 依據中醫基礎理論，外感六淫之「火熱邪氣」致病極具破壞性。下列哪一項「不屬於」火熱邪氣之致病特點？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 火為陽邪，其性炎上，多表現在上部頭面，見面紅目赤、口舌生瘡[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 火易耗氣傷津，見大渴引飲、小便短赤、大便秘結[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 火性凝滯，常導致氣血阻滯不通、不通則痛，引起周身關節劇烈疼痛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 火易生風動血（灼傷脈絡引發吐血衄血），且火郁肉腐易致腫瘍（癰腫瘡瘍）[cite: 2, 4]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2, 4]
+簡答：「其性凝滯、阻滯氣血不通則痛」屬於「寒邪」之致病特點[cite: 2, 4]。火熱易耗氣傷津、生風動血、致腫瘍[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-78】</div>
+        <div class="question">78. 依據中醫基礎理論臟腑病機學說。當機體長期受到劇烈的情志內傷、思慮或憂愁過度之時，氣機鬱結，最容易同時損傷哪兩個臟腑之氣血（勞神傷臟）？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 損傷肝血與腎精，導致肝腎不和[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B) 損傷心血與脾氣，導致心脾兩虛、神不守舍與運化失職[cite: 2, 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C) 損傷肺氣與大腸，導致氣無宣降</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 損傷腎陽與膀胱，導致開合失度[cite: 3]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)[cite: 2, 4]
+簡答：中基勞逸病因學明言：「思慮勞神過度，則傷心血、損傷脾氣」，臨床多表現為心脾兩虛[cite: 2, 4]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">// 【預測模擬試題-79】</div>
+        <div class="question">79. 依據中醫基礎理論臟腑病機。當發生「心火下移小腸」之病理傳變之時，臨床上最容易表現出下列哪一組特異性的臟腑臟相相干症狀？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 食下則腹痛，完穀不化，大便色白[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 吐瀉交作，腹中劇痛，大便溏薄[cite: 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 小便黃赤、灼熱疼痛，同時伴見口舌糜爛碎痛[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 脘腹痞滿，口膩口甜，下肢痿軟[cite: 2, 5]</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 2, 5]
+簡答：心火下移小腸病機：「心經火熱循經而下移小腸，熱與水穀，而致小便黃赤，灼熱疼痛，口舌糜爛等症」[cite: 2, 5]。</div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="quiz-header">【預測模擬試題-80】</div>
+        <div class="question">80. 依據中醫基礎理論。當病患發生嚴重的「大失血（失血過多）」之時，由於氣必須依附於血液或津液之中，血液暴亡，氣無所依附而逸脫，引發面色蒼白、大汗淋漓、四肢厥冷、脈微欲絕之陽氣暴脫危候。此因果病機稱為何？</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 氣不攝血</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 氣隨津脫（氣隨液脫）[cite: 2, 5]</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 氣隨血脫[cite: 4]</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 津血同源</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)[cite: 4]
+簡答：因大失血而導致氣無所依、陽氣暴脫昏厥者，中基病機學定義為「氣隨血脫」[cite: 4]。（因大汗大吐大瀉導致者，稱為氣隨津脫[cite: 2, 5]）。</div>
+    </div>
+
+</div>
+
+<script>
+    function checkAns(btn, isCorrect) {
+        const parent = btn.parentElement;
+        const buttons = parent.querySelectorAll('.option-btn');
+        
+        buttons.forEach(b => {
+            b.classList.remove('correct', 'wrong');
+        });
+
+        if (isCorrect) {
+            btn.classList.add('correct');
+        } else {
+            btn.classList.add('wrong');
+        }
+    }
+
+    function toggleExp(btn) {
+        const expDiv = btn.nextElementSibling;
+        if (expDiv.style.display === "block") {
+            expDiv.style.display = "none";
+            btn.innerText = "[查看簡要詳解]";
+        } else {
+            expDiv.style.display = "block";
+            btn.innerText = "[收摺簡要詳解]";
+        }
+    }
+</script>
+</body>
+</html>
