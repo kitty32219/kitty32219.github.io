@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>114-2 中醫師一階國考（基礎二）測驗系統</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #f4f6f7;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .chapter-banner {
+            background-color: #2980b9;
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin-top: 35px;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+        .quiz-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        .quiz-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .quiz-header {
+            font-size: 0.85em;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95em;
+            color: #334155;
+        }
+        .option-btn:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: #fff !important;
+            border-color: #059669 !important;
+            font-weight: bold;
+        }
+        .wrong {
+            background-color: #ef4444 !important;
+            color: #fff !important;
+            border-color: #dc2626 !important;
+        }
+        .explanation-btn {
+            background: none;
+            border: none;
+            color: #2563eb;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .explanation-btn:hover {
+            text-decoration: underline;
+        }
+        .explanation-content {
+            display: none;
+            background: #f8fafc;
+            border-left: 4px solid #2980b9;
+            padding: 12px 15px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #475569;
+            border-radius: 0 4px 4px 0;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>114-2 中醫師一階國考題庫（基礎二）</h1>
+
+    <!-- 方劑學部分 -->
+    <div class="chapter-banner">第一部分：方劑學 (01 - 40 題)</div>
+
+    <!-- 第 01 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-01】</div>
+        <div class="question">關於《溫病條辨》銀翹散與《溫病條辨》桑菊飲之比較,下列何者錯誤?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)兩方藥物組成均含有:連翹、甘草、桔梗、薄荷、蘆根</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)兩方均為辛涼解表劑。其中銀翹散屬於辛涼平劑;桑菊飲屬於辛涼輕劑</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)銀翹散用於風溫襲肺,肅肺止咳力較強;桑菊飲用於溫病初起,清熱利咽之力較強</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)銀翹散中的豆豉有開表透邪之功;桑菊飲中的菊花有清上焦風熱之功</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：背誦題,辛涼解表劑四大類比較,此為一、二類之比較
+解析：銀翹散適用範圍較廣，用於「溫病」初起，方中含有荊芥、淡豆豉、牛蒡子，故「清熱利咽」之力較強；而桑菊飲用於「風溫」初起，方中含有杏仁，「肅肺止咳」之力較強。故(C)錯誤。</div>
+    </div>
+
+    <!-- 第 02 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-02】</div>
+        <div class="question">關於《小兒藥證直訣》敗毒散之敘述,下列何者錯誤?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)羌活為本方的組成藥物之一</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)有發散風寒,疏導經絡,行氣和血之功</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)此方能治風寒濕鬱於肌 ,發為瘡瘍,初起膿未成,外見寒熱無汗者</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)方加荊芥、防風即與《攝生眾妙方》荊防敗毒散之組成相同</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：(D)去人參,加荊芥、防風即為荊防敗毒散《攝生眾妙方》
+解析：本品去人參，加荊芥、防風才是荊防敗毒散，故(D)錯誤。</div>
+    </div>
+
+    <!-- 第 03 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-03】</div>
+        <div class="question">75歲男性,主訴大便乾硬一週,兼見小便清長,頭目眩暈,腰膝痠軟。脈沉,舌淡苔白,下列處方何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)熟地黃八錢,山藥三錢,山茱萸三錢,澤瀉三錢,牡丹皮三錢,茯苓三錢</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)麻子仁五錢,白芍二錢半,枳實二錢半,大黃五錢,厚朴二錢半,杏仁二錢半</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)當歸三錢,牛膝二錢,肉蓯蓉三錢,澤瀉一錢半,升麻五分,枳殼一錢</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)玄參一兩,麥門冬八錢,生地八錢,大黃三錢,芒硝一錢五分</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：(C)濟川煎主治大便秘結,小便清長,腰膝痠軟,腰背酸冷,舌淡苔白,脈沉遲。
+解析：主訴除大便乾結外，另見腰膝痠軟、小便清長等腎陽虛、溫化無力之症，最適宜用濟川煎。其餘(A)六味地黃丸 (B)麻子仁丸 (D)增液承氣湯 皆非所宜。</div>
+    </div>
+
+    <!-- 第 04 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-04】</div>
+        <div class="question">關於《傷寒論》十棗湯之敘述,下列何者錯誤?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)可用於治療懸飲</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)煎煮時,先煮甘遂、大戟、芫花,後加十枚大棗同煮</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)服藥後出現瀉下,飲稀粥以養胃氣</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)本方去芫花、大棗加白芥子即與《三因方》控涎丹組成相同</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：(B)先煮大棗。
+解析：根據《傷寒論》煎服法，應以水先煮大棗肥者十枚，去滓，再內入三味藥末溫服。得快下利後，糜粥自養。故(B)錯誤。</div>
+    </div>
+
+    <!-- 第 05 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-05】</div>
+        <div class="question">下列方劑中,何者不含有玄參?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)《先醒齋醫學廣筆記》竹葉柳蒡湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)《傷寒六書》黃龍湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)《溫病條辨》增液承氣湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)《重樓王鑰》養陰清肺湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：(B)《傷寒六書》黃龍湯組成不含玄參。
+解析：黃龍湯組成為大黃、芒硝、枳實、厚朴、人參、當歸、甘草、桔梗、生薑、大棗，不含玄參。其餘方劑皆含有玄參。</div>
+    </div>
+
+    <!-- 第 06 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-06】</div>
+        <div class="question">有關《傷寒論》的方劑組成,下列敘述何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)麻黃湯組成為:麻黃、桂枝、杏仁、炙甘草</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)麻黃附子細辛湯組成為:麻黃、炮附子、細辛、炙甘草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)葛根黃芩黃連湯組成為:葛根、黃芩、黃連、炙甘草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)大承氣湯組成為:大黃、芒硝、枳實、厚朴</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：(B)麻黃附子細辛湯組成為:麻黃、炮附子、細辛→無炙甘草。
+解析：麻黃附子細辛湯只有麻黃、炮附子、細辛三味藥，不含炙甘草，故(B)最不適宜。</div>
+    </div>
+
+    <!-- 第 07 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-07】</div>
+        <div class="question">《傷寒論》理中丸、《小兒藥證直訣》異功散、《景岳全書》舉元煎,三者共有之藥物有幾個?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)1</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)2</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)3</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)4</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：三者共同含有人參、白朮、甘草。
+解析：理中丸含人參、白朮、乾薑、甘草；異功散含人參、茯苓、白朮、陳皮、甘草；舉元煎含人參、黃耆、甘草、升麻、白朮。交集藥物為人參、白朮、甘草共3個。</div>
+    </div>
+
+    <!-- 第 08 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-08】</div>
+        <div class="question">關於《脾胃論》補中益氣湯之敘述,下列何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)組方主要特點是補氣與升提配用</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)柴胡、升麻升舉清陽為臣藥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)與《濟生方》歸脾湯共有之藥物有四項</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)組成中含《和劑局方》四君子湯可健脾益氣</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：補中益氣湯功用為補中益氣,升陽舉陷。
+解析：(B)柴胡、升麻為使藥；(C)共有黃耆、甘草、人參、當歸、白朮五樣；(D)本方不含四君子湯中的茯苓。故(A)正確。</div>
+    </div>
+
+    <!-- 第 09 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-09】</div>
+        <div class="question">30歲男性,患胃酸逆流已1年,偶有胸悶,無胃痛,壓力大時胃酸加重;又有乾眼症,時輕時重,常口乾舌燥。診其舌脈:舌稍紅少津,苔偏少,脈細。上述病證,治以下列何方最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)《內科摘要》加味逍遙散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)《丹溪心法》左金丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)《傷寒論》半夏瀉心湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)《柳州醫話》一貫煎</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：舌紅少津脈細推測為陰虛,只有一貫煎有補陰作用。
+解析：患者表現出陰虛（舌紅少津、苔少、脈細、口乾、眼乾）伴肝氣不舒（壓力大酸反加重），病機為肝腎陰虛，氣滯橫逆，最適宜用一貫煎滋陰疏肝。</div>
+    </div>
+
+    <!-- 第 10 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-10】</div>
+        <div class="question">下列何者屬於《景岳全書》左歸丸與右歸丸共有的藥物?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)杜仲、枸杞</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)龜板膠、鹿角膠</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)熟地、菟絲子</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)當歸、山茱萸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+解析：左歸丸組成為熟地、山茱萸、山藥、枸杞、龜板膠、鹿角膠、菟絲子、牛膝。右歸丸組成為肉桂、附子、鹿角膠、熟地、山茱萸、山藥、枸杞、菟絲子、當歸、杜仲、炙甘草。兩者共有熟地、山茱萸、山藥、枸杞、鹿角膠、菟絲子。選項中僅(C)兩味皆共有。</div>
+    </div>
+
+    <!-- 第 11 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-11】</div>
+        <div class="question">用於治療虛勞肺痿,乾咳無痰,形瘦氣短,脈虛數之證,下列方劑何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)《傷寒論》炙甘草湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)《重樓玉鑰》養陰清肺湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)《醫級》麥味地黃丸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)《小兒藥證直訣》瀉白散</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：題幹與炙甘草湯主治敘述相同。
+解析：炙甘草湯主治虛勞肺痿，乾咳無痰，形瘦氣短，脈虛數。養陰清肺湯主治白喉；麥味地黃丸主治肺腎陰虛喘咳；瀉白散主治肺熱咳嗽。</div>
+    </div>
+
+    <!-- 第 12 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-12】</div>
+        <div class="question">關於《傷寒論》白虎湯,下列敘述正確的有幾項?①加蒼朮可治濕熱痹證②為治療溫病氣分熱之代表方③組成包含石膏、知母④脈浮細者,宜加玄參、生地</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A) 1</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B) 2</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C) 3</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 4</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：①②③正確。
+解析：①配蒼朮即為白虎加蒼朮湯治濕熱痹證；②為氣分熱代表方；③含石膏、知母、甘草、粳米；④錯誤，脈浮細或沉者，忌用本方。故正確的有3項。</div>
+    </div>
+
+    <!-- 第 13 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-13】</div>
+        <div class="question">關於《太平惠民和劑局方》涼膈散,下列敘述正確的有幾項?①方中用量最大的藥物是梔子②功用為瀉火通便,清上泄下③方中黃芩、薄荷、竹葉可清徹上中之火④立方有「以瀉代清」之意</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)1</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)2</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)3</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)4</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：②③④正確。
+解析：①錯誤，方中用量最大的是連翹（二斤半），其餘大黃、芒硝、甘草等為二十兩，梔子、薄荷、黃芩為十兩。②③④敘述均正確。故選(C)。</div>
+    </div>
+
+    <!-- 第 14 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-14】</div>
+        <div class="question">下列關於方劑的組方敘述中,何者錯誤?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)《脾胃論》補脾胃瀉陰火升陽湯中用柴胡、升麻、羌活以升清。用黃芩、黃連、石膏以瀉火</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)《小兒藥證直訣》瀉黃散中用藿香助防風,以升散脾胃伏火</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)《和劑局方》甘露飲中用桔梗,合茵陳以辛開苦降</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)《蘭室秘藏》清胃散中用升麻,與黃連相伍,以散火解毒</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：(C)甘露飲組成無桔梗。
+解析：甘露飲組成為熟地、麥冬、枳殼、炙甘草、茵陳、枇杷葉、石斛、黃芩、生地、天冬，並無桔梗，故(C)錯誤。</div>
+    </div>
+
+    <!-- 第 15 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-15】</div>
+        <div class="question">《明醫雜著》理中化痰丸,其組成乃是人參、白朮、乾薑、炙甘草,加上下列那一組藥物?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)陳皮、半夏</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)茯苓、半夏</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)桔梗、貝母</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)貝母、半夏</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：理中化痰丸為理中丸加半夏、茯苓。
+解析：理中化痰丸由理中丸（人參、白朮、乾薑、甘草）基礎上加入茯苓、半夏以達溫中祛寒、化痰消痞之功。</div>
+    </div>
+
+    <!-- 第 16 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-16】</div>
+        <div class="question">關於《正體類要》參附湯的敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)主治陽氣暴脫,手足逆冷,頭暈氣短,汗出脈微</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)亦可用於產後或月經暴行崩注</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)陽氣脫陷者,用藥劑量可斟酌加倍</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)服用本方,俟陽氣來復,病情穩定後,即可再加量服用,以鞏固療效</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：改善後不可多服,免純陽之品過劑,反致助火傷陰耗血。
+解析：本方屬回陽救逆之峻劑，一俟陽氣來復、病情穩定，即應辨證調治，不可再加量多服，以免純陽之品助火傷陰。故(D)不適宜。</div>
+    </div>
+
+    <!-- 第 17 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-17】</div>
+        <div class="question">病人若見痰濕中阻,胸膈悶脹,嘔吐酸苦;偶嘔黃涎而黏,呃逆,少陽內熱之證。治療選方以下列何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)《傷寒論》半夏瀉心湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)《和劑局方》逍遙散</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)《重訂通俗傷寒論》蒿芩清膽湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)《傷寒論》四逆散</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：蒿芩清膽湯主治寒熱如瘧、口苦胸悶、吐酸苦水或嘔黃涎黏者，屬少陽濕熱、痰濕中阻。
+解析：題幹所述符合「膽熱犯胃，胃氣上逆，兼有痰濕中阻」之蒿芩清膽湯主治。半夏瀉心湯主治寒熱互結之心下痞；逍遙散主治肝鬱血虛；四逆散主治陽鬱四逆。故選(C)。</div>
+    </div>
+
+    <!-- 第 18 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">// 【114-2 基礎(二)-18】</div>
+        <div class="question">42歲蔡小姐,某次應酬大吃大喝後,便秘腹痛。自己服用軟便劑後,卻變成胃部悶脹,乾嘔,頻頻打嗝,腸鳴,肚子裏有水聲,拉肚子。治療採以下列何方最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)《傷寒論》半夏瀉心湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)《傷寒論》生薑瀉心湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)《金匱要略》瀉心湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)《傷寒論》小陷胸湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：生薑瀉心湯主治水熱互結、水飲食滯較著，症見心下痞硬、乾噫食臭、腹中雷鳴、下利。
+解析：蔡小姐因大吃大喝（飲食停滯）後誤用導下，導致水熱互結、胃氣不和，表現出頻頻打嗝（乾噫食臭）、腸鳴水聲、拉肚子，此為生薑瀉心湯之典型指徵。</div>
+    </div>
+
+    <!-- 第 19 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-19】</div>
+        <div class="question">32歲邱小姐,罹患沙門氏桿菌痢疾,嚴重下痢每日十餘行,瀉下赤白膿血,裏急後重,肛門灼熱,雖投以抗生素治療,仍反覆發熱攝氏37.5度。此時會診中醫,依辨證論治原理,下列那一組藥物最不適合加入處方中?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)當歸、芍藥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)木香、檳榔</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)黃連、黃柏</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)石榴皮、五味子</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：痢疾初起、邪氣未盡，不宜過早使用收澀藥。
+解析：患者仍有發熱且嚴重下痢赤白、裏急後重，屬濕熱痢疾實證。收澀藥（石榴皮、五味子）有斂邪之弊，服之太早反致戀邪為害，故最不適合。</div>
+    </div>
+
+    <!-- 第 20 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-20】</div>
+        <div class="question">關於《攝生總要》天王補心丹之方解,下列何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)柏子仁、益智仁以寧心益智安神</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)當歸、熟地黃以補血潤燥</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)桔梗載藥上行,入心經</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)丹參清心活血,與玄參配,使諸藥滋而不膩</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：以桔梗為使者,欲載諸藥入心,不使之速下也。
+解析：(A)組成無益智仁；(B)組成使用生地黃而非熟地黃；(D)桔梗載藥上行入心，與丹參配伍以行氣血，使諸藥滋而不膩。故(C)正確。</div>
+    </div>
+
+    <!-- 第 21 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-21】</div>
+        <div class="question">關於《醫學發明》天臺烏藥散之敘述,下列何者錯誤?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)製法中先將巴豆微打破,同川楝子用麩炒黑,合餘藥共研為末</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)可散寒止痛,行氣疏肝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)次藥(臣藥)共有小茴香、高良薑、青皮、木香</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)方中含川楝子,苦寒行氣止痛</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：(A)錯誤；製法中川楝子與巴豆同炒黑後，需「去巴豆及麩皮不用」。
+解析：巴豆僅作為輔料炮製川楝子，製末時需除去巴豆不用，故(A)敘述完全相同但操作錯誤。</div>
+    </div>
+
+    <!-- 第 22 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-22】</div>
+        <div class="question">《內外傷辨惑論》厚朴溫中湯與《金匱要略》半夏厚朴湯之比較,下列敘述何者正確?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)二者皆治痰氣鬱結、胃氣上逆</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)二者皆含厚朴、茯苓、半夏</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)厚朴溫中湯含有草豆蔻仁、木香</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)半夏厚朴湯含有炙甘草、紫蘇葉</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：厚朴溫中湯組成包含草豆蔻仁、木香，正確。
+解析：(A)厚朴溫中湯治中焦寒濕氣滯，半夏厚朴湯治梅核氣（痰氣鬱結）；(B)厚朴溫中湯不含半夏；(D)半夏厚朴湯不含炙甘草。故選(C)。</div>
+    </div>
+
+    <!-- 第 23 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-23】</div>
+        <div class="question">關於《金匱要略》黃土湯之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)治脾陽不足,中焦虛寒</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)伏龍肝為主藥</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)白朮、附子、乾薑,溫陽健脾</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)組成有地黃、阿膠、黃芩</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：黃土湯不含乾薑。
+解析：黃土湯組成為：甘草、乾地黃、白朮、炮附子、阿膠、黃芩、灶心土（伏龍肝），組方中無乾薑。故(C)最不適宜。</div>
+    </div>
+
+    <!-- 第 24 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-24】</div>
+        <div class="question">《金匱要略》溫經湯之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)當歸、川芎、白芍、牡丹皮:共奏活血祛瘀</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)吳茱萸:溫散寒邪,故能散寒止痛;桂枝:溫經散寒,通行血脈</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)生薑、艾草為方中使藥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)祛瘀養血,溫經散寒</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：甘草為方中使藥。
+解析：溫經湯中以生薑、半夏、人參等為佐藥，甘草能調和諸藥兼為使藥。組成中並無艾草（注意勿與膠艾湯混淆），且使藥非生薑。故(C)錯誤。</div>
+    </div>
+
+    <!-- 第 25 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-25】</div>
+        <div class="question">下列何者為《醫學發明》復元活血湯方中之組成?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)乳香、沒藥、栝蒌根</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)桃仁、紅花、牡丹皮</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)乳香、沒藥、牡丹皮</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)桃仁、紅花、栝蒌根</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：復元活血湯組成分別為柴胡、栝樓根、當歸、紅花、甘草、穿山甲、大黃、桃仁。
+解析：本方由桃仁、紅花、大黃、穿山甲等破瘀通絡，配伍栝樓根（天花粉）消腫散結，不含乳香、沒藥。故選(D)。</div>
+    </div>
+
+    <!-- 第 26 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-26】</div>
+        <div class="question">《丹溪心法》小薊飲子之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)小薊、藕節:涼血止血</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)蒲黃、生地、牡丹皮:養血涼血</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)滑石、淡竹葉、木通:清熱利濕</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)當歸:養血和血</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：小薊飲子組成中並無牡丹皮。
+解析：小薊飲子組成為小薊、藕節、蒲黃、生地黃、滑石、木通、淡竹葉、梔子、當歸、甘草，不含牡丹皮，故(B)不適宜。</div>
+    </div>
+
+    <!-- 第 27 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-27】</div>
+        <div class="question">有關《局方》川芎茶調散之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)此為外感風邪頭痛</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)組成為川芎、荊芥、防風、柴胡、細辛、白芷、羌活、薄荷、甘草、清茶</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)川芎治少陽、厥陰頭痛,白芷治陽明頭痛,羌活治太陽頭痛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)風寒偏勝,可加祛寒藥,例如生薑</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：川芎茶調散的組成不包含柴胡。
+解析：本方組成為川芎、荊芥、白芷、羌活、甘草、細辛、防風、薄荷，不含柴胡。故(B)錯誤。</div>
+    </div>
+
+    <!-- 第 28 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-28】</div>
+        <div class="question">關於《雜病證治新義》天麻鉤藤飲,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)其中天麻、鉤藤為主要藥物</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)牛膝引血下行</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)益母草安神定志</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)梔子、黃芩清熱瀉火</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：此方中益母草的主要功效為：活血利水。
+解析：方中負責安神定志的是夜交藤與朱茯神；益母草在此主要用以活血利水。故(C)錯誤。</div>
+    </div>
+
+    <!-- 第 29 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-29】</div>
+        <div class="question">關於平息內風方劑,下列敘述何者錯誤?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)天麻鉤藤飲,用於肝陽上亢、肝風上擾證</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)相較於天麻鉤藤飲,羚角鉤藤湯用於熱象較重,且傷陰、動風較重的病況</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)相較於天麻鉤藤飲,鎮肝息風湯適用於陽亢較重之情況</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)大定風珠適用於陽亢更重的情況,以阿膠、雞子黃為主要藥物達到息風效果</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：大定風珠適用於陰若真陰大傷、虛風內動之證，而非陽亢更重。
+解析：吳鞠通提及：「壯熱上盛者,不得用定風珠。」本方用於溫病後期真陰大傷、虛風內動，陽亢實熱重者忌用。故(D)錯誤。</div>
+    </div>
+
+    <!-- 第 30 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-30】</div>
+        <div class="question">關於《溫病條辨》桑杏湯的敘述,下列何者最為正確?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)其組成為桑葉、杏仁、沙參、象貝、香豉、梔子皮、梨皮</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)本方用於治療溫燥傷肺,邪在氣分</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)本方中的香豉味厚,需久煎方能取效</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)本方加薄荷、連翹即為《溫病條辨》翹荷湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+解析：(A)為桑杏湯完整組成，正確；(B)用於外感溫燥初期，邪在肺衛（表分），非氣分；(C)本方主輕宣，煎煮時間不宜過長；(D)翹荷湯非單純加兩味藥（還需去杏仁、沙參等）。</div>
+    </div>
+
+    <!-- 第 31 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-31】</div>
+        <div class="question">下列方劑中何者不含有白朮?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)《傷寒論》豬苓湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)《傷寒論》五苓散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)《重訂嚴氏濟生方》實脾散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)《傷寒論》真武湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+解析：豬苓湯組成為豬苓、茯苓、澤瀉、阿膠、滑石，不含白朮。五苓散、實脾散、真武湯皆含有白朮以健脾燥濕或溫化水濕。</div>
+    </div>
+
+    <!-- 第 32 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-32】</div>
+        <div class="question">73歲男性,冬日感寒,出現發熱惡寒,肌肉痠痛等症狀。經治療後,發熱惡寒及肌肉痠痛已無,但出現全身水腫,四肢有沉重疼痛感,且見喘促心悸等症,並伴有輕微便溏。統計其一日之小便量,大約500毫升。納可,眠稍差,無腹痛腹脹。候其脈沉遲無力,舌淡胖有齒痕,苔薄白。下列何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)《傷寒論》苓桂朮甘湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)《華氏中藏經》五皮散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)《朱氏類編集驗醫方》雞鳴散</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)《傷寒論》真武湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：整體表現為腎陽虛水泛的證型。能同時兼顧祛濕、溫腎的方劑為真武湯。
+解析：患者具有水腫、四肢沉重、小便少、便溏（水濕），脈沉遲無力、舌淡胖齒痕（陽虛寒盛），心悸喘促。此為陽虛水泛之真武湯證。</div>
+    </div>
+
+    <!-- 第 33 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-33】</div>
+        <div class="question">下列哪味藥不屬於《內外傷辨惑論》羌活勝濕湯的組成之一?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)獨活</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)藁本</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)防風</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)蒼朮</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：羌活勝濕湯的組成中不含蒼朮。
+解析：羌活勝濕湯組成為羌活、獨活、藁本、防風、甘草、川芎、蔓荊子。不含蒼朮，故選(D)。</div>
+    </div>
+
+    <!-- 第 34 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-34】</div>
+        <div class="question">關於《備急千金要方》溫膽湯,下列敘述何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)適應證為膽胃不和,痰熱內擾</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)組成為半夏、陳皮、茯苓、甘草、枳實、膽南星、生薑</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)虛煩不眠,驚悸不寧,舌苔白膩微黃,脈弦滑者適用</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)心神不安者,可加酸棗仁、遠志</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：溫膽湯的組成中應含有竹茹,且不含膽南星。
+解析：溫膽湯組成分別為半夏、竹茹、枳實、陳皮、茯苓、甘草、生薑、大棗。方中並無膽南星，故(B)錯誤。</div>
+    </div>
+
+    <!-- 第 35 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-35】</div>
+        <div class="question">關於《醫學心悟》半夏白朮天麻湯之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)適應證為脾濕生痰,痰阻清陽,肝風內動,風痰上擾清空</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)半夏:燥濕化痰,降逆止嘔;天麻:平肝息風</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)蒼朮燥濕與白朮健脾化痰</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)陰虛陽亢者,禁用</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：半夏白朮天麻湯的組成中不含蒼朮。
+解析：原方組成為製半夏、天麻、白朮、橘紅、茯苓、甘草、生薑、大棗，含有白朮，不含蒼朮。故(C)不適宜。</div>
+    </div>
+
+    <!-- 第 36 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-36】</div>
+        <div class="question">關於《醫學心悟》止嗽散組成與加減,下列敘述何者正確?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)乾咳無痰者,可加半夏、貝母、知母以潤其燥</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)紫苑、百部為主要藥物,兩藥均入肺經,性溫不熱,潤而不寒,可以止咳化痰,新久咳嗽均適用</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)外寒初起,頭痛鼻塞較重,可加茯苓、桑白皮</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)痰涎黏稠者,可加生薑、半夏、紫蘇葉以解表散邪</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+解析：(A)乾咳無痰應加栝樓、貝母、知母（無半夏）；(C)外感重應加防風、蘇葉、生薑；(D)痰黏稠加半夏、茯苓、桑白皮。故(B)正確。</div>
+    </div>
+
+    <!-- 第 37 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-37】</div>
+        <div class="question">45歲男性,有脂肪肝病史,主訴脘腹悶脹,噯氣、泛酸頻繁,食後加重,食慾不佳,大便易泄瀉,舌苔厚膩,脈滑,治以下列何組成最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)半夏、陳皮、茯苓、甘草、枳實、南星、生薑</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)大黃、枳實、厚朴、芒硝</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)山楂、半夏、陳皮、茯苓、連翹、萊服子、神麴</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)人參、白朮、茯苓、蓮子肉、炙甘草、山藥、薏仁、砂仁、桔梗、白扁豆</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：根據題幹所述,應以保和丸消食化滯、理氣和胃、清熱除濕。
+解析：脘腹悶脹、食後加重、苔厚膩、脈滑，為食積濕滯中焦之證。(C)為保和丸組成，最適宜。</div>
+    </div>
+
+    <!-- 第 38 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-38】</div>
+        <div class="question">23歲女性患者,臉部痤瘡遍佈,壯熱無汗,頭目昏眩,目赤睛痛,口苦口乾,咽喉不利,胸膈痞滿,大便閉結,舌苔黃膩,脈數有力。下列何組成最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)桔梗、甘草、梔子、黃芩、連翹、薄荷</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)防風、荊芥、麻黃、薄荷、滑石、山梔、大黃、芒硝、川芎、當歸、白芍、石膏、黃芩、桔梗、甘草、連翹</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)大黃、枳實、芒硝、厚朴</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)柴胡、半夏、黃芩、生薑、大棗、芍藥、枳實、大黃</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：根據題幹所述,應以防風通聖散清熱解毒、瀉火通腑、宣透邪熱。
+解析：患者壯熱無汗（表實），同時目赤口苦、大便閉結、苔黃膩（裏實），此為表裏皆實之火熱毒盛證，適用防風通聖散(B)。</div>
+    </div>
+
+    <!-- 第 39 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-39】</div>
+        <div class="question">35歲患者,月經不調,形體較肥胖,身熱無汗,頭痛,身疼,項背疼痛,胸滿,納差,嘔吐,腹痛,心腹疼痛,舌淡苔厚膩,脈緩。下列何方最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)《傷寒論》葛根湯</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)《傷寒論》四逆湯</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)《和劑局方》五積散</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)《傷寒論》大承氣湯</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：五積散主治外感風寒,內傷生冷,氣血痰食五積。
+解析：患者身熱無汗頭痛（外感風寒），胸滿納差腹痛、月經不調、苔厚膩脈緩（內傷痰濕血氣交阻），完全契合五積散治「寒、食、氣、血、痰」五積之主治。</div>
+    </div>
+
+    <!-- 第 40 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-40】</div>
+        <div class="question">用於治45歲男性患者,主訴右下腹疼痛,低燒反覆,略有寒戰感,按之加重而不喜按,局部腫痞,舌苔薄膩而黃,脈滑。下列何者組成最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)半夏、黃連、栝樓</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)大黃、桃仁、牡丹皮、冬瓜子、芒硝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)大黃、芒硝、甘遂</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)黃芩、黃連、連翹、板藍根、馬勃、薄荷、升麻、玄參、陳皮、牛蒡子、甘草、桔梗、僵蠶</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：大黃牡丹皮湯主治腸癰初起,發熱汗出,右少腹疼痛拒按。
+解析：右下腹疼痛拒按、局部腫痞、低燒、脈滑，為典型腸癰未成膿之證，最適宜用大黃牡丹皮湯(B)瀉熱破瘀，散結消腫。</div>
+    </div>
+
+
+    <!-- 中藥學部分 -->
+    <div class="chapter-banner">財二部分：中藥學 (41 - 80 題)</div>
+
+    <!-- 第 41 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-41】</div>
+        <div class="question">溫中降逆之要藥,又能溫腎助陽,用於胃腹冷痛、消化不良,且外用煎液能治頭癬、體癬,下列何藥最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)木香</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)樟腦</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)吳茱萸</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)丁香</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：(D)丁香為溫中降逆之要藥，外用能治頭癬體癬。
+解析：丁香氣味香烈，具溫中降逆、溫腎助陽之功，外用煎液塗擦能治頭癬、體癬等。</div>
+    </div>
+
+    <!-- 第 42 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-42】</div>
+        <div class="question">能和解退熱,具有升發之性,可用於脫肛及短氣、倦乏等證,下列何藥最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)木賊</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)枳實</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)柴胡</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)黃芩</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：(C)柴胡具和解退熱、疏肝解鬱、升舉陽氣之功。
+解析：柴胡能升清陽之氣，補中益氣湯中配伍柴胡、升麻用治氣虛下陷之脫肛、短氣、倦乏。</div>
+    </div>
+
+    <!-- 第 43 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-43】</div>
+        <div class="question">能用於風濕痹痛、四肢拘攣,利水消腫,有祛風通絡、利關節作用,亦能用於皮膚濕疹搔癢,下列何藥最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)徐長卿</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)桑枝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)威靈仙</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)秦艽</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡派：桑枝有祛風通絡、利關節作用，尚能利水治療水腫與濕疹。
+解析：桑枝尤宜於上肢痹痛，兼能利水消腫與除皮膚濕疹瘙癢。</div>
+    </div>
+
+    <!-- 第 44 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-44】</div>
+        <div class="question">功效「溫中散寒、下氣止痛」,亦能用於散陽明之浮熱,治頭痛,牙痛,鼻淵,下列何藥最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)柿蒂</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)木香</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)華茇</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)薤白</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：(C)華茇功效為溫中散寒，下氣止痛，並治牙痛偏頭痛。
+解析：華茇（畢撥）能溫中散寒、下氣止痛，臨床常用於胃寒冷痛、腸鳴泄瀉，亦能散陽明之浮熱治牙痛。</div>
+    </div>
+
+    <!-- 第 45 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-45】</div>
+        <div class="question">具有散寒止痛,疏肝下氣,燥濕的功效,下列何藥最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)白芷</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)延胡索</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)艾葉</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)吳茱萸</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：(D)吳茱萸功效為散寒止痛,疏肝下氣,燥濕,降逆。
+解析：吳茱萸性苦熱，能散寒止痛、疏肝下氣、燥濕，主治虛寒胃痛、厥陰頭痛、寒疝及婦女小腹冷痛。</div>
+    </div>
+
+    <!-- 第 46 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-46】</div>
+        <div class="question">下列何組藥物歸屬於辛溫解表藥?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)防風、荊芥、蔓荊子</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)牛蒡子、藁本、辛夷</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)紫蘇、香薰、白芷</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)白芷、桂枝、葛根</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+解析：(A)蔓荊子屬辛涼；(B)牛蒡子屬辛涼；(D)葛根屬辛涼。僅有(C)紫蘇、香薷（香薰）、白芷三者全為辛溫解表藥。</div>
+    </div>
+
+    <!-- 第 47 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-47】</div>
+        <div class="question">下列何種藥具有化濕、行氣、溫中、止嘔的功效,並可用於濕溫初起,邪在三焦氣分,身熱不揚,頭重,身痛等證?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)川楝子</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)甘松香</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)白豆蔻</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)厚朴</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：(C)白豆蔻能化濕、行氣、溫中、止嘔，用於濕溫初起三焦氣分證。
+解析：白豆蔻辛溫芳香，長於化濕行氣寬中，常治濕溫初起、舌苔濁膩身熱不揚之證。</div>
+    </div>
+
+    <!-- 第 48 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-48】</div>
+        <div class="question">有關茯苓的功效,下敘述何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)利水滲濕</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)合胃益脾</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)止癢</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)生津止渴</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：茯苓不具備止癢之功。
+解析：茯苓具利水滲濕、健脾和胃、寧心安神之功。《本草備要》亦載其「生津止渴」（健脾而使津液自生），但全書與講義皆未提及止癢功效，故(C)最不適宜。</div>
+    </div>
+
+    <!-- 第 49 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-49】</div>
+        <div class="question">下列何者為澤瀉的禁忌症?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)水腫脹滿,小便不利</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)痰飲上蒙清陽之眩暈</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)腎虛精滑者</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)下焦濕熱諸證</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：【使用注意】腎虛精滑者忌服(C)。
+解析：澤瀉利水滲濕力強，能瀉下焦腎與膀胱之火水，故腎虛無濕而精滑者忌服。A、B、D皆為其適應症。</div>
+    </div>
+
+    <!-- 第 50 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-50】</div>
+        <div class="question">下列何藥辛溫,歸脾、胃、肺經,為理氣要藥,能引胃氣上升,進飲食?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)九香蟲</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)八月札</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)刀豆</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)檀香</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+解析：根據《本草備要》，檀香辛溫，歸脾胃肺經，功能調脾肺、利胸膈，能引胃氣上升、進飲食，為理氣要藥。故選(D)。</div>
+    </div>
+
+    <!-- 第 51 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-51】</div>
+        <div class="question">下列何者具有行氣、理氣止痛的功效;but於脾胃虛寒,最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)五靈脂</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)檀香</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)香附</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)川楝子</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：川楝子為四選項中唯一性味為「寒」者。
+解析：川楝子苦寒有小毒，雖能行氣止痛治熱性腹痛，但味苦性寒易傷脾胃，故脾胃虛寒者不宜用。</div>
+    </div>
+
+    <!-- 第 52 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-52】</div>
+        <div class="question">關於木香的功效應用敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)脾胃氣滯,脘腹痞滿脹痛,噁心嘔吐,食慾不振</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)行氣止痛,溫中和胃</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)溫脾益腎,應用於脘腹冷痛、寒疝</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)大腸濕熱,氣滯不暢,泄痢腹痛,裏急後重</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：木香歸脾、胃、大腸、膽、肝經，不入腎經。
+解析：木香主要為腸胃道及肝膽氣滯用藥，並不具有「溫脾益腎」之效，故(C)錯誤。</div>
+    </div>
+
+    <!-- 第 53 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-53】</div>
+        <div class="question">有關黃芩的功效,下列敘述何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)寧心安神</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)清熱解毒</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)除熱安胎</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)涼血止血</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：黃芩功效不包含寧心安神。
+解析：黃芩功效為清熱燥濕、瀉火解毒、涼血止血、除熱安胎、降壓。不具備寧心安神功效。</div>
+    </div>
+
+    <!-- 第 54 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-54】</div>
+        <div class="question">有關黃柏的禁忌症,下列何者錯誤?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)骨蒸潮熱</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)脾胃虛寒</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)脾虛泄瀉</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)胃弱食少</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：骨蒸潮熱為黃柏之適應症（退虛熱），非禁忌症。
+解析：黃柏大苦大寒，易損胃氣，故脾胃虛寒、泄瀉、食少者忌用。(A)骨蒸潮熱是其「退虛熱」之主治。</div>
+    </div>
+
+    <!-- 第 55 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-55】</div>
+        <div class="question">能瀉下逐水,與檳榔內服還能驅殺蛔蟲,下列何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)商陸</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)牽牛子</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)紅芽大戟</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)芫花</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：牽牛子配檳榔（牛榔丸）驅蟲效果更好，能驅殺蛔蟲絳蟲。
+解析：牽牛子具逐水殺蟲之功，與檳榔同用時能顯著增強驅殺蛔蟲、條蟲等寄生蟲之效並排除蟲體。</div>
+    </div>
+
+    <!-- 第 56 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-56】</div>
+        <div class="question">根類藥物,通利大、小便;外用消腫散結,下列何藥最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)紅芽大戟</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)紫草</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)商陸</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)拳參</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：(C)商陸用治水腫脹滿，二便不通；外治癰腫瘡毒具消腫散結之功。
+解析：商陸為商陸科植物的根，功效為逐水消腫、解毒散結、通利二便。外用治癰腫可用鮮根搗爛外敷，完全符合題意。</div>
+    </div>
+
+    <!-- 第 57 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-57】</div>
+        <div class="question">地骨皮的應用,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)骨蒸潮熱,吐血尿血</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)中焦虛寒,脾虚便溏</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)肺虛液少,胸痹疼痛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)五內邪熱,效嗽消渴</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：地骨皮為清虛熱藥，外感風寒及脾虛便溏者忌服。
+解析：地骨皮大寒，虛寒便溏者外感忌用，故(B)為其禁忌症，最不適宜。</div>
+    </div>
+
+    <!-- 第 58 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-58】</div>
+        <div class="question">龍膽草益何臟而瀉火?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)腎、膀胱</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)肝、膽</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)脾、胃</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)心、脾</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+解析：龍膽草大苦大寒，主入肝、膽經，主要功效為瀉肝膽實火、除下焦濕熱。故選(B)。</div>
+    </div>
+
+    <!-- 第 59 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-59】</div>
+        <div class="question">藥皆味苦,氣寒而色黃,具清熱燥濕之功效,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)黃芩</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)黃連</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)黃柏</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)黃精</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：黃精為補陰藥，非清熱燥濕藥。
+解析：黃芩、黃連、黃柏俗稱「三黃」，皆具苦寒清熱燥濕之功。而黃精為甘平之補虛滋陰藥，故(D)最不適宜。</div>
+    </div>
+
+    <!-- 第 61 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-61】</div>
+        <div class="question">下列何組藥最適宜治療泌尿道結石?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)金錢草+王不留行</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)冬瓜皮+月季花</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)海金沙+劉寄奴</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)石韋+凌霄花</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：金錢草為排石要藥，王不留行具利尿活血通淋之功，兩者配伍適宜治泌尿道結石。
+解析：金錢草、海金沙、石韋皆可通淋排石，但組方配伍中王不留行近年臨床取其利尿活血之力，配金錢草治尿路結石（如驅尿石湯）。故選(A)。</div>
+    </div>
+
+    <!-- 第 62 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-62】</div>
+        <div class="question">下列何藥甘溫,炒製後能用於婦女崩漏經多,並見色紫多塊、少腹刺痛的症狀?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)紅花</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)益母草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)虎杖</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)五靈脂</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：五靈脂生用活血，炒用（五靈脂炭）能化瘀止血。
+解析：五靈脂味苦甘、性溫。功能活血止痛、化瘀止血。炒用後主治內有瘀滯之出血證，如崩漏色紫多塊、少腹刺痛者。</div>
+    </div>
+
+    <!-- 第 63 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-63】</div>
+        <div class="question">下列何者性寒瀉熱,可用於血熱生風,周身搔癢?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)凌霄花</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)月季花</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)玫瑰花</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)番紅花</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：凌霄花能去血中伏火，主治血熱生風之風癢。
+解析：凌霄花性微寒，入血分，有涼血祛風之功，可用於血熱生風、周身瘙癢之證。其餘多偏溫。</div>
+    </div>
+
+    <!-- 第 64 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-64】</div>
+        <div class="question">有關 蟲的敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)破血逐瘀之力與水蛭相近而性較烈</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)又名地鱉蟲</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)用於經閉、產後瘀阻、癥瘕等證</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)能破血逐瘀,續筋接骨</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：廑蟲（地鱉蟲）破血逐瘀之力與水蛭相近而「性較緩和」。
+解析：地鱉蟲（廑蟲）能破血逐瘀、續筋接骨。其破血逐瘀之力與水蛭相近，但藥性相對水蛭而言較為緩和，非較烈。故(A)最不適宜。</div>
+    </div>
+
+    <!-- 第 65 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-65】</div>
+        <div class="question">有關巴戟天的敘述,下列那些正確?①苦溫純陽②入腎經血分③用於陽虛有寒濕之證④壯元陽,暖丹田 ⑤強陰益精,散風濕</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)123</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)235</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)134</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D) 245</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：②③⑤為巴戟天之特點；①④描述的是葫蘆巴。
+解析：巴戟天辛甘微溫，入腎經血分(②)，強陰益精、辛溫散風濕(⑤)，只適用於陽虛有寒濕之證(③)。而「苦溫純陽、暖丹田、壯元陽」屬於胡蘆巴之功效。故正確為2,3,5。</div>
+    </div>
+
+    <!-- 第 66 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-66】</div>
+        <div class="question">有關甘草之敘述,下列何者最為適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)味:甘;性:溫。歸心、肺、脾、腎經</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)補肺和胃益氣</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(C)潤肺止咳祛痰</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)柔肝緩急止痛</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：甘草：甘，平。歸心肺脾胃經。功能補脾和胃益氣，潤肺止咳祛痰。
+解析：(A)甘草性平，不入腎經；(B)應為補脾和胃益氣；(D)緩急止痛不特指柔肝。故(C)最為適宜。</div>
+    </div>
+
+    <!-- 第 67 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-67】</div>
+        <div class="question">杜仲主治,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)腰膝痠痛</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)陰下濕癢</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)小便餘瀝</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)腸風血痢</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：根據《本草備要》，杜仲主治：腰膝酸痛, 陰下濕癢, 小便餘瀝, 胎漏墮胎。
+解析：杜仲無補大腸、止血痢之功。腸風血痢非其主治，故(D)最不適宜。</div>
+    </div>
+
+    <!-- 第 68 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-68】</div>
+        <div class="question">有關阿膠之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)味:甘;性:平。歸肺、肝、腎經</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)滋陰潤燥,益胃,補血安胎</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)蒲黃炒者,多用於止血</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)虛寒腹痛泄瀉,慎服</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：阿膠功效為滋陰潤燥潤肺（非益胃）。
+解析：阿膠主入肺肝腎，功能為滋陰潤燥潤肺、補血安胎、止血。其性黏膩有礙消化，故脾胃虛弱、嘔吐泄瀉者忌服，亦非「益胃」之品。故(B)錯誤。</div>
+    </div>
+
+    <!-- 第 69 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-69】</div>
+        <div class="question">有關黃耆之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)味:甘;性:平。歸脾、胃、肺經</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)托毒生肌,利水退腫</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)益衛固表</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)皮黃、肉白、堅實者,良</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：黃耆性「微溫」，歸脾、肺經（不歸胃經）。
+解析：黃耆性味甘、微溫，歸脾、肺經。具有補氣升陽、益衛固表、托毒生肌、利水退腫之效，故(A)描述之性平與歸經錯誤。</div>
+    </div>
+
+    <!-- 第 70 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-70】</div>
+        <div class="question">有關當歸之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)味:甘、辛;性:溫</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)補血活血,調經止痛</button>
+            <button class="option-btn" onclick="true">(C)勞傷心脾、肺虛內熱</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)大便溏瀉者,不宜服</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：勞傷心脾、肺虛內熱為其忌用指徵或需配伍（勞傷心脾主用歸脾湯）。
+解析：當歸具潤腸通便之性，大便泄瀉者忌服。同時【使用注意】載明：濕盛中滿、大便泄瀉及肺虛內熱、肝火偏旺者忌服。故(C)最不適宜。</div>
+    </div>
+
+    <!-- 第 71 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-71】</div>
+        <div class="question">下列何種藥物具安神定驚、清肝明目、消翳、解毒、收斂生肌?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)珍珠</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)赤石脂</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)代赭石</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)降香</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：(A)珍珠完整功效為安神定驚、清肝明目消翳、解毒收斂生肌。
+解析：符合題幹全面敘述的中藥為珍珠。(B)赤石脂為澀腸止血藥；(C)代赭石為平肝降逆藥；(D)降香為行氣活血止痛藥。</div>
+    </div>
+
+    <!-- 第 72 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-72】</div>
+        <div class="question">下列何者藥物,性味:甘,平,能平肝息風,治諸風眩暈,頭旋眼黑?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)防風</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)天麻</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)獨活</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)全蠍</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：天麻性味甘平，主治諸風眩掉、頭旋眼黑。
+解析：天麻具平肝潛陽、息風止痙之效。《本草備要》載其主治「諸風眩掉，頭旋眼黑」，性味甘平（備要言辛溫，但現行講義為甘平），為治眩暈之要藥。</div>
+    </div>
+
+    <!-- 第 73 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-73】</div>
+        <div class="question">關於栝 的敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)栝 用於肺熱咳嗽,大便秘結</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)栝蒌仁用於化痰瀉熱,為治熱痰燥痰之要藥</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)天花粉為栝 的根,切片</button>
+            <button class="option-btn" onclick="true">(D)栝蒌皮善於清熱瀉火,生津止渴,排膿消腫</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：栝樓皮功效為潤肺化痰，利氣寬胸。
+解析：(D)所描述的「清熱瀉火，生津止渴，排膿消腫」是天花粉（栝樓根）的功效，而非栝樓皮。故(D)不適宜。</div>
+    </div>
+
+    <!-- 第 74 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-74】</div>
+        <div class="question">川貝母常配伍下列何藥,具養陰潤肺、化痰止咳,適用於陰虛肺燥有熱之乾咳少痰、咯血或咽乾音啞?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, true)">(A)沙參</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)魚腥草</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)薏苡仁</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)桔梗</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(A)
+簡答：沙參功效為養陰清肺，化痰益氣，與川貝相須為用治陰虛肺燥。
+解析：治肺陰虛勞嗽、久咳咯血，川貝常配伍養陰潤肺之沙參、麥冬。而魚腥草、薏苡仁、桔梗多用於肺癰排膿。</div>
+    </div>
+
+    <!-- 第 75 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-75】</div>
+        <div class="question">治療虛煩不眠的常用藥,但不具平肝潛陽、祛痰開竅等功效,下列何者最為適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)遠志</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)龍骨</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)茯苓</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(D)酸棗仁</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：酸棗仁為治療虛煩不眠最具代表性的藥物，專門針對心肝血虛。
+解析：遠志具祛痰開竅功；龍骨能平肝潛陽；茯苓重在利濕。酸棗仁專於養心安神、斂汗生津，不具備上述他效，且為治「虛煩不眠」之要藥。</div>
+    </div>
+
+    <!-- 第 76 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-76】</div>
+        <div class="question">有關瓦楞子之敘述,下列何者最適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)活血逐瘀,消痞塊</button>
+            <button class="option-btn" onclick="checkAns(this, true)">(B)內服煎湯,宜久煎</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)制酸止痛,宜生用</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)消痰散結,宜煅用</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：瓦楞子內服煎湯宜久煎（10-30g）。
+解析：瓦楞子功效為消痰化瘀、軟堅散結、制酸止痛。(A)不具破血逐瘀之功；(C)(D)顛倒，應是「消痰散結宜生用，制酸止痛宜煅用」。故(B)最適宜。</div>
+    </div>
+
+    <!-- 第 77 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-77】</div>
+        <div class="question">有關馬錢子之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)味:苦;性:寒,有毒</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)通絡散結,消腫定痛</button>
+            <button class="option-btn" onclick="true">(C)外用時,研末吹喉或大面積塗敷,唯孕婦及體虛者需注意</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)服用過量時,可引起肢體麻木</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：外用「不宜大面積塗敷」，孕婦及體虛者「忌服」。
+解析：馬錢子毒性劇烈，外用絕對不宜大面積塗敷以防皮膚吸收中毒。孕婦及體虛者應禁用而非僅需注意。故(C)錯誤。</div>
+    </div>
+
+    <!-- 第 78 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-78】</div>
+        <div class="question">常山能引吐行水,祛老痰積飲,專治:</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)諸熱</button>
+            <button class="option-btn" onclick="true">(B)諸瘧</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)諸血</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)諸水</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(B)
+簡答：常山功效為涌吐痰飲，截瘧。
+解析：根據《本草備要》，常山能引吐行水、祛老痰積飲，主治「專治諸瘧」，為臨床截瘧之要藥。故選(B)。</div>
+    </div>
+
+    <!-- 第 79 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-79】</div>
+        <div class="question">有關露蜂房之敘述,下列何者最不適宜?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)味:甘;性:平,有毒</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)歸胃、肝經</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(C)用於祛風,攻毒,殺蟲</button>
+            <button class="option-btn" onclick="true">(D)主治氣血虛弱</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(D)
+簡答：露蜂房主治驚癇、癰疽、風蟲牙痛等實邪，非治氣血虛弱。
+解析：露蜂房具祛風、攻毒、殺蟲、止痛之效。主治頑癬、外傷癰疽等，不具備補益氣血之功，故(D)最不適宜。</div>
+    </div>
+
+    <!-- 第 80 題 -->
+    <div class="quiz-card">
+        <div class="quiz-header">【114-2 基礎(二)-80】</div>
+        <div class="question">半夏對局部有強烈的刺激性,生食時可使舌、咽和口腔產生麻木、腫痛、流涎、張口困難等。關於半夏的炮製,下列何者是降低半夏有毒成分的關鍵輔料?</div>
+        <div class="options">
+            <button class="option-btn" onclick="checkAns(this, false)">(A)生石灰</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(B)甘草</button>
+            <button class="option-btn" onclick="true">(C)白礬</button>
+            <button class="option-btn" onclick="checkAns(this, false)">(D)薑</button>
+        </div>
+        <button class="explanation-btn" onclick="toggleExp(this)">[查看簡要詳解]</button>
+        <div class="explanation-content">答案：(C)
+簡答：生半夏之有毒成分難溶於水，不能單純被薑汁破壞，而能被白礬所消除。
+解析：半夏的刺喉毒性成分必須經由白礬（硫酸鋁鉀）浸泡加工處理才能被有效消除或破壞，故白礬是降毒的關鍵輔料。</div>
+    </div>
+
+</div>
+
+<script>
+    function checkAns(btn, isCorrect) {
+        const parent = btn.parentElement;
+        const buttons = parent.querySelectorAll('.option-btn');
+        
+        buttons.forEach(b => {
+            b.classList.remove('correct', 'wrong');
+        });
+
+        if (isCorrect) {
+            btn.classList.add('correct');
+        } else {
+            btn.classList.add('wrong');
+        }
+    }
+
+    if (typeof toggleExp === 'undefined') {
+        window.toggleExp = function(btn) {
+            const expDiv = btn.nextElementSibling;
+            if (expDiv.style.display === "block") {
+                expDiv.style.display = "none";
+                btn.innerText = "[查看簡要詳解]";
+            } else {
+                expDiv.style.display = "block";
+                btn.innerText = "[收摺簡要詳解]";
+            }
+        };
+    }
+</script>
+
+</body>
+</html>
