@@ -3,12 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>面部穴位導航系統</title>
+  <title>面部穴位導航系統 (擺頭抗飄移修正版)</title>
   <style>
-    body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
-    #container { position: relative; width: 100vw; height: 100vh; }
-    video, canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
-    #status { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 10px 20px; border-radius: 20px; font-family: sans-serif; font-size: 14px; z-index: 99; text-align: center; }
+    body, html { 
+      margin: 0; 
+      padding: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: #000; 
+      overflow: hidden; 
+    }
+    #container { 
+      position: relative; 
+      width: 100vw; 
+      height: 100vh; 
+    }
+    video, canvas { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      /* 水平鏡像翻轉，符合視覺直覺 */
+      transform: scaleX(-1); 
+    }
+    #status { 
+      position: absolute; 
+      top: 20px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      background: rgba(0,0,0,0.8); 
+      color: #fff; 
+      padding: 10px 20px; 
+      border-radius: 20px; 
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+      font-size: 14px; 
+      z-index: 99; 
+      text-align: center; 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
   </style>
 </head>
 <body>
@@ -40,7 +74,7 @@
         faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
           baseOptions: {
             modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
-            delegate: "GPU"
+            delegate: "GPU" // 啟用手機 GPU 加速
           },
           runningMode: "VIDEO",
           numFaces: 1
@@ -66,6 +100,7 @@
     }
 
     function renderLoop() {
+      // 自動同步 Canvas 與 Video 的解析度
       if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -82,20 +117,58 @@
           const w = canvas.width;
           const h = canvas.height;
 
-          const getPt = (idx) => ({ x: landmarks[idx].x * w, y: landmarks[idx].y * h });
+          // 取得帶有 2D 畫面像素與 3D 深度資訊 (z) 的座標
+          const getPt = (idx) => ({ 
+            x: landmarks[idx].x * w, 
+            y: landmarks[idx].y * h,
+            z: landmarks[idx].z 
+          });
 
-          // 🎯 1. 印堂穴
+          // ----------------------------------------------------
+          // 🎯 1. 【印堂穴】(結合雙眉中點與鼻樑軸線)
+          // ----------------------------------------------------
           const lBrow = getPt(70), rBrow = getPt(300);
-          drawPoint((lBrow.x + rBrow.x) / 2, (lBrow.y + rBrow.y) / 2, "Yin Tang", "#FF0000");
+          const noseBridge = getPt(6); // 鼻樑上段硬骨點
+          
+          const browMidX = (lBrow.x + rBrow.x) / 2;
+          const browMidY = (lBrow.y + rBrow.y) / 2;
+          
+          // 印堂穴微調：基於鼻樑方向延伸，擺頭與傾斜時極度穩定
+          const yintang = {
+            x: browMidX * 0.7 + noseBridge.x * 0.3,
+            y: browMidY
+          };
+          drawPoint(yintang.x, yintang.y, "Yin Tang", "#FF0000");
 
-          // 🎯 2. 太陽穴
-          const p33 = getPt(33), p139 = getPt(139);
-          drawPoint(p33.x + (p139.x - p33.x) * 1.8, p33.y + (p139.y - p33.y) * 1.8, "Tai Yang (L)", "#FF00FF");
+          // ----------------------------------------------------
+          // 🎯 2. 【太陽穴】(姿態感知動態 3D 補償，解決縮進臉裡問題)
+          // ----------------------------------------------------
+          // [左太陽穴]：基於 71 (左額顳角) 與 139 (眼眶外緣)
+          const p33 = getPt(33), p139 = getPt(139), p71 = getPt(71);
+          const zDiffL = p139.z - p33.z; // 利用轉頭產生的深度差
+          const factorL = 1.3 + (zDiffL * 1.2); // 動態縮放補償係數
+          
+          const taiyangL = {
+            x: p139.x + (p139.x - p33.x) * Math.max(0.4, factorL),
+            y: p139.y + (p139.y - p33.y) * Math.max(0.4, factorL) * 0.8 + (p71.y - p139.y) * 0.2
+          };
 
-          const p263 = getPt(263), p368 = getPt(368);
-          drawPoint(p263.x + (p368.x - p263.x) * 1.8, p263.y + (p368.y - p263.y) * 1.8, "Tai Yang (R)", "#FF00FF");
+          // [右太陽穴]：基於 301 (右額顳角) 與 368 (眼眶外緣)
+          const p263 = getPt(263), p368 = getPt(368), p301 = getPt(301);
+          const zDiffR = p368.z - p263.z;
+          const factorR = 1.3 + (zDiffR * 1.2);
+          
+          const taiyangR = {
+            x: p368.x + (p368.x - p263.x) * Math.max(0.4, factorR),
+            y: p368.y + (p368.y - p263.y) * Math.max(0.4, factorR) * 0.8 + (p301.y - p368.y) * 0.2
+          };
 
-          // 🎯 3. 迎香穴
+          drawPoint(taiyangL.x, taiyangL.y, "Tai Yang (L)", "#FF00FF");
+          drawPoint(taiyangR.x, taiyangR.y, "Tai Yang (R)", "#FF00FF");
+
+          // ----------------------------------------------------
+          // 🎯 3. 【迎香穴】(鼻翼溝槽固定特徵點：129 與 358)
+          // ----------------------------------------------------
           const yxL = getPt(129), yxR = getPt(358);
           drawPoint(yxL.x, yxL.y, "Ying Xiang (L)", "#FFFF00");
           drawPoint(yxR.x, yxR.y, "Ying Xiang (R)", "#FFFF00");
@@ -104,8 +177,11 @@
       requestAnimationFrame(renderLoop);
     }
 
+    // 繪製穴位點與文字標籤小工具
     function drawPoint(x, y, label, color) {
       ctx.save();
+      
+      // 繪製圓圈與白邊
       ctx.beginPath();
       ctx.arc(x, y, 6, 0, 2 * Math.PI);
       ctx.fillStyle = color;
@@ -114,12 +190,13 @@
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // 文字反轉修復
+      // 文字反轉修復（因 Canvas 設定了 scaleX(-1) 鏡像翻轉，文字需反向轉回）
       ctx.font = "bold 14px sans-serif";
       ctx.fillStyle = color;
       ctx.translate(x, y);
       ctx.scale(-1, 1);
-      ctx.fillText(label, -30, -10);
+      ctx.fillText(label, -35, -10);
+      
       ctx.restore();
     }
 
