@@ -3,225 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>面部穴位即時導航系統 (iPhone Web版)</title>
+  <title>面部穴位導航系統</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    #container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    /* 視訊畫面與畫布完全重疊 */
-    video, canvas {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      /* 水平鏡像翻轉，符合視覺直覺 */
-      transform: scaleX(-1);
-    }
-    #loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px 30px;
-      border-radius: 12px;
-      font-size: 16px;
-      text-align: center;
-      z-index: 10;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+    #container { position: relative; width: 100vw; height: 100vh; }
+    video, canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+    #status { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 10px 20px; border-radius: 20px; font-family: sans-serif; font-size: 14px; z-index: 99; text-align: center; }
   </style>
-
-  <!-- 引入 Google 官方 MediaPipe Vision Tasks SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/vision_bundle.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
   <div id="container">
-    <div id="loading">🚀 載入 2026 AI 面部核心模型中...</div>
-    <video id="webcam" autoplay playsinline></video>
+    <div id="status">⏳ 正在初始化 AI 模型與相機...</div>
+    <video id="webcam" playsinline></video>
     <canvas id="output_canvas"></canvas>
   </div>
 
-  <script>
-    const { FaceLandmarker, FilesetResolver } = vision;
+  <!-- 使用原生 ES Module 匯入 MediaPipe Vision -->
+  <script type="module">
+    import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 
     const video = document.getElementById("webcam");
     const canvas = document.getElementById("output_canvas");
     const ctx = canvas.getContext("2d");
-    const loading = document.getElementById("loading");
+    const status = document.getElementById("status");
 
     let faceLandmarker;
     let lastVideoTime = -1;
 
-    // 1. 初始化 FaceLandmarker AI 模型
-    async function initFaceLandmarker() {
-      const filesetResolver = await FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
-      );
-      
-      faceLandmarker = await FaceLandmarker.createFromOptions(filesetResolver, {
-        baseOptions: {
-          modelAssetPath: `https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task`,
-          delegate: "GPU" // 啟用 iPhone 繪圖硬體加速
-        },
-        runningMode: "VIDEO",
-        numFaces: 1,
-        minFaceDetectionConfidence: 0.7,
-        minFacePresenceConfidence: 0.7
-      });
-
-      loading.style.display = "none";
-      startCamera();
-    }
-
-    // 2. 啟動 iPhone 視訊鏡頭
-    async function startCamera() {
+    async function setup() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: "user", // 前置鏡頭
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
+        // 1. 初始化資源
+        const vision = await FilesetResolver.forVisionTasks(
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+        );
+        
+        faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
+          baseOptions: {
+            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+            delegate: "GPU"
           },
+          runningMode: "VIDEO",
+          numFaces: 1
+        });
+
+        status.innerText = "🎥 請允許存取相機...";
+
+        // 2. 啟動 iPhone 前鏡頭
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
           audio: false
         });
+        
         video.srcObject = stream;
-        video.addEventListener("loadeddata", predictWebcam);
+        await video.play();
+
+        status.style.display = "none";
+        renderLoop();
+
       } catch (err) {
-        alert("無法存取攝影機，請確認 iPhone 的 Safari 隱私權設定與 HTTPS 環境：" + err);
+        status.innerHTML = "❌ 發生錯誤：" + err.message + "<br>請確保使用 HTTPS 連線並允許相機權限。";
       }
     }
 
-    // 3. 即時偵測與繪製迴圈 (60 FPS)
-    async function predictWebcam() {
-      // 調整 Canvas 解析度與 Video 一致
+    function renderLoop() {
       if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
       }
 
-      let startTimeMs = performance.now();
-      if (lastVideoTime !== video.currentTime) {
+      if (video.currentTime !== lastVideoTime) {
         lastVideoTime = video.currentTime;
-        const results = faceLandmarker.detectForVideo(video, startTimeMs);
+        const results = faceLandmarker.detectForVideo(video, performance.now());
 
-        // 清空舊畫面
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (results.faceLandmarks && results.faceLandmarks.length > 0) {
           const landmarks = results.faceLandmarks[0];
-          const imgW = canvas.width;
-          const imgH = canvas.height;
+          const w = canvas.width;
+          const h = canvas.height;
 
-          // 座標轉換小工具
-          const getPixelCoord = (idx) => {
-            const lm = landmarks[idx];
-            return { x: lm.x * imgW, y: lm.y * imgH };
-          };
+          const getPt = (idx) => ({ x: landmarks[idx].x * w, y: landmarks[idx].y * h });
 
-          try {
-            // ----------------------------------------------------
-            // 🎯 1. 【印堂穴】: 左眉頭(70) 與 右眉頭(300) 之中點
-            // ----------------------------------------------------
-            const lBrow = getPixelCoord(70);
-            const rBrow = getPixelCoord(300);
-            const yintang = {
-              x: (lBrow.x + rBrow.x) / 2,
-              y: (lBrow.y + rBrow.y) / 2
-            };
-            drawAcupoint(yintang.x, yintang.y, "Yin Tang", "#FF0000");
+          // 🎯 1. 印堂穴
+          const lBrow = getPt(70), rBrow = getPt(300);
+          drawPoint((lBrow.x + rBrow.x) / 2, (lBrow.y + rBrow.y) / 2, "Yin Tang", "#FF0000");
 
-            // ----------------------------------------------------
-            // 🎯 2. 【太陽穴】: 向量延伸 1.8 倍
-            // ----------------------------------------------------
-            // [左太陽穴]：眼尾(33) -> 外眼眶(139)
-            const p33 = getPixelCoord(33);
-            const p139 = getPixelCoord(139);
-            const vecLx = p139.x - p33.x;
-            const vecLy = p139.y - p33.y;
-            const taiyangL = {
-              x: p33.x + vecLx * 1.8,
-              y: p33.y + vecLy * 1.8
-            };
-            drawAcupoint(taiyangL.x, taiyangL.y, "Tai Yang (L)", "#FF00FF");
+          // 🎯 2. 太陽穴
+          const p33 = getPt(33), p139 = getPt(139);
+          drawPoint(p33.x + (p139.x - p33.x) * 1.8, p33.y + (p139.y - p33.y) * 1.8, "Tai Yang (L)", "#FF00FF");
 
-            // [右太陽穴]：眼尾(263) -> 外眼眶(368)
-            const p263 = getPixelCoord(263);
-            const p368 = getPixelCoord(368);
-            const vecRx = p368.x - p263.x;
-            const vecRy = p368.y - p263.y;
-            const taiyangR = {
-              x: p263.x + vecRx * 1.8,
-              y: p263.y + vecRy * 1.8
-            };
-            drawAcupoint(taiyangR.x, taiyangR.y, "Tai Yang (R)", "#FF00FF");
+          const p263 = getPt(263), p368 = getPt(368);
+          drawPoint(p263.x + (p368.x - p263.x) * 1.8, p263.y + (p368.y - p263.y) * 1.8, "Tai Yang (R)", "#FF00FF");
 
-            // ----------------------------------------------------
-            // 🎯 3. 【迎香穴】: 鼻翼溝點 (129, 358)
-            // ----------------------------------------------------
-            const yingxiangL = getPixelCoord(129);
-            const yingxiangR = getPixelCoord(358);
-            drawAcupoint(yingxiangL.x, yingxiangL.y, "Ying Xiang (L)", "#FFFF00");
-            drawAcupoint(yingxiangR.x, yingxiangR.y, "Ying Xiang (R)", "#FFFF00");
-
-          } catch (e) {
-            console.error(e);
-          }
+          // 🎯 3. 迎香穴
+          const yxL = getPt(129), yxR = getPt(358);
+          drawPoint(yxL.x, yxL.y, "Ying Xiang (L)", "#FFFF00");
+          drawPoint(yxR.x, yxR.y, "Ying Xiang (R)", "#FFFF00");
         }
       }
-
-      // 持續請求下一個動畫影格
-      window.requestAnimationFrame(predictWebcam);
+      requestAnimationFrame(renderLoop);
     }
 
-    // 4. 畫穴位點與標籤（自動處理文字反轉修正）
-    function drawAcupoint(x, y, text, color) {
+    function drawPoint(x, y, label, color) {
       ctx.save();
-      
-      // 畫圓點
       ctx.beginPath();
-      ctx.arc(x, y, 7, 0, 2 * Math.PI);
+      ctx.arc(x, y, 6, 0, 2 * Math.PI);
       ctx.fillStyle = color;
       ctx.fill();
-      ctx.lineWidth = 2;
       ctx.strokeStyle = "#FFFFFF";
+      ctx.lineWidth = 2;
       ctx.stroke();
 
-      // 畫標籤（因為 Canvas 整體有 mirror 效果，文字需要反向翻轉回正，否則手機上文字會是相反的）
-      ctx.font = "bold 16px sans-serif";
+      // 文字反轉修復
+      ctx.font = "bold 14px sans-serif";
       ctx.fillStyle = color;
-      
       ctx.translate(x, y);
-      ctx.scale(-1, 1); // 將文字翻轉回正確方向
-      ctx.fillText(text, -40, -12);
-
+      ctx.scale(-1, 1);
+      ctx.fillText(label, -30, -10);
       ctx.restore();
     }
 
-    // 啟動系統
-    initFaceLandmarker();
+    setup();
   </script>
 </body>
 </html>
