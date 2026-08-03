@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>區公所辦理常用日語</title>
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --primary: #2b6cb0;
+      --text-main: #2d3748;
+      --text-sub: #718096;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 16px;
+      padding-bottom: 40px;
+    }
+
+    header {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .editable-ja {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      padding: 8px;
+      background: #f7fafc;
+      border: 1px dashed #cbd5e0;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .editable-ja:focus {
+      border-color: var(--primary);
+      background: #fff;
+    }
+
+    .card-zh {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    .btn-show {
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-show:active {
+      background-color: #1a4971;
+    }
+
+    /* Modal / 全螢幕展示層 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      z-index: 1000;
+      padding: 24px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #000000;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      word-break: break-word;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .btn-audio {
+      flex: 1;
+      background: #38a169;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-close {
+      flex: 1;
+      background: #e53e3e;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🏛️ 區公所諮詢對照表</h1>
+    <p class="hint">點擊灰色框可直接修改文字（如張數）<br>點擊「顯示給對方看」放大單句</p>
+  </header>
+
+  <main class="card-list">
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-title">1. 辦理住址登錄</div>
+      <div class="editable-ja" contenteditable="true" id="text-1">すみません、新しく引っ越してきたので、住民登録（転入届）をしたいです。</div>
+      <div class="card-zh">(不好意思，我剛搬過來，想辦理住民登錄/轉入申告。)</div>
+      <button class="btn-show" onclick="showModal('text-1')">🔍 顯示給對方看</button>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-title">2. 申報無收入與減免保險費</div>
+      <div class="editable-ja" contenteditable="true" id="text-2">ワーキングホリデーで来ました。現在収入がないので、国民健康保険の減免手続き（所得申告）をしたいです。</div>
+      <div class="card-zh">(我是持打工度假簽證來的。目前沒有收入，想辦理國民健康保險的減免手續/所得申告。)</div>
+      <button class="btn-show" onclick="showModal('text-2')">🔍 顯示給對方看</button>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-title">3. 申請國民年金免除</div>
+      <div class="editable-ja" contenteditable="true" id="text-3">国民年金の免除申請をしたいです。</div>
+      <div class="card-zh">(我想申請國民年金的免除。)</div>
+      <button class="btn-show" onclick="showModal('text-3')">🔍 顯示給對方看</button>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-title">4. 申請住民票</div>
+      <div class="editable-ja" contenteditable="true" id="text-4">住民票を1枚発行してください。</div>
+      <div class="card-zh">(請幫我印〇張住民票。※點擊上面可改數字)</div>
+      <button class="btn-show" onclick="showModal('text-4')">🔍 顯示給對方看</button>
+    </div>
+  </main>
+
+  <!-- 全螢幕展示 Modal -->
+  <div class="modal" id="displayModal">
+    <div class="modal-content" id="modalText"></div>
+    <div class="modal-actions">
+      <button class="btn-audio" onclick="speakCurrentText()">🔊 語音</button>
+      <button class="btn-close" onclick="hideModal()">✕ 返回</button>
+    </div>
+  </div>
+
+  <script>
+    let currentText = "";
+
+    function showModal(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      currentText = text;
+      document.getElementById('modalText').innerText = text;
+      document.getElementById('displayModal').classList.add('active');
+    }
+
+    function hideModal() {
+      document.getElementById('displayModal').classList.remove('active');
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function speakCurrentText() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // 停止先前的發音
+        const utterance = new SpeechSynthesisUtterance(currentText);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.85; // 稍微放慢速度，確保清晰
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('您的裝置不支援語音朗讀功能');
+      }
+    }
+  </script>
+</body>
+</html>
