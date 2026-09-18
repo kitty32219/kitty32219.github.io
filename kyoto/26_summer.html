@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夏日の記憶と光景 — 日本行紀</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Noto Serif TC"', '"Noto Serif JP"', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            washi: '#f8f6f0',
+            cardBg: '#fbfaf7',
+            sumi: '#1c1b1a',
+            ink: '#383633',
+            stone: '#797670',
+            wood: '#bca181',
+            matcha: '#4f6354',
+            vermilion: '#aa382c',
+            borderFine: '#e5e0d8',
+            borderSubtle: '#ece7df'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8f6f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d4cec4;
+      border-radius: 9999px;
+    }
+    .vertical-rl {
+      writing-mode: vertical-rl;
+    }
+    .canvas-grain {
+      background-image: radial-gradient(rgba(0,0,0,0.025) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .tab-active {
+      background-color: #1c1b1a;
+      color: #f8f6f0;
+      box-shadow: 0 4px 12px rgba(28, 27, 26, 0.08);
+    }
+    .tab-inactive {
+      color: #797670;
+    }
+    .tab-inactive:hover {
+      color: #1c1b1a;
+      background-color: #f0ebe1;
+    }
+  </style>
+</head>
+<body class="bg-washi text-ink font-serif antialiased canvas-grain min-h-screen flex flex-col selection:bg-stone/20 selection:text-sumi">
+
+  <!-- Header -->
+  <header class="border-b border-borderFine bg-washi/90 backdrop-blur-md sticky top-0 z-30 transition-all">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 py-5 flex items-center justify-between">
+      <div>
+        <span class="text-[10px] font-sans uppercase tracking-[0.3em] text-stone block mb-0.5">Personal Travelogue & Gallery</span>
+        <h1 class="text-xl tracking-widest text-sumi font-medium">夏日の記憶と光景</h1>
+      </div>
+      
+      <!-- Tab Navigation Switcher -->
+      <nav class="flex items-center gap-1.5 p-1.5 bg-borderFine/50 rounded-2xl border border-borderFine">
+        <button id="tabBtn1" onclick="switchTab('journal')" class="tab-btn tab-active px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all">
+          探訪札記
+        </button>
+        <button id="tabBtn2" onclick="switchTab('gallery')" class="tab-btn tab-inactive px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all">
+          光景の断片 (11)
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto px-6 sm:px-10 py-12 flex-grow w-full">
+
+    <!-- ==================== TAB 1: 探訪札記 ==================== -->
+    <section id="viewJournal" class="space-y-16 animate-fade">
+      <!-- Intro Hero with User's Core Reflection -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch bg-cardBg border border-borderFine rounded-3xl p-8 sm:p-12 shadow-sm">
+        <div class="lg:col-span-8 flex flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 mb-6 text-xs font-sans tracking-widest text-matcha uppercase px-3 py-1 bg-matcha/10 rounded-full border border-matcha/20">
+              <span>夏日回想</span>
+              <span>·</span>
+              <span>Summer Recollection</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl text-sumi font-light tracking-wide leading-relaxed mb-6">
+              冬天是觀光客，<br>夏天成了訪客，就這麼坐進了院子裡。
+            </h2>
+            <div class="space-y-4 text-ink/90 text-sm sm:text-base leading-loose font-light border-l-2 border-wood/40 pl-5">
+              <p>
+                這個暑假，最先浮現腦海的記憶便是拜訪了老師。
+              </p>
+              <p>
+                寺廟自有一股沉靜的安定感，外頭的燥熱一踏進門便淡了下來。
+              </p>
+              <p>
+                還新認識了水茄子和醃漬納豆！滋味清冽而深刻。
+              </p>
+              <p class="text-stone">
+                下次踏上這片土地，大概又是草莓的季節了呢。
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-8 mt-8 border-t border-borderFine/80 flex items-center justify-between text-xs text-stone font-sans">
+            <span>院落茶香與靜心</span>
+            <span>長野・京都夏巡</span>
+          </div>
+        </div>
+
+        <!-- Vertical Japanese Calligraphic Element -->
+        <div class="lg:col-span-4 bg-washi/80 border border-borderSubtle rounded-2xl p-8 flex items-center justify-around">
+          <div class="vertical-rl text-xs tracking-[0.45em] text-stone/80 leading-loose">
+            境内に風が通り抜ける涼やかさ
+          </div>
+          <div class="vertical-rl text-base sm:text-lg tracking-[0.35em] text-sumi font-normal leading-loose border-r border-borderFine pr-4">
+            「静けさのなかに、味覚の温もり。」
+          </div>
+          <div class="w-9 h-9 rounded-full border border-wood/50 flex items-center justify-center text-xs text-vermilion font-serif">
+            夏
+          </div>
+        </div>
+      </div>
+
+      <!-- Journal Accompanying Photos & Moments Grid -->
+      <div>
+        <div class="flex items-center justify-between mb-8 pb-4 border-b border-borderFine">
+          <div>
+            <h3 class="text-xl text-sumi font-normal tracking-wider">訪客隨想與生活細片</h3>
+            <p class="text-xs text-stone font-sans mt-1">寺院清幽、旬之味與季節的期盼</p>
+          </div>
+          <span class="text-xs font-sans text-stone">4 Snapshots</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Card 1: 院子 -->
+          <div class="bg-cardBg rounded-2xl border border-borderFine overflow-hidden flex flex-col group hover:border-stone/50 transition-all">
+            <div class="h-48 bg-stone/10 relative overflow-hidden flex items-center justify-center p-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-sumi/60 via-transparent to-transparent z-10"></div>
+              <!-- Placeholder representation (Replace img src in GitHub repo) -->
+              <div class="w-full h-full bg-[#495449] flex items-center justify-center text-white/90">
+                <span class="text-2xl tracking-widest font-light z-20">院落綠意</span>
+              </div>
+              <span class="absolute bottom-3 left-4 text-white text-xs font-sans z-20">寺廟庭園</span>
+            </div>
+            <div class="p-5 flex-grow flex flex-col justify-between">
+              <p class="text-xs leading-relaxed text-stone font-light">
+                一踏進門便隔絕了外界喧囂，坐進庭院的木廊，光影透過樹梢微晃，心神便沉澱下來。
+              </p>
+              <div class="text-[11px] font-sans text-wood mt-4">#靜謐時光</div>
+            </div>
+          </div>
+
+          <!-- Card 2: 水茄子 -->
+          <div class="bg-cardBg rounded-2xl border border-borderFine overflow-hidden flex flex-col group hover:border-stone/50 transition-all">
+            <div class="h-48 bg-stone/10 relative overflow-hidden flex items-center justify-center p-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-sumi/60 via-transparent to-transparent z-10"></div>
+              <div class="w-full h-full bg-[#3d3345] flex items-center justify-center text-white/90">
+                <span class="text-2xl tracking-widest font-light z-20">水茄子</span>
+              </div>
+              <span class="absolute bottom-3 left-4 text-white text-xs font-sans z-20">夏日清味</span>
+            </div>
+            <div class="p-5 flex-grow flex flex-col justify-between">
+              <p class="text-xs leading-relaxed text-stone font-light">
+                第一次品嘗到的多汁水茄子，甘甜爽脆，彷彿能咬出泉水般的冰涼甘美。
+              </p>
+              <div class="text-[11px] font-sans text-wood mt-4">#水茄子の記憶</div>
+            </div>
+          </div>
+
+          <!-- Card 3: 醃漬納豆 -->
+          <div class="bg-cardBg rounded-2xl border border-borderFine overflow-hidden flex flex-col group hover:border-stone/50 transition-all">
+            <div class="h-48 bg-stone/10 relative overflow-hidden flex items-center justify-center p-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-sumi/60 via-transparent to-transparent z-10"></div>
+              <div class="w-full h-full bg-[#6a5b48] flex items-center justify-center text-white/90">
+                <span class="text-2xl tracking-widest font-light z-20">醃漬納豆</span>
+              </div>
+              <span class="absolute bottom-3 left-4 text-white text-xs font-sans z-20">手作滋味</span>
+            </div>
+            <div class="p-5 flex-grow flex flex-col justify-between">
+              <p class="text-xs leading-relaxed text-stone font-light">
+                不同於平時常見的包裝納豆，充滿濃郁而深邃的發酵豆香，配著白飯令人難忘。
+              </p>
+              <div class="text-[11px] font-sans text-wood mt-4">#茶桌日常</div>
+            </div>
+          </div>
+
+          <!-- Card 4: 草莓的期許 -->
+          <div class="bg-cardBg rounded-2xl border border-borderFine overflow-hidden flex flex-col group hover:border-stone/50 transition-all">
+            <div class="h-48 bg-stone/10 relative overflow-hidden flex items-center justify-center p-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-sumi/60 via-transparent to-transparent z-10"></div>
+              <div class="w-full h-full bg-[#8c3e38] flex items-center justify-center text-white/90">
+                <span class="text-2xl tracking-widest font-light z-20">季節之約</span>
+              </div>
+              <span class="absolute bottom-3 left-4 text-white text-xs font-sans z-20">冬之預想</span>
+            </div>
+            <div class="p-5 flex-grow flex flex-col justify-between">
+              <p class="text-xs leading-relaxed text-stone font-light">
+                與老師告別時的約定。待冬風吹起、草莓再次紅透的時節，又會以怎樣的心情再會呢？
+              </p>
+              <div class="text-[11px] font-sans text-wood mt-4">#草莓季節再會</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== TAB 2: 光景の断片 (11 Works Combined) ==================== -->
+    <section id="viewGallery" class="hidden space-y-12 animate-fade">
+      <!-- Gallery Brief -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pb-6 border-b border-borderFine">
+        <div>
+          <span class="text-[10px] font-sans uppercase tracking-[0.25em] text-stone">Complete Collection</span>
+          <h2 class="text-2xl sm:text-3xl text-sumi font-normal tracking-wider mt-1">光景の断片</h2>
+          <p class="text-xs sm:text-sm text-stone font-light mt-2 max-w-xl">
+            收錄旅行所見的 11 幅畫面——涵括天際線的繁華、護城河與大正池的水鏡映照、孤木沉思與古剎日常。
+          </p>
+        </div>
+        <div class="text-xs font-sans text-stone bg-borderFine/40 px-3.5 py-1.5 rounded-full border border-borderFine">
+          共 11 幀作品 · 點選檢視細節
+        </div>
+      </div>
+
+      <!-- Unified 11 Works Grid -->
+      <div id="unifiedGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for Photo Inspection -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-sumi/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+    <div class="bg-washi w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-borderFine flex flex-col md:flex-row max-h-[90vh] transform transition-transform scale-95 duration-300" id="modalBox">
+      
+      <!-- Left Artistic Tone Visual Window -->
+      <div class="md:w-1/2 p-8 flex flex-col justify-between text-white relative min-h-[300px] md:min-h-[480px]" id="modalArtCanvas">
+        <div class="flex justify-between items-center text-xs font-sans text-white/70">
+          <span id="modalNumber">#01</span>
+          <span id="modalAspect">FRAMING</span>
+        </div>
+        <div class="text-center py-6">
+          <h3 id="modalTitleLg" class="text-3xl sm:text-4xl font-serif tracking-widest mb-2 font-light"></h3>
+          <p id="modalSubTitleLg" class="text-xs font-sans tracking-[0.2em] text-white/70 uppercase"></p>
+        </div>
+        <div id="modalTags" class="flex flex-wrap gap-1.5 justify-center"></div>
+      </div>
+
+      <!-- Right Description and Details -->
+      <div class="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto bg-cardBg">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-borderFine mb-6">
+            <span class="text-xs font-sans text-wood tracking-wider uppercase">Scene Notes</span>
+            <button onclick="closeModal()" class="w-8 h-8 rounded-full border border-borderFine flex items-center justify-center hover:bg-sumi hover:text-washi transition-colors">
+              ✕
+            </button>
+          </div>
+
+          <h4 id="modalName" class="text-2xl text-sumi font-normal tracking-wide mb-1"></h4>
+          <p id="modalSub" class="text-xs font-sans text-stone tracking-wider mb-6"></p>
+
+          <div class="space-y-4 text-xs sm:text-sm leading-relaxed text-ink/90 font-light">
+            <div class="p-4 rounded-2xl bg-washi border border-borderFine">
+              <span class="text-[11px] font-sans uppercase text-stone tracking-wider block mb-1.5">畫面筆記</span>
+              <p id="modalDesc" class="leading-relaxed"></p>
+            </div>
+            
+            <div class="p-4 rounded-2xl bg-washi border border-borderFine">
+              <span class="text-[11px] font-sans uppercase text-stone tracking-wider block mb-1.5">分享視角建議</span>
+              <p id="modalAdvice" class="leading-relaxed text-stone"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-6 mt-6 border-t border-borderFine flex items-center justify-between text-xs text-stone font-sans">
+          <span>光景の断片 · 旅路記錄</span>
+          <button onclick="closeModal()" class="px-3.5 py-1 rounded-lg border border-borderFine hover:border-sumi text-sumi transition-colors">
+            關閉
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-borderFine py-10 px-6 sm:px-10 mt-20 bg-cardBg text-xs text-stone font-sans">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <span class="font-serif text-sumi font-medium tracking-widest mr-2">夏日の記憶と光景</span>
+        <span>Japan Summer Memories & Photography</span>
+      </div>
+      <div>
+        Made for personal archive · GitHub Pages ready
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tab Switching Logic
+    function switchTab(tabId) {
+      const viewJournal = document.getElementById('viewJournal');
+      const viewGallery = document.getElementById('viewGallery');
+      const tabBtn1 = document.getElementById('tabBtn1');
+      const tabBtn2 = document.getElementById('tabBtn2');
+
+      if (tabId === 'journal') {
+        viewJournal.classList.remove('hidden');
+        viewGallery.classList.add('hidden');
+        tabBtn1.className = "tab-btn tab-active px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all";
+        tabBtn2.className = "tab-btn tab-inactive px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all";
+      } else {
+        viewJournal.classList.add('hidden');
+        viewGallery.classList.remove('hidden');
+        tabBtn2.className = "tab-btn tab-active px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all";
+        tabBtn1.className = "tab-btn tab-inactive px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all";
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Comprehensive list of all 11 works without ratings or regional categorization
+    const allWorks = [
+      {
+        id: 1,
+        title: "皇居外苑 Blue Hour",
+        subTitle: "Kokyo Gaien Twilight & Streetlamp",
+        aspect: "直式 4:5 / 橫式",
+        gradient: "linear-gradient(135deg, #10192e 0%, #1e293b 60%, #0f172a 100%)",
+        desc: "深邃的藍調夜空壓低了躁動，遠處丸之內辦公樓工整的幾何格子光與前景暖黃路燈形成冷暖對話，畫面安靜而沉著。",
+        advice: "修除路燈頂部斜向耀光，裁為滿版直幅能加深都會獨行與放空的治癒氛圍。",
+        tags: ["東京夜景", "皇居外苑", "BlueHour", "都會散步"]
+      },
+      {
+        id: 2,
+        title: "丸之內天際線",
+        subTitle: "Marunouchi Modern Skyline",
+        aspect: "橫式 16:9",
+        gradient: "linear-gradient(135deg, #232731 0%, #333a4d 50%, #1a1b22 100%)",
+        desc: "寬闊廣場邊界延伸出的摩天商務群，展示著都會的繁盛光海與整齊劃一的建築立面。",
+        advice: "適度裁切前景佔比較大的深色路面，能將視線直接拉向密集璀璨的窗光。",
+        tags: ["丸之內", "東京天際線", "夜景", "漫步"]
+      },
+      {
+        id: 3,
+        title: "綠蔭框景與歷史石牆",
+        subTitle: "Historic Facade in Green Frame",
+        aspect: "直式構圖",
+        gradient: "linear-gradient(135deg, #2b392b 0%, #46573e 50%, #877f72 100%)",
+        desc: "利用前景老樹枝葉與樹幹形成的天然框景（Frame in Frame），將視線自然聚焦於典雅的新古典主義石造建築與拱門。",
+        advice: "光影斑駁富含故事感，提高綠葉與石牆紋理對比，如同自街角無意窺探到的歷史一瞬。",
+        tags: ["框景構圖", "石造建築", "街頭探索", "樹影"]
+      },
+      {
+        id: 4,
+        title: "古寺、鐵塔與摩天大樓",
+        subTitle: "Zojoji, Tokyo Tower & Modern Tower",
+        aspect: "直式 4:5",
+        gradient: "linear-gradient(135deg, #3b82f6 0%, #60a5fa 35%, #dc2626 65%, #1e293b 100%)",
+        desc: "三個時代的經典同框：古樸的寺院屋簷、昭和標誌性的紅白東京鐵塔，以及現代超高層摩天樓麻布台之丘。",
+        advice: "裁切底部過長的石板路，讓寺院瓦頂與高聳鐵塔產生更緊密的視覺縱深感。",
+        tags: ["東京鐵塔", "增上寺", "古今交融", "時代縮影"]
+      },
+      {
+        id: 5,
+        title: "護城河與水面倒影",
+        subTitle: "Imperial Moat Night Reflections",
+        aspect: "直式構圖",
+        gradient: "linear-gradient(135deg, #091325 0%, #1e3a8a 50%, #030712 100%)",
+        desc: "兩側護城河畔幽暗的林蔭與石垣收合為倒三角形，引導水面上微微泛起的金色商務樓燈火倒影。",
+        advice: "適當切除下方純黑無細節的草坡，加強水面鏡射的延伸感與靜謐氣質。",
+        tags: ["護城河", "微光", "水面倒影", "夜色"]
+      },
+      {
+        id: 6,
+        title: "和田倉濠之秩序鏡像",
+        subTitle: "Wadakura Moat Architectural Mirror",
+        aspect: "橫式 16:9",
+        gradient: "linear-gradient(135deg, #475569 0%, #64748b 45%, #1e293b 100%)",
+        desc: "整齊的現代立面與紅磚大樓在波平如鏡的濠水之中倒映，呈現都會中難得的平靜與幾何對稱美學。",
+        advice: "後製微調加強水面明暗對比，能讓玻璃帷幕的折射更加澄澈整潔。",
+        tags: ["和田倉濠", "水面倒影", "幾何秩序", "都會風貌"]
+      },
+      {
+        id: 7,
+        title: "松本城天守閣",
+        subTitle: "Matsumoto Castle 'Crow Castle'",
+        aspect: "直式 4:5",
+        gradient: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 40%, #18181b 75%, #a8a29e 100%)",
+        desc: "晴空下威嚴矗立的國寶松本城「烏城」。黑漆板壁與純白灰泥相互交錯，石垣底座堅固而深具歷史厚重感。",
+        advice: "裁去下方三分之一的空曠沙石地，將焦點完全交給天守的飛簷、石垣與護城河倒影。",
+        tags: ["松本城", "日本百名城", "國寶天守", "長野晴空"]
+      },
+      {
+        id: 8,
+        title: "上高地大正池水鏡",
+        subTitle: "Kamikochi Taisho Pond Mirror Reflection",
+        aspect: "橫式 / 4:5",
+        gradient: "linear-gradient(135deg, #1d4ed8 0%, #60a5fa 35%, #15803d 70%, #14532d 100%)",
+        desc: "通透澄澈的鏡面水域。白雲、蒼翠群山與池底沉木皆清晰可見，色彩純淨飽滿，散發如仙境般的純粹氣息。",
+        advice: "保留水面上下對稱的構圖，無論以橫幅展現空靈或裁為 4:5 滿版直圖都極為抓人眼球。",
+        tags: ["上高地", "大正池", "水鏡倒影", "自然仙境"]
+      },
+      {
+        id: 9,
+        title: "梓川枯木與遠山",
+        subTitle: "Azusa River Solitary Standing Tree",
+        aspect: "直式構圖",
+        gradient: "linear-gradient(135deg, #2563eb 0%, #38bdf8 30%, #0d9488 65%, #78716c 100%)",
+        desc: "清澈冰涼的淺流中，單獨矗立的白化枯木直指青空，身後是綿延起伏的蓊鬱山巒，洋溢著清冽孤高的侘寂之感。",
+        advice: "直式構圖垂直張力十足，適合單圖發布並搭配簡潔的感性心境字句。",
+        tags: ["上高地", "梓川", "枯木", "侘寂清境"]
+      },
+      {
+        id: 10,
+        title: "鴨川散步道與白晝月",
+        subTitle: "Kamogawa Riverside Trail & Moon",
+        aspect: "直式構圖",
+        gradient: "linear-gradient(135deg, #60a5fa 0%, #93c5fd 40%, #84cc16 80%, #64748b 100%)",
+        desc: "沿著水流延伸的小徑是京都日常的縮影。碧草河堤邊微風吹拂，淡藍天際隱約浮現一抹淡淡的白晝月影。",
+        advice: "稍微收窄右側柏油路的占比，讓視覺更加專注於潺潺流水、河岸草坪與遠天月色。",
+        tags: ["京都日常", "鴨川漫步", "白晝月", "散策"]
+      },
+      {
+        id: 11,
+        title: "鴨川納涼床暮色",
+        subTitle: "Kamogawa Kawadoko Twilight Ambiance",
+        aspect: "橫式 16:9",
+        gradient: "linear-gradient(135deg, #334155 0%, #475569 40%, #b45309 75%, #1e293b 100%)",
+        desc: "暮色降臨的鴨川沿岸，木造納涼床上點起一盞盞暖黃燈火，映照在水面波紋中，蘊藏著濃濃的京都人文溫度。",
+        advice: "稍稍提亮露台餐客的燈火剪影，營造聽著水聲、吹著微涼晚風的舒緩情緒共鳴。",
+        tags: ["鴨川", "納涼床", "京都暮色", "先斗町"]
+      }
+    ];
+
+    const unifiedGrid = document.getElementById('unifiedGrid');
+
+    function renderGallery() {
+      unifiedGrid.innerHTML = '';
+      allWorks.forEach(work => {
+        const card = document.createElement('div');
+        card.className = "bg-cardBg border border-borderFine rounded-2xl overflow-hidden hover:border-stone hover:shadow-lg transition-all cursor-pointer flex flex-col group";
+        
+        card.innerHTML = `
+          <!-- Visual Placeholder Box -->
+          <div class="h-64 sm:h-72 w-full p-6 flex flex-col justify-between text-white relative overflow-hidden group-hover:opacity-95 transition-opacity" style="background: ${work.gradient};">
+            <div class="flex justify-between items-center text-[11px] font-sans text-white/75">
+              <span>#${String(work.id).padStart(2, '0')}</span>
+              <span class="bg-white/15 backdrop-blur-sm px-2 py-0.5 rounded text-[10px]">${work.aspect}</span>
+            </div>
+            
+            <div class="text-center py-4">
+              <h3 class="text-2xl sm:text-3xl font-serif tracking-widest font-light drop-shadow-sm mb-1">${work.title}</h3>
+              <p class="text-[10px] font-sans tracking-widest uppercase text-white/70">${work.subTitle.split(' ')[0]} ${work.subTitle.split(' ')[1] || ''}</p>
+            </div>
+
+            <div class="flex justify-between items-center text-[10px] font-sans text-white/60">
+              <span>旅路光景</span>
+              <span>點擊檢視 ↗</span>
+            </div>
+          </div>
+
+          <!-- Text Information -->
+          <div class="p-5 flex-grow flex flex-col justify-between bg-cardBg">
+            <div>
+              <h4 class="text-base text-sumi font-medium group-hover:text-wood transition-colors mb-2 font-serif">${work.title}</h4>
+              <p class="text-xs text-stone font-light leading-relaxed line-clamp-2">${work.desc}</p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-borderFine/70 flex items-center justify-between text-[11px] text-stone font-sans">
+              <span>${work.tags[0] || '攝影'}</span>
+              <span class="text-wood">閱讀札記 →</span>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => openModal(work));
+        unifiedGrid.appendChild(card);
+      });
+    }
+
+    // Modal Control
+    const detailModal = document.getElementById('detailModal');
+    const modalBox = document.getElementById('modalBox');
+    const modalArtCanvas = document.getElementById('modalArtCanvas');
+    const modalNumber = document.getElementById('modalNumber');
+    const modalAspect = document.getElementById('modalAspect');
+    const modalTitleLg = document.getElementById('modalTitleLg');
+    const modalSubTitleLg = document.getElementById('modalSubTitleLg');
+    const modalTags = document.getElementById('modalTags');
+    const modalName = document.getElementById('modalName');
+    const modalSub = document.getElementById('modalSub');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalAdvice = document.getElementById('modalAdvice');
+
+    function openModal(work) {
+      modalArtCanvas.style.background = work.gradient;
+      modalNumber.textContent = `#${String(work.id).padStart(2, '0')}`;
+      modalAspect.textContent = work.aspect;
+      modalTitleLg.textContent = work.title;
+      modalSubTitleLg.textContent = work.subTitle;
+
+      modalTags.innerHTML = work.tags.map(t => `<span class="px-2.5 py-1 rounded-full text-[10px] font-sans bg-white/10 backdrop-blur-sm text-white/90 border border-white/20">#${t}</span>`).join('');
+
+      modalName.textContent = work.title;
+      modalSub.textContent = work.subTitle;
+      modalDesc.textContent = work.desc;
+      modalAdvice.textContent = work.advice;
+
+      detailModal.classList.remove('hidden');
+      setTimeout(() => {
+        detailModal.classList.remove('opacity-0');
+        modalBox.classList.remove('scale-95');
+        modalBox.classList.add('scale-100');
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      detailModal.classList.add('opacity-0');
+      modalBox.classList.remove('scale-100');
+      modalBox.classList.add('scale-95');
+      setTimeout(() => {
+        detailModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }, 200);
+    }
+
+    detailModal.addEventListener('click', (e) => {
+      if (e.target === detailModal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !detailModal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Initialize unified gallery on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderGallery();
+    });
+  </script>
+</body>
+</html>
